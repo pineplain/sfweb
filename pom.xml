@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-version}</version>
 			<exclusions>
 				<!-- Excludewe Commons Logging in favor of SLF4j -->
 				<exclusion>
@@ -251,4 +250,13 @@
 </repository>
     </repositories>
     <artifactId>sfweb</artifactId>
+    <dependencyManagement>
+    	<dependencies>
+    		<dependency>
+    			<groupId>org.springframework</groupId>
+    			<artifactId>spring-context</artifactId>
+    			<version>${org.springframework-version}</version>
+    		</dependency>
+    	</dependencies>
+    </dependencyManagement>
 </project>
