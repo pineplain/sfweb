@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="<c:url value='/resources/img/favicon.ico' />">
     <link rel="stylesheet" href="<c:url value='/resources/css/joint.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/css/main.css' />">
 </head>
 
@@ -24,34 +25,38 @@
         <span class="btn-group" data-toggle="buttons">
             <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
                 <input type="radio" name="tools" autocomplete="off" checked>
-                <span class="glyphicon glyphicon-hand-up"></span>
+                <i class="fa fa-mouse-pointer"></i>
             </label>
-            <label id="node_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Node">
+            <label id="rect_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Rect">
                 <input type="radio" name="tools" autocomplete="off">
-                <span class="glyphicon glyphicon-unchecked"></span>
+                <i class="fa fa-square"></i>
+            </label>
+            <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
+                <input type="radio" name="tools" autocomplete="off">
+                <i class="fa fa-circle"></i>
             </label>
             <label id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
                 <input type="radio" name="tools" autocomplete="off">
-                <span class="glyphicon glyphicon-arrow-right"></span>
+                <i class="fa fa-long-arrow-right"></i>
             </label>
         </span>
 
         <!--- cell's remove tools -->
         <span class="btn-group">
-            <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle"></span></button>
-            <button id="clear_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Clear"><span class="glyphicon glyphicon-remove"></span></button>
+            <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fa fa-minus-circle"></i></button>
+            <button id="clear_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Clear"><i class="fa fa-times-circle"></i></button>
         </span>
 
         <!--- layout -->
         <span class="btn-group">
-            <button id="layout_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Layout"><span class="glyphicon glyphicon-sort"></span></button>
-            <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><span class="glyphicon glyphicon-record"></span></button> -->
+            <button id="layout_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Layout"><i class="fa fa-sort-amount-asc"></i></button>
+            <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
         </span>
 
         <!-- file io tools -->
         <span class="btn-group">
-            <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><span class="glyphicon glyphicon-import"></span></button>
-            <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><span class="glyphicon glyphicon-export"></span></button>
+            <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
+            <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>
         </span>
         <input id="import_file" type="file" style="display: none;">
 
@@ -95,7 +100,7 @@
 
         <!-- files -->
         <h4>Files</h4>
-        <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><span class="glyphicon glyphicon-folder-open"></span></button>
+        <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><i class="fa fa-folder-open"></i></button>
         <form id="file_upload_form" method="POST" enctype="multipart/form-data">
             <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
         </form>
