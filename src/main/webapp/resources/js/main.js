@@ -167,6 +167,17 @@ $(function() {
         var sfPropAry = $.map(graph.getElements(), function(val, idx) {
             return val.sfProp;
         });
+        var workflowJSON = JSON.stringify(graph.toJSON());
+        var properties = JSON.stringify({ props: sfPropAry });
+        $.ajax({
+                url:'/sfweb/addWorkflow',
+                type:'POST',
+                dataType:'text',
+                data:{'workflowJSON':workflowJSON,'properties':properties},
+                success: function(data) {
+                    alert("success");
+                }
+        });
         console.log(JSON.stringify(graph.toJSON()));
         console.log(JSON.stringify({ props: sfPropAry }));
     });
