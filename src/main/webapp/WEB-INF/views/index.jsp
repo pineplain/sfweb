@@ -21,24 +21,32 @@
     <h1 class="page-header">ShareFast Web</h1>
 
     <div class="col-xs-12">
-        <!-- graph manipulation tools -->
+        <!-- cell's addition tools -->
         <span class="btn-group" data-toggle="buttons">
-            <lavel id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
+            <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
                 <input type="radio" name="tools" autocomplete="off" checked>
                 <span class="glyphicon glyphicon-hand-up"></span>
-            </lavel>
-            <lavel id="node_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Node">
+            </label>
+            <label id="node_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Node">
                 <input type="radio" name="tools" autocomplete="off">
                 <span class="glyphicon glyphicon-unchecked"></span>
-            </lavel>
-            <lavel id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
+            </label>
+            <label id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
                 <input type="radio" name="tools" autocomplete="off">
                 <span class="glyphicon glyphicon-arrow-right"></span>
-            </lavel>
+            </label>
         </span>
+
+        <!--- cell's remove tools -->
         <span class="btn-group">
             <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle"></span></button>
             <button id="clear_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Clear"><span class="glyphicon glyphicon-remove"></span></button>
+        </span>
+
+        <!--- layout -->
+        <span class="btn-group">
+            <button id="layout_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Layout"><span class="glyphicon glyphicon-sort"></span></button>
+            <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><span class="glyphicon glyphicon-record"></span></button> -->
         </span>
 
         <!-- file io tools -->
@@ -93,6 +101,7 @@
 <c:import url="footer.jsp"></c:import>
 
 <script src="<c:url value='/resources/js/joint.min.js' />"></script>
+<script src="<c:url value='/resources/js/joint.layout.DirectedGraph.min.js' />"></script>
 <script src="<c:url value='/resources/js/bootstrap.min.js' />"></script>
 <script src="<c:url value='/resources/js/main.js' />"></script>
 

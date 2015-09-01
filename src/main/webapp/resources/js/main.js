@@ -2,10 +2,11 @@ var GRAPH_JSON_STR = '{"cells":[{"type":"basic.Rect","position":{"x":75,"y":110}
 var SF_PROPS_JSON_STR = '{"props":[{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08","type":"node","taskName":"うそです","workload":"あああ","worker":"いい意味で","location":"ううう～","comment":"コメント"},{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176","type":"node","taskName":"たすくですよ","workload":"","worker":"","location":"","comment":"ほげほげ"},{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a","type":"node","taskName":"タスク２","workload":"","worker":"","location":"","comment":"コメントです。"}]}';
 
 var selectedCell = null;
+var graph, paper;
 
 $(function() {
     // graph
-    var graph = new joint.dia.Graph;
+    graph = new joint.dia.Graph;
 
     // release selected state when removed
     graph.on('remove', function(cell) {
@@ -15,12 +16,12 @@ $(function() {
     });
 
     // paper
-    var paper = new joint.dia.Paper({
+    paper = new joint.dia.Paper({
         el: $('#holder'),
         width: $('#holder').width(),
         height: $('#holder').height(),
         model: graph,
-        gridSize: 5,
+        gridSize: 1,
         snapLinks: true,
         perpendicularLinks: true,
         linkView: joint.dia.LinkView.extend({
@@ -122,6 +123,24 @@ $(function() {
         selectedCell = null;
     });
 
+    // auto layout
+    $('#layout_btn').click(function() {
+        var elements = graph.getElements();
+        var links = graph.getLinks();
+        var cells = elements.concat(links);
+        graph.clear();
+        graph.addCells(cells);
+        joint.layout.DirectedGraph.layout(graph, {
+            setLinkVertices: false,
+        });
+        centerGraph(paper);
+    });
+
+    // center
+    // $('#center_btn').click(function() {
+    //     centerGraph(paper);
+    // });
+
     // file import
     $('#import_btn').click(function() {
         // $('#import_file').click();
@@ -209,3 +228,9 @@ var importSfPropFromJSON = function(graph, json) {
         node.sfProp = prop;
     });
 };
+
+var centerGraph = function(paper) {
+    var holder = $('#holder');
+    var box = paper.getContentBBox();
+    paper.setOrigin((holder.width() - box.width) / 2, (holder.height() - box.height) / 2);
+}
