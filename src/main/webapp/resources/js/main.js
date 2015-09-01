@@ -43,7 +43,7 @@ $(function() {
     });
 
     paper.on('blank:pointerclick', function(evt, x, y) {
-        if ($('#node_btn').hasClass('active')) {
+        if ($('#recr_btn').hasClass('active')) {
             // add rect when clicked
             var rect = new joint.shapes.basic.Rect({
                 position: { x: x, y: y },
@@ -62,6 +62,8 @@ $(function() {
                 location: '',
                 comment: '',
             };
+        } else if ($('#ellipse_btn').hasClass('active')) {
+
         } else if ($('#edge_btn').hasClass('active')) {
             // add link when clicked
             var link = new joint.dia.Link({
