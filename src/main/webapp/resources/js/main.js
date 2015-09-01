@@ -43,7 +43,7 @@ $(function() {
     });
 
     paper.on('blank:pointerclick', function(evt, x, y) {
-        if ($('#recr_btn').hasClass('active')) {
+        if ($('#rect_btn').hasClass('active')) {
             // add rect when clicked
             var rect = new joint.shapes.basic.Rect({
                 position: { x: x, y: y },
@@ -62,8 +62,25 @@ $(function() {
                 location: '',
                 comment: '',
             };
-        } else if ($('#ellipse_btn').hasClass('active')) {
+        } else if ($('#circle_btn').hasClass('active')) {
+            // add circle when clicked
+            var circle = new joint.shapes.basic.Circle({
+                position: { x: x, y: y },
+                size: { width: 150, height: 60 },
+                attrs: { circle: { fill: 'blue', }, text: { text: 'New task', fill: 'white' } },
+            });
+            graph.addCell(circle);
 
+            // set default property
+            circle.sfProp = {
+                id: circle.id,
+                type: 'node',
+                taskName: 'New task',
+                workload: '',
+                worker: '',
+                location: '',
+                comment: '',
+            };
         } else if ($('#edge_btn').hasClass('active')) {
             // add link when clicked
             var link = new joint.dia.Link({
@@ -84,7 +101,7 @@ $(function() {
     paper.on('cell:pointerclick', function(cellView, evt, x, y) {
         // change color
         var cell = cellView.model;
-        if (isRect(selectedCell)) {
+        if (isRect(selectedCell) || isCircle(selectedCell)) {
             setCellColor(selectedCell, 'blue');
         } else if (isLink(selectedCell)) {
             setCellColor(selectedCell, 'black');
@@ -97,7 +114,7 @@ $(function() {
         }
 
         // show properties
-        if (isRect(cell)) {
+        if (isRect(cell) || isCircle(cell)) {
             showSfProps(cell.sfProp);
         } else {
             $('.sf-prop-field').val('');
@@ -106,7 +123,7 @@ $(function() {
 
     // reflect properties modification
     $('.sf-prop-field').change(function() {
-        if (isRect(selectedCell)) {
+        if (isRect(selectedCell) || isCircle(selectedCell)) {
             updateSfProps(selectedCell);
             selectedCell.attr({
                 text: { text: selectedCell.sfProp.taskName },
@@ -159,7 +176,7 @@ $(function() {
 
     // file export
     $('#export_btn').click(function() {
-        if (isRect(selectedCell)) {
+        if (isRect(selectedCell) || isCircle(selectedCell)) {
             setCellColor(selectedCell, 'blue');
         } else if (isLink(selectedCell)) {
             setCellColor(selectedCell, 'black');
@@ -209,6 +226,10 @@ var isRect = function(cell) {
     return ((selectedCell !== null) && (cell instanceof joint.shapes.basic.Rect));
 };
 
+var isCircle = function(cell) {
+    return ((selectedCell !== null) && (cell instanceof joint.shapes.basic.Circle));
+};
+
 var isLink = function(cell) {
     return ((selectedCell !== null) && (cell instanceof joint.dia.Link));
 };
@@ -217,6 +238,10 @@ var setCellColor = function(cell, color) {
     if (isRect(cell)) {
         cell.attr({
             rect: { fill: color },
+        });
+    } else if (isCircle(cell)) {
+        cell.attr({
+            circle: { fill: color },
         });
     } else if (isLink(cell)) {
         cell.attr({

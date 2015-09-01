@@ -31,7 +31,7 @@
                 <input type="radio" name="tools" autocomplete="off">
                 <i class="fa fa-square"></i>
             </label>
-            <label id="ellipse_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Ellipse">
+            <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
                 <input type="radio" name="tools" autocomplete="off">
                 <i class="fa fa-circle"></i>
             </label>
