@@ -168,6 +168,18 @@ $(function() {
         console.log(JSON.stringify({ props: sfPropAry }));
     });
 
+    // file upload
+    $('#file_upload_btn').click(function() {
+        $('#file_upload_input').click();
+    });
+    $('#file_upload_input').change(function() {
+        var fileNames = '';
+        $.each($(this)[0].files, function(i, file) {
+            fileNames += file.name + ', ';
+        });
+        $('#file_names').html(fileNames);
+    });
+
     // resize paper object
     $(window).resize(function() {
         paper.setDimensions($('#holder').width(), $('#holder').height());

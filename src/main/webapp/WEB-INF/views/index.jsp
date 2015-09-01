@@ -96,6 +96,16 @@
             </tbody>
         </table>
     </div>
+
+    <!-- files -->
+    <div class="col-xs-12">
+        <h4>Files</h4>
+        <form id="file_upload_form" method="post" enctype="multipart/form-data">
+            <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
+            <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><span class="glyphicon glyphicon-folder-open"></span></button>
+        </form>
+        <span id="file_names"></span>
+    </div>
 </div>
 
 <c:import url="footer.jsp"></c:import>
