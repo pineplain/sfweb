@@ -18,9 +18,8 @@
 <c:import url="heading.jsp"></c:import>
 
 <div class="container">
-    <h1 class="page-header">ShareFast Web</h1>
 
-    <div class="col-xs-12">
+    <div class="col-sm-12 col-md-9">
         <!-- cell's addition tools -->
         <span class="btn-group" data-toggle="buttons">
             <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
@@ -55,15 +54,13 @@
             <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><span class="glyphicon glyphicon-export"></span></button>
         </span>
         <input id="import_file" type="file" style="display: none;">
-    </div>
 
-    <!-- graph -->
-    <div class="col-sm-12 col-md-9">
+        <!-- graph -->
         <div id="holder"></div>
     </div>
 
-    <!-- properties -->
     <div class="col-sm-12 col-md-3">
+        <!-- properties -->
         <h4>Properties</h4>
         <table class="table table-hover">
             <thead>
@@ -95,17 +92,15 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- files -->
+        <h4>Files</h4>
+        <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><span class="glyphicon glyphicon-folder-open"></span></button>
+        <form id="file_upload_form" method="POST" enctype="multipart/form-data">
+            <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
+        </form>
     </div>
 
-    <!-- files -->
-    <div class="col-xs-12">
-        <h4>Files</h4>
-        <form id="file_upload_form" method="post" enctype="multipart/form-data">
-            <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
-            <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><span class="glyphicon glyphicon-folder-open"></span></button>
-        </form>
-        <span id="file_names"></span>
-    </div>
 </div>
 
 <c:import url="footer.jsp"></c:import>
