@@ -168,8 +168,85 @@ $(function() {
     // file import
     $('#import_btn').click(function() {
         // $('#import_file').click();
-        graph.fromJSON(JSON.parse(GRAPH_JSON_STR));
-        importSfPropFromJSON(graph, JSON.parse(SF_PROPS_JSON_STR));
+        var NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
+        var graph_json={"cells":[]};
+        var props_json={"props":[]};
+        $.ajax({
+                url:'/sfweb/getWorkflow',
+                type:'POST',
+                dataType:'text',
+                data:{'projectID':SF_PROJECT_ID},
+                success: function(data) {
+                    result_json = $.parseJSON(data).results.bindings;
+                    data_json = {}
+                    $.each(result_json, function(i,result){
+                        //console.log(result.childURI);
+                        uri = result.childURI.value;
+                        property = result.v.value;
+                        value = result.o.value;
+                        if (data_json[uri] == null){
+                            data_json[uri]={};
+                        }
+                        data_json[uri][property] = value;
+                    });
+                    console.log(data_json);
+                    $.each(data_json, function(i,data){
+                        if (data[NAME_SPACE+'type'] == 'Node'){
+                            cell ={};
+                            cell.angle = data[NAME_SPACE+'angle'];
+                            cell.attrs={'rect':{},'text':{}};
+                            cell.attrs.rect.fill=data[NAME_SPACE+'fill_color'];
+                            cell.attrs.text.fill=data[NAME_SPACE+'text_color'];
+                            cell.attrs.text.text=data[NAME_SPACE+'text'];
+                            cell.id=data[NAME_SPACE+'id'];
+                            cell.position={};
+                            cell.position.x=data[NAME_SPACE+'position_x'];
+                            cell.position.y=data[NAME_SPACE+'position_y'];
+                            cell.size={}
+                            cell.size.height= +data[NAME_SPACE+'height'];
+                            cell.size.width = +data[NAME_SPACE+'width'];
+                            cell.type = data[NAME_SPACE+'shape'];
+                            cell.z = data[NAME_SPACE+'z'];
+                            graph_json.cells.push(cell);
+                        }else if (data[NAME_SPACE+'type'] == 'Link'){
+                            cell ={};
+                            cell.attrs={'.connection':{},'.marker-target':{}};
+                            cell.attrs['.connection'].stroke=data[NAME_SPACE+'stroke'];
+                            cell.attrs['.connection']['stroke-width']=data[NAME_SPACE+'stroke_width'];
+                            cell.attrs['.marker-target'].d=data[NAME_SPACE+'d'];
+                            cell.attrs['.marker-target'].fill=data[NAME_SPACE+'fill'];
+                            cell.attrs['.marker-target'].stroke=data[NAME_SPACE+'stroke'];
+                            cell.id=data[NAME_SPACE+'id'];
+                            cell.source = {};
+                            cell.source.id = data[NAME_SPACE+'source'].split('#')[1];
+                            cell.target = {};
+                            cell.target.id = data[NAME_SPACE+'target'].split('#')[1];
+                            cell.type = data[NAME_SPACE+'shape'];
+                            cell.z = data[NAME_SPACE+'z'];
+                            graph_json.cells.push(cell);
+                        }
+                        if(data[NAME_SPACE+'comment']!=null){
+                            prop = {};
+                            prop.comment = data[NAME_SPACE+'comment'];
+                            prop.id = data[NAME_SPACE+'id'];
+                            prop.location = data[NAME_SPACE+'location'];
+                            prop.taskName = data[NAME_SPACE+'taskName'];
+                            prop.type = data[NAME_SPACE+'type'].toLowerCase();
+                            prop.worker = data[NAME_SPACE+'worker'];
+                            prop.workload = data[NAME_SPACE+'workload'];
+                            props_json.props.push(prop);
+                        }
+
+                    });
+                    console.log(graph_json);
+                    console.log(props_json);
+                    graph.fromJSON(graph_json);
+                    importSfPropFromJSON(graph, props_json);
+                }
+        });
+
+        //graph.fromJSON(JSON.parse(GRAPH_JSON_STR));
+        //importSfPropFromJSON(graph, JSON.parse(SF_PROPS_JSON_STR));
     });
     $('#import_file').change(function() {
         var file = $(this)[0].files[0];

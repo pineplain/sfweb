@@ -1,9 +1,15 @@
 package jp.ac.u_tokyo.k.is;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-import org.apache.jena.atlas.json.JsonObject;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -55,7 +61,45 @@ public class MetadataController {
 
     @RequestMapping(value="/getWorkflow", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
     public @ResponseBody String getWorkflow(@RequestParam String projectID){
-        JsonObject returnJson = new JsonObject();
-        return returnJson.toString();
+        String result = "";
+        String query = "PREFIX sf: <http://sfweb.is.k.u-tokyo.ac.jp/> SELECT ?childURI ?v ?o WHERE {?projectURI sf:child ?childURI . ?projectURI sf:projectId \""+projectID+"\" . ?childURI ?v ?o. } ";
+        String flag = "false";
+        String url  = "http://heineken.is.k.u-tokyo.ac.jp/forest3/sparql";
+        try{
+            URL urlObject = new URL(url);
+            HttpURLConnection connection = null;
+
+            try {
+                connection = (HttpURLConnection) urlObject.openConnection();
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+                OutputStream os = connection.getOutputStream(); 
+                String postStr = "query="+query+"&infFlag="+flag;
+                System.out.println(postStr);
+                PrintStream ps = new PrintStream(os);
+                ps.print(postStr);
+                ps.close();
+                
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    try (InputStreamReader isr = new InputStreamReader(connection.getInputStream(),StandardCharsets.UTF_8);
+                         BufferedReader reader = new BufferedReader(isr)) {
+                        String line;
+                        
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println(line);
+                            result += line;
+                        }
+                    }
+                }
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return result;
     }
 }

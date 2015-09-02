@@ -32,7 +32,7 @@ public class Link extends DataObject{
         map.put("shape",type);
         map.put("z",String.valueOf(z));
         map.put("source",nodeURI+source.get("id").asText());
-        map.put("target",nodeURI+source.get("id").asText());
+        map.put("target",nodeURI+target.get("id").asText());
         map.put("stroke",attrs.get(".connection").get("stroke").asText());
         map.put("stroke_width",attrs.get(".connection").get("stroke-width").asText());
         map.put("d",attrs.get(".marker-target").get("d").asText());
