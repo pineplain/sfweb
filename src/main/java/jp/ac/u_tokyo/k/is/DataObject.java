@@ -20,7 +20,7 @@ public abstract class DataObject {
 
     public abstract HashMap<String,String> getFields();
 
-    public void post(String url){
+    public void add(String url){
             HashMap<String,String> fields = getFields();
             Set<String> keys = fields.keySet();
             for (String key:keys){

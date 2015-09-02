@@ -3,6 +3,7 @@ package jp.ac.u_tokyo.k.is;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.apache.jena.atlas.json.JsonObject;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -38,7 +39,7 @@ public class MetadataController {
             }
             System.out.println(projectID);
             celldata.setProjectID(projectID);
-            celldata.post("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
+            celldata.add("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
         }
 
         JsonNode props = mapper.readTree(properties).get("props");
@@ -46,9 +47,15 @@ public class MetadataController {
         while (propChildren.hasNext()){
             JsonNode prop = propChildren.next();
             DataObject propdata = mapper.readValue(prop,Property.class);
-            propdata.post("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
+            propdata.add("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
         }
 
         return "success /metadata/addWorkflow";
+    }
+
+    @RequestMapping(value="/getWorkflow", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
+    public @ResponseBody String getWorkflow(@RequestParam String projectID){
+        JsonObject returnJson = new JsonObject();
+        return returnJson.toString();
     }
 }
