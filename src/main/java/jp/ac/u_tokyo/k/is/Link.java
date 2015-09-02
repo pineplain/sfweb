@@ -1,15 +1,8 @@
 package jp.ac.u_tokyo.k.is;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 
@@ -34,6 +27,7 @@ public class Link extends DataObject{
     public HashMap<String,String> getFields(){
         HashMap<String,String> map = new HashMap<String,String>();
         map.put("angle",String.valueOf(angle));
+        map.put("id",id);
         map.put("type","Link");
         map.put("shape",type);
         map.put("z",String.valueOf(z));
@@ -44,6 +38,10 @@ public class Link extends DataObject{
         map.put("d",attrs.get(".marker-target").get("d").asText());
         map.put("fill",attrs.get(".marker-target").get("fill").asText());
         super.targetURI = linkURI+id;
+        List<String> rePredicates = new ArrayList<String>();
+        rePredicates.add("source");
+        rePredicates.add("target");
+        super.setRePredicates(rePredicates);
         return map;
 
     }

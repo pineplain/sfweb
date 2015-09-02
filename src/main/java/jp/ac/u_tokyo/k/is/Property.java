@@ -14,6 +14,7 @@ public class Property extends DataObject{
 
     public HashMap<String,String> getFields(){
         HashMap<String,String> map = new HashMap<String,String>();
+        map.put("id",id);
         map.put("comment",comment);
         map.put("location",location);
         map.put("task_name",taskName);

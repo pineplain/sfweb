@@ -1,5 +1,7 @@
 var GRAPH_JSON_STR = '{"cells":[{"type":"basic.Rect","position":{"x":75,"y":110},"size":{"width":150,"height":60},"angle":0,"id":"94c31334-2d2f-4dd8-913b-02447e47ee08","z":1,"attrs":{"rect":{"fill":"blue"},"text":{"text":"うそです","fill":"white"}}},{"type":"basic.Rect","position":{"x":550,"y":115},"size":{"width":150,"height":60},"angle":0,"id":"128b02ae-20a4-4c36-a6bb-4bea248be176","z":2,"attrs":{"rect":{"fill":"blue"},"text":{"text":"たすくですよ","fill":"white"}}},{"type":"link","source":{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08"},"target":{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176"},"id":"6821aafe-64fa-46b9-b145-d8931f22ec02","z":3,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}},{"type":"basic.Rect","position":{"x":75,"y":345},"size":{"width":150,"height":60},"angle":0,"id":"7c06af00-8dd1-4d66-b3df-18755a02096a","z":4,"attrs":{"rect":{"fill":"blue"},"text":{"text":"タスク２","fill":"white"}}},{"type":"link","source":{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08"},"target":{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a"},"id":"01f843ca-57e3-4ed7-b9f9-db8cb0a6e036","z":5,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}},{"type":"link","source":{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a"},"target":{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176"},"id":"fb22ff08-b483-43bf-a3bf-a694995ab986","z":6,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}]}';
 var SF_PROPS_JSON_STR = '{"props":[{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08","type":"node","taskName":"うそです","workload":"あああ","worker":"いい意味で","location":"ううう～","comment":"コメント"},{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176","type":"node","taskName":"たすくですよ","workload":"","worker":"","location":"","comment":"ほげほげ"},{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a","type":"node","taskName":"タスク２","workload":"","worker":"","location":"","comment":"コメントです。"}]}';
+var SF_PROJECT_NAME='Experiment Forest';
+var SF_PROJECT_ID='86714dd1-f276-4ab3-9413-beee8f200f';
 
 var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
 var GROUP_NAME = 'forest3';
@@ -192,7 +194,7 @@ $(function() {
                 url:'/sfweb/addWorkflow',
                 type:'POST',
                 dataType:'text',
-                data:{'workflowJSON':workflowJSON,'properties':properties},
+                data:{'projectID':SF_PROJECT_ID,'workflowJSON':workflowJSON,'properties':properties},
                 success: function(data) {
                     alert("success");
                 }

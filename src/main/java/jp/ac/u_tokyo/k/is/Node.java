@@ -20,6 +20,7 @@ public class Node extends DataObject{
     }
     public HashMap<String,String> getFields(){
         HashMap<String,String> map = new HashMap<String,String>();
+        map.put("id",id);
         map.put("angle",String.valueOf(angle));
         map.put("type","Node");
         map.put("shape",type);

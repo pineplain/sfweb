@@ -18,9 +18,8 @@ public class MetadataController {
 
     
     @RequestMapping(value="/addWorkflow", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
-    public @ResponseBody String addWorkflow(@RequestParam String workflowJSON, @RequestParam String properties)
+    public @ResponseBody String addWorkflow(@RequestParam String projectID,@RequestParam String workflowJSON, @RequestParam String properties)
             throws JsonProcessingException, IOException {
-        //System.out.println(workflowJSON);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(workflowJSON);
         JsonNode cells  = root.get("cells");
@@ -32,12 +31,14 @@ public class MetadataController {
             String type = (String) cell.get("type").toString();
             if (type.equals("\"basic.Rect\"")){
                 celldata = mapper.readValue(cell,Node.class);
-                celldata.post("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
             }else if (type.equals("\"link\"")){
-                System.out.println("\"link\"");
                 celldata = mapper.readValue(cell,Link.class);
-                celldata.post("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
+            }else {
+                celldata = null;
             }
+            System.out.println(projectID);
+            celldata.setProjectID(projectID);
+            celldata.post("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
         }
 
         JsonNode props = mapper.readTree(properties).get("props");
@@ -47,6 +48,7 @@ public class MetadataController {
             DataObject propdata = mapper.readValue(prop,Property.class);
             propdata.post("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
         }
+
         return "success /metadata/addWorkflow";
     }
 }
