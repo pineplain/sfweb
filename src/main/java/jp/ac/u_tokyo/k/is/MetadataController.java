@@ -32,6 +32,23 @@ public class MetadataController {
         JsonNode cells  = root.get("cells");
         Iterator<JsonNode> fieldNames = cells.getElements();
 
+        String url = "http://heineken.is.k.u-tokyo.ac.jp/forest3/sparql";
+        String query = "SELECT DISTINCT ?o WHERE {<"+SF.NS+"project#"+projectID+"> <"+SF.NS+"child> ?o . }";
+        String postStr = "query="+query+"&infFlag=false";
+        JsonNode deleteJson = mapper.readTree(post(url,postStr));
+        System.out.println(deleteJson.toString());
+        
+        for (JsonNode target :deleteJson.get("results").get("bindings")){
+            String targetURI = target.get("o").get("value").asText();
+            url ="http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/delete";
+            postStr = "subject="+targetURI;
+            post(url,postStr);
+        }
+        
+        url = "http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/delete";
+        postStr = "subject="+SF.NS+"project#"+projectID+"&predicate="+SF.NS+"child";
+        post(url,postStr);
+
         DataObject celldata;
         while (fieldNames.hasNext()){
             JsonNode cell = fieldNames.next();
@@ -53,6 +70,7 @@ public class MetadataController {
         while (propChildren.hasNext()){
             JsonNode prop = propChildren.next();
             DataObject propdata = mapper.readValue(prop,Property.class);
+            propdata.setProjectID(projectID);
             propdata.add("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
         }
 
@@ -101,5 +119,44 @@ public class MetadataController {
         }
         
         return result;
+    }
+    public String post(String url, String postStr){
+        String result = "";
+        try{
+            URL urlObject = new URL(url);
+            HttpURLConnection connection = null;
+
+            try {
+                connection = (HttpURLConnection) urlObject.openConnection();
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+                OutputStream os = connection.getOutputStream(); 
+                System.out.println(postStr);
+                PrintStream ps = new PrintStream(os);
+                ps.print(postStr);
+                ps.close();
+                
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    try (InputStreamReader isr = new InputStreamReader(connection.getInputStream(),StandardCharsets.UTF_8);
+                         BufferedReader reader = new BufferedReader(isr)) {
+                        String line;
+                        
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println(line);
+                            result += line;
+                        }
+                    }
+                }
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
     }
 }
