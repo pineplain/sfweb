@@ -19,22 +19,42 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UIController {
     private static final Logger logger = Logger.getLogger(UIController.class);
 
-	@Autowired
-	private HttpServletRequest request;
+   @Autowired
+   private HttpServletRequest request;
 
-	/**
-	 * 検索
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String index () throws Exception {
-		return "index";
-	}
+   /**
+    * 検索
+    * @return
+    * @throws Exception
+    */
+   @RequestMapping(value="/workflowEditor", method = RequestMethod.GET)
+   public String index () throws Exception {
+      return "index";
+   }
 
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public @ResponseBody String handleException(Exception ex, HttpServletRequest request) {
-		return ex.getMessage();
-	}
+   /**
+    * HOME画面
+    * @return
+    * @throws Exception
+    */
+   @RequestMapping(value="/", method = RequestMethod.GET)
+   public String index2 () throws Exception {
+      return "index2";
+   }
+
+   /**
+    * ワークフローのリスト
+    * @return
+    * @throws Exception
+    */
+   @RequestMapping(value="/workflowList", method = RequestMethod.GET)
+   public String workflowList () throws Exception {
+      return "workflowList";
+   }
+
+   @ExceptionHandler(Exception.class)
+   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+   public @ResponseBody String handleException(Exception ex, HttpServletRequest request) {
+      return ex.getMessage();
+   }
 }
