@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +29,8 @@ public class UIController {
     * @throws Exception
     */
    @RequestMapping(value="/workflowEditor", method = RequestMethod.GET)
-   public String index () throws Exception {
+   public String index (Model model, String resourceUri) throws Exception {
+	   model.addAttribute("resourceUri", resourceUri);
       return "index";
    }
 
