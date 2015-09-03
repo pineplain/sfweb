@@ -29,6 +29,7 @@ public class Link extends DataObject{
         map.put("angle",String.valueOf(angle));
         map.put("id",id);
         map.put("type","Link");
+        map.put("typeClass","Link");
         map.put("shape",type);
         map.put("z",String.valueOf(z));
         map.put("source",nodeURI+source.get("id").asText());

@@ -23,6 +23,7 @@ public class Node extends DataObject{
         map.put("id",id);
         map.put("angle",String.valueOf(angle));
         map.put("type","Node");
+        map.put("typeClass","Node");
         map.put("shape",type);
         map.put("position_x",position.get("x").asText());
         map.put("position_y",position.get("y").asText());
