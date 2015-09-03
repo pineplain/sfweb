@@ -58,7 +58,6 @@
             <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
             <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>
         </span>
-        <input id="import_file" type="file" style="display: none;">
 
         <!-- graph -->
         <div id="holder"></div>

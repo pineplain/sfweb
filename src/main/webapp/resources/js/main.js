@@ -1,7 +1,6 @@
-var GRAPH_JSON_STR = '{"cells":[{"type":"basic.Rect","position":{"x":75,"y":110},"size":{"width":150,"height":60},"angle":0,"id":"94c31334-2d2f-4dd8-913b-02447e47ee08","z":1,"attrs":{"rect":{"fill":"blue"},"text":{"text":"うそです","fill":"white"}}},{"type":"basic.Rect","position":{"x":550,"y":115},"size":{"width":150,"height":60},"angle":0,"id":"128b02ae-20a4-4c36-a6bb-4bea248be176","z":2,"attrs":{"rect":{"fill":"blue"},"text":{"text":"たすくですよ","fill":"white"}}},{"type":"link","source":{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08"},"target":{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176"},"id":"6821aafe-64fa-46b9-b145-d8931f22ec02","z":3,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}},{"type":"basic.Rect","position":{"x":75,"y":345},"size":{"width":150,"height":60},"angle":0,"id":"7c06af00-8dd1-4d66-b3df-18755a02096a","z":4,"attrs":{"rect":{"fill":"blue"},"text":{"text":"タスク２","fill":"white"}}},{"type":"link","source":{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08"},"target":{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a"},"id":"01f843ca-57e3-4ed7-b9f9-db8cb0a6e036","z":5,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}},{"type":"link","source":{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a"},"target":{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176"},"id":"fb22ff08-b483-43bf-a3bf-a694995ab986","z":6,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}]}';
-var SF_PROPS_JSON_STR = '{"props":[{"id":"94c31334-2d2f-4dd8-913b-02447e47ee08","type":"node","taskName":"うそです","workload":"あああ","worker":"いい意味で","location":"ううう～","comment":"コメント"},{"id":"128b02ae-20a4-4c36-a6bb-4bea248be176","type":"node","taskName":"たすくですよ","workload":"","worker":"","location":"","comment":"ほげほげ"},{"id":"7c06af00-8dd1-4d66-b3df-18755a02096a","type":"node","taskName":"タスク２","workload":"","worker":"","location":"","comment":"コメントです。"}]}';
-var SF_PROJECT_NAME='Experiment Forest';
-var SF_PROJECT_ID='86714dd1-f276-4ab3-9413-beee8f200f';
+var SF_PROJECT_NAME = 'Experiment Forest';
+var SF_PROJECT_ID = '86714dd1-f276-4ab3-9413-beee8f200f';
+var NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
 
 var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
 var GROUP_NAME = 'forest3';
@@ -165,102 +164,60 @@ $(function() {
     //     centerGraph(paper);
     // });
 
-    // file import
+    // import
     $('#import_btn').click(function() {
-        // $('#import_file').click();
-        var NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
-        var graph_json={"cells":[]};
-        var props_json={"props":[]};
+        clearSelect();
+
         $.ajax({
-                url:'/sfweb/getWorkflow',
-                type:'POST',
-                dataType:'text',
-                data:{'projectID':SF_PROJECT_ID},
-                success: function(data) {
-                    result_json = $.parseJSON(data).results.bindings;
-                    data_json = {}
-                    $.each(result_json, function(i,result){
-                        //console.log(result.childURI);
-                        uri = result.childURI.value;
-                        property = result.v.value;
-                        value = result.o.value;
-                        if (data_json[uri] == null){
-                            data_json[uri]={};
-                        }
-                        data_json[uri][property] = value;
-                    });
-                    console.log(data_json);
-                    $.each(data_json, function(i,data){
-                        if (data[NAME_SPACE+'type'] == 'Node'){
-                            cell ={};
-                            cell.angle = data[NAME_SPACE+'angle'];
-                            cell.attrs={'rect':{},'text':{}};
-                            cell.attrs.rect.fill=data[NAME_SPACE+'fill_color'];
-                            cell.attrs.text.fill=data[NAME_SPACE+'text_color'];
-                            cell.attrs.text.text=data[NAME_SPACE+'text'];
-                            cell.id=data[NAME_SPACE+'id'];
-                            cell.position={};
-                            cell.position.x=data[NAME_SPACE+'position_x'];
-                            cell.position.y=data[NAME_SPACE+'position_y'];
-                            cell.size={}
-                            cell.size.height= +data[NAME_SPACE+'height'];
-                            cell.size.width = +data[NAME_SPACE+'width'];
-                            cell.type = data[NAME_SPACE+'shape'];
-                            cell.z = data[NAME_SPACE+'z'];
-                            graph_json.cells.push(cell);
-                        }else if (data[NAME_SPACE+'type'] == 'Link'){
-                            cell ={};
-                            cell.attrs={'.connection':{},'.marker-target':{}};
-                            cell.attrs['.connection'].stroke=data[NAME_SPACE+'stroke'];
-                            cell.attrs['.connection']['stroke-width']=data[NAME_SPACE+'stroke_width'];
-                            cell.attrs['.marker-target'].d=data[NAME_SPACE+'d'];
-                            cell.attrs['.marker-target'].fill=data[NAME_SPACE+'fill'];
-                            cell.attrs['.marker-target'].stroke=data[NAME_SPACE+'stroke'];
-                            cell.id=data[NAME_SPACE+'id'];
-                            cell.source = {};
-                            cell.source.id = data[NAME_SPACE+'source'].split('#')[1];
-                            cell.target = {};
-                            cell.target.id = data[NAME_SPACE+'target'].split('#')[1];
-                            cell.type = data[NAME_SPACE+'shape'];
-                            cell.z = data[NAME_SPACE+'z'];
-                            graph_json.cells.push(cell);
-                        }
-                        if(data[NAME_SPACE+'comment']!=null){
-                            prop = {};
-                            prop.comment = data[NAME_SPACE+'comment'];
-                            prop.id = data[NAME_SPACE+'id'];
-                            prop.location = data[NAME_SPACE+'location'];
-                            prop.taskName = data[NAME_SPACE+'taskName'];
-                            prop.type = data[NAME_SPACE+'type'].toLowerCase();
-                            prop.worker = data[NAME_SPACE+'worker'];
-                            prop.workload = data[NAME_SPACE+'workload'];
-                            props_json.props.push(prop);
-                        }
+            url: '/sfweb/getWorkflow',
+            type: 'POST',
+            dataType: 'text',
+            data: { 'projectID': SF_PROJECT_ID },
+            success: function(data) {
+                selectedCell = null;
+                $('.sf-prop-field').val('');
 
-                    });
-                    console.log(graph_json);
-                    console.log(props_json);
-                    graph.fromJSON(graph_json);
-                    importSfPropFromJSON(graph, props_json);
-                }
+                // create graph
+                var graphJson = { 'cells': [] };
+                var propsJson = { 'props': [] };
+                var resultJson = $.parseJSON(data).results.bindings;
+
+                // console.log(resultJson);
+
+                var dataJson = {};
+                $.each(resultJson, function(i, result) {
+                    var uri = result.childURI.value;
+                    var property = result.v.value;
+                    var value = result.o.value;
+                    if (dataJson[uri] == null){
+                        dataJson[uri] = {};
+                    }
+                    dataJson[uri][property] = value;
+                });
+
+                // console.log(dataJson);
+
+                $.each(dataJson, function(i, data) {
+                    var cell = createCellFromURIValuePair(data);
+                    graphJson.cells.push(cell);
+                    var prop = createSfPropFromURIValuePair(data);
+                    propsJson.props.push(prop);
+                });
+
+                // console.log(graphJson);
+                // console.log(propsJson);
+
+                graph.fromJSON(graphJson);
+                importSfPropFromJSON(graph, propsJson);
+
+                console.log('Import succeeded');
+            }
         });
-
-        //graph.fromJSON(JSON.parse(GRAPH_JSON_STR));
-        //importSfPropFromJSON(graph, JSON.parse(SF_PROPS_JSON_STR));
-    });
-    $('#import_file').change(function() {
-        var file = $(this)[0].files[0];
-        console.log(file);
     });
 
-    // file export
+    // export
     $('#export_btn').click(function() {
-        if (isRect(selectedCell) || isCircle(selectedCell)) {
-            setCellColor(selectedCell, 'blue');
-        } else if (isLink(selectedCell)) {
-            setCellColor(selectedCell, 'black');
-        }
-        selectedCell = null;
+        clearSelect();
 
         var sfPropAry = $.map(graph.getElements(), function(val, idx) {
             return val.sfProp;
@@ -268,16 +225,18 @@ $(function() {
         var workflowJSON = JSON.stringify(graph.toJSON());
         var properties = JSON.stringify({ props: sfPropAry });
         $.ajax({
-                url:'/sfweb/addWorkflow',
-                type:'POST',
-                dataType:'text',
-                data:{'projectID':SF_PROJECT_ID,'workflowJSON':workflowJSON,'properties':properties},
-                success: function(data) {
-                    console.log("export success");
-                }
+            url: '/sfweb/addWorkflow',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                'projectID': SF_PROJECT_ID,
+                'workflowJSON': workflowJSON,
+                'properties': properties
+            },
+            success: function(data) {
+                console.log('Export succeeded: ' + data);
+            }
         });
-        console.log(JSON.stringify(graph.toJSON()));
-        console.log(JSON.stringify({ props: sfPropAry }));
     });
 
     // file upload
@@ -350,15 +309,63 @@ var showSfProps = function(prop) {
 };
 
 var updateSfProps = function(cell) {
-    cell.sfProp = {
-        id: cell.id,
-        type: cell.sfProp.type,
-        taskName: $('#task_name').val(),
-        workload: $('#workload').val(),
-        worker: $('#worker').val(),
-        location: $('#location').val(),
-        comment: $('#comment').val(),
-    };
+    if (cell !== null) {
+        cell.sfProp = {
+            id: cell.id,
+            type: cell.sfProp.type,
+            taskName: $('#task_name').val(),
+            workload: $('#workload').val(),
+            worker: $('#worker').val(),
+            location: $('#location').val(),
+            comment: $('#comment').val(),
+        };
+    }
+};
+
+var createCellFromURIValuePair = function(data) {
+    var cell = {};
+    cell.type = data[NAME_SPACE+'shape'];
+    cell.id = data[NAME_SPACE+'id'];
+    cell.z = parseInt(data[NAME_SPACE+'z']);
+
+    if (data[NAME_SPACE+'type'] == 'Node') {
+        cell.angle = parseInt(data[NAME_SPACE+'angle']);
+        cell.attrs = {'rect':{},'text':{}};
+        cell.attrs.rect.fill = data[NAME_SPACE+'fill_color'];
+        cell.attrs.text.fill = data[NAME_SPACE+'text_color'];
+        cell.attrs.text.text = data[NAME_SPACE+'text'];
+        cell.position = {};
+        cell.position.x = parseInt(data[NAME_SPACE+'position_x']);
+        cell.position.y = parseInt(data[NAME_SPACE+'position_y']);
+        cell.size = {};
+        cell.size.height = parseInt(data[NAME_SPACE+'height']);
+        cell.size.width = parseInt(data[NAME_SPACE+'width']);
+    } else if (data[NAME_SPACE+'type'] == 'Link') {
+        cell.attrs = {'.connection':{},'.marker-target':{}};
+        cell.attrs['.connection'].stroke = data[NAME_SPACE+'stroke'];
+        cell.attrs['.connection']['stroke-width'] = data[NAME_SPACE+'stroke_width'];
+        cell.attrs['.marker-target'].d = data[NAME_SPACE+'d'];
+        cell.attrs['.marker-target'].fill = data[NAME_SPACE+'fill'];
+        cell.attrs['.marker-target'].stroke = data[NAME_SPACE+'stroke'];
+        cell.source = {};
+        cell.source.id = data[NAME_SPACE+'source'].split('#')[1];
+        cell.target = {};
+        cell.target.id = data[NAME_SPACE+'target'].split('#')[1];
+    }
+
+    return cell;
+};
+
+var createSfPropFromURIValuePair =  function(data) {
+    var prop = {};
+    prop.comment = data[NAME_SPACE+'comment'];
+    prop.id = data[NAME_SPACE+'id'];
+    prop.location = data[NAME_SPACE+'location'];
+    prop.taskName = data[NAME_SPACE+'task_name'];
+    prop.type = data[NAME_SPACE+'type'].toLowerCase();
+    prop.worker = data[NAME_SPACE+'worker'];
+    prop.workload = data[NAME_SPACE+'workload'];
+    return prop;
 };
 
 var importSfPropFromJSON = function(graph, json) {
@@ -376,4 +383,14 @@ var centerGraph = function(paper) {
     var $holder = $('#holder');
     var box = paper.getContentBBox();
     paper.setOrigin(($holder.width() - box.width) / 2, ($holder.height() - box.height) / 2);
-}
+};
+
+var clearSelect = function() {
+    if (isRect(selectedCell) || isCircle(selectedCell)) {
+        setCellColor(selectedCell, 'blue');
+    } else if (isLink(selectedCell)) {
+        setCellColor(selectedCell, 'black');
+    }
+    selectedCell = null;
+    $('.sf-prop-field').val('');
+};
