@@ -19,10 +19,12 @@
 <c:import url="header.jsp"></c:import>
 
 <div class="container">
-    <div class="col-sm-12 col-md-9">
+    <div class="col-xs-12">
         <!-- project name -->
-        <h3 class="page-header"><span id="project_name"></span></h4>
+        <h3 class="page-header"><span id="project_name"></span></h3>
+    </div>
 
+    <div class="col-sm-12 col-md-9">
         <div id="tool_box">
             <!-- cell's addition tools -->
             <span class="btn-group" data-toggle="buttons">
