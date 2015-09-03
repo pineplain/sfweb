@@ -19,45 +19,49 @@
 <c:import url="header.jsp"></c:import>
 
 <div class="container">
-
     <div class="col-sm-12 col-md-9">
-        <!-- cell's addition tools -->
-        <span class="btn-group" data-toggle="buttons">
-            <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
-                <input type="radio" name="tools" autocomplete="off" checked>
-                <i class="fa fa-mouse-pointer"></i>
-            </label>
-            <label id="rect_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Rect">
-                <input type="radio" name="tools" autocomplete="off">
-                <i class="fa fa-square"></i>
-            </label>
-            <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
-                <input type="radio" name="tools" autocomplete="off">
-                <i class="fa fa-circle"></i>
-            </label>
-            <label id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
-                <input type="radio" name="tools" autocomplete="off">
-                <i class="fa fa-long-arrow-right"></i>
-            </label>
-        </span>
+        <!-- project name -->
+        <h3 class="page-header"><span id="project_name"></span></h4>
 
-        <!--- cell's remove tools -->
-        <span class="btn-group">
-            <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fa fa-minus-circle"></i></button>
-            <button id="clear_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Clear"><i class="fa fa-times-circle"></i></button>
-        </span>
+        <div id="tool_box">
+            <!-- cell's addition tools -->
+            <span class="btn-group" data-toggle="buttons">
+                <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
+                    <input type="radio" name="tools" autocomplete="off" checked>
+                    <i class="fa fa-mouse-pointer"></i>
+                </label>
+                <label id="rect_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Rect">
+                    <input type="radio" name="tools" autocomplete="off">
+                    <i class="fa fa-square"></i>
+                </label>
+                <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
+                    <input type="radio" name="tools" autocomplete="off">
+                    <i class="fa fa-circle"></i>
+                </label>
+                <label id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
+                    <input type="radio" name="tools" autocomplete="off">
+                    <i class="fa fa-long-arrow-right"></i>
+                </label>
+            </span>
 
-        <!--- layout -->
-        <span class="btn-group">
-            <button id="layout_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Layout"><i class="fa fa-sort-amount-asc"></i></button>
-            <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
-        </span>
+            <!--- cell's remove tools -->
+            <span class="btn-group">
+                <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fa fa-minus-circle"></i></button>
+                <button id="clear_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Clear"><i class="fa fa-times-circle"></i></button>
+            </span>
 
-        <!-- file io tools -->
-        <span class="btn-group">
-            <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
-            <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>
-        </span>
+            <!--- layout -->
+            <span class="btn-group">
+                <button id="layout_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Layout"><i class="fa fa-sort-amount-asc"></i></button>
+                <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
+            </span>
+
+            <!-- file io tools -->
+            <span class="btn-group">
+                <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
+                <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>
+            </span>
+        </div>
 
         <!-- graph -->
         <div id="holder"></div>
@@ -108,6 +112,8 @@
 </div>
 
 <c:import url="footer.jsp"></c:import>
+
+<span id="project_uri" style="display: none;">${resourceUri}</span>>
 
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.min.js' />"></script>
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.layout.DirectedGraph.min.js' />"></script>

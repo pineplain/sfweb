@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -25,19 +26,19 @@ public class UIController {
 
     /**
      * 検索
-     * 
+     *
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/workflowEditor", method = RequestMethod.GET)
-    public String index(Model model, String resourceUri) throws Exception {
+    public String index(Model model, @RequestParam String resourceUri) throws Exception {
         model.addAttribute("resourceUri", resourceUri);
         return "index";
     }
 
     /**
      * HOME画面
-     * 
+     *
      * @return
      * @throws Exception
      */
@@ -48,7 +49,7 @@ public class UIController {
 
     /**
      * ワークフローのリスト
-     * 
+     *
      * @return
      * @throws Exception
      */
