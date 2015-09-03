@@ -79,6 +79,10 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>Task id</td>
+                    <td><span id="task_id"></span></td>
+                </tr>
+                <tr>
                     <td>Task name</td>
                     <td><input id="task_name" class="sf-prop-field" type="text"></td>
                 </tr>
@@ -107,6 +111,14 @@
         <form id="file_upload_form" method="POST" enctype="multipart/form-data">
             <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
         </form>
+
+        <!-- files list -->
+        <hr>
+        <h4>Documents</h4>
+        <ul id="doc-list" class="list-group"></ul>
+
+        <!-- waiting -->
+        <div id="loading" class="text-center"></div>
     </div>
 
 </div>
