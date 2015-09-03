@@ -27,9 +27,29 @@ public class UIController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@RequestMapping(value="/workflowEditor", method = RequestMethod.GET)
 	public String index () throws Exception {
 		return "index";
+	}
+
+	/**
+	 * HOME画面
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public String index2 () throws Exception {
+		return "index2";
+	}
+
+	/**
+	 * ワークフローのリスト
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/workflowList", method = RequestMethod.GET)
+	public String workflowList () throws Exception {
+		return "workflowList";
 	}
 
 	@ExceptionHandler(Exception.class)
