@@ -402,6 +402,7 @@ var updateSfProps = function(cell) {
         cell.sfProp = {
             id: cell.id,
             type: cell.sfProp.type,
+            id: $('#task_id').text(""),
             taskName: $('#task_name').val(),
             workload: $('#workload').val(),
             worker: $('#worker').val(),

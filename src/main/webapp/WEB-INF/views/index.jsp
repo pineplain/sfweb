@@ -119,7 +119,6 @@
         <hr>
         <h4>Documents</h4>
         <ul id="doc-list" class="list-group"></ul>
-
         <!-- uploading file -->
         <div id="uploading-file" class="text-center"></div>
     </div>
