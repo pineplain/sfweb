@@ -8,7 +8,8 @@
 <html lang="en">
 
 <head>
-<link rel="shortcut icon" href="<c:url value='/resources/img/favicon.ico' />">
+<link rel="shortcut icon"
+    href="<c:url value='/resources/img/favicon.ico' />">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,6 +64,11 @@
                 </div>
             </div>
         </div>
+
+        <div id="loading" class="text-center">
+            <img src="resources/img/gif-load.gif">
+        </div>
+
         <div class="container">
 
             <p>
@@ -214,8 +220,12 @@
                     // DataTable
                     var table = $('#table').DataTable({
                         "iDisplayLength" : 50,
-                        "sorting": [ [4, "desc"] ]//更新日時でソート
+                        "sorting" : [ [ 4, "desc" ] ]
+                    //更新日時でソート
                     });
+
+                    // #loading は、ローディングの画像（を囲む）要素名に置き換えてください。
+                    $("#loading").hide();
                 }
             });
         }
@@ -290,7 +300,8 @@
                 success : function(data) {
 
                     alert(data);
-                    location.href = "workflowEditor?resourceUri="+encodeURIComponent(resourceUri);
+                    location.href = "workflowEditor?resourceUri="
+                            + encodeURIComponent(resourceUri);
 
                 },
                 fail : function(data) {
