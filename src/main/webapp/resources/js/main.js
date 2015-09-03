@@ -273,7 +273,7 @@ $(function() {
                 dataType:'text',
                 data:{'projectID':SF_PROJECT_ID,'workflowJSON':workflowJSON,'properties':properties},
                 success: function(data) {
-                    alert("success");
+                    console.log("export success");
                 }
         });
         console.log(JSON.stringify(graph.toJSON()));
