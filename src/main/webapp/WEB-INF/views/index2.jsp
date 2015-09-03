@@ -20,7 +20,7 @@
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
-    href="<c:url value='/resources/css/bootstrap.min.css' />">
+    href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
 
 <!-- Custom Fonts -->
 <link
@@ -30,15 +30,15 @@
     href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
     rel='stylesheet' type='text/css'>
 <link rel="stylesheet"
-    href="resources/creative/font-awesome/css/font-awesome.min.css"
+    href="resources/thirdparty/creative/font-awesome/css/font-awesome.min.css"
     type="text/css">
 
 <!-- Plugin CSS -->
-<link rel="stylesheet" href="resources/creative/css/animate.min.css"
+<link rel="stylesheet" href="resources/thirdparty/creative/css/animate.min.css"
     type="text/css">
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="resources/creative/css/creative.css"
+<link rel="stylesheet" href="resources/thirdparty/creative/css/creative.css"
     type="text/css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -156,7 +156,7 @@
             <div class="row no-gutter">
                 <div class="col-lg-4 col-sm-6">
                     <a href="workflowList" class="portfolio-box"> <img
-                        src="resources/creative/img/portfolio/1.jpg"
+                        src="resources/thirdparty/creative/img/portfolio/1.jpg"
                         class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
@@ -170,7 +170,7 @@
                     <a
                         href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList"
                         class="portfolio-box"> <img
-                        src="resources/creative/img/portfolio/2.jpg"
+                        src="resources/thirdparty/creative/img/portfolio/2.jpg"
                         class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
@@ -182,7 +182,7 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/" class="portfolio-box"> <img
-                        src="resources/creative/img/portfolio/3.jpg"
+                        src="resources/thirdparty/creative/img/portfolio/3.jpg"
                         class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
@@ -232,18 +232,18 @@
 
     <c:import url="footer.jsp"></c:import>
     <!-- jQuery -->
-    <script src="resources/creative/js/jquery.js"></script>
+    <script src="resources/thirdparty/creative/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/thirdparty/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="resources/creative/js/jquery.easing.min.js"></script>
-    <script src="resources/creative/js/jquery.fittext.js"></script>
-    <script src="resources/creative/js/wow.min.js"></script>
+    <script src="resources/thirdparty/creative/js/jquery.easing.min.js"></script>
+    <script src="resources/thirdparty/creative/js/jquery.fittext.js"></script>
+    <script src="resources/thirdparty/creative/js/wow.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="resources/creative/js/creative.js"></script>
+    <script src="resources/thirdparty/creative/js/creative.js"></script>
 
 </body>
 

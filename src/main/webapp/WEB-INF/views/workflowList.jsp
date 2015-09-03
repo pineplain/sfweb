@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <link rel="shortcut icon" href="<c:url value='/resources/img/favicon.ico' />">
+<link rel="shortcut icon" href="<c:url value='/resources/img/favicon.ico' />">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,14 +19,14 @@
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
-    href="<c:url value='/resources/css/bootstrap.min.css' />">
+    href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
 
 <link
-    href="<c:url value='/resources/Magnific-Popup/magnific-popup.css' />"
+    href="<c:url value='/resources/thirdparty/Magnific-Popup/magnific-popup.css' />"
     rel="stylesheet">
 
 <link
-    href="<c:url value='/resources/dataTables/css/jquery.dataTables.css' />"
+    href="<c:url value='/resources/thirdparty/dataTables/css/jquery.dataTables.css' />"
     rel="stylesheet">
 
 <style>
@@ -52,7 +52,7 @@
 
 <body id="page-top">
 
-    <c:import url="heading.jsp"></c:import>
+    <c:import url="header.jsp"></c:import>
 
     <section id="services">
         <div class="container">
@@ -106,16 +106,16 @@
     <c:import url="footer.jsp"></c:import>
 
     <!-- jQuery -->
-    <script src="resources/creative/js/jquery.js"></script>
+    <script src="resources/thirdparty/creative/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/thirdparty/bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript"
-        src="<c:url value='/resources/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
+        src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 
     <script type="text/javascript"
-        src="<c:url value='/resources/dataTables/js/jquery.dataTables.js' />"></script>
+        src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
 
     <script type="text/javascript"
         src="<c:url value='/resources/js/uri.js' />"></script>
