@@ -28,10 +28,17 @@ public abstract class DataObject {
                 String predicate = SF.NS +key;
                 String object =  fields.get(key);
                 String flag = "true";
+
                 if (rePredicates!=null){
                     for (String rePredicate : rePredicates){
                         if(predicate.equals(SF.NS+rePredicate)) flag = "false";
                     }
+                }
+
+                if (key.equals("typeClass")){ 
+                    predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+                    object = "http://kashiwade.org/2012/09/kd/class/"+ object;
+                    flag = "false";
                 }
                 postSVO(url,subject,predicate,object,flag);
 

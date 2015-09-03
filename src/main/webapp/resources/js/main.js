@@ -7,6 +7,9 @@ var scale = 1;
 var projectName = null;
 var selectedCell = null;
 
+//ワークフローに関連するドキュメント
+var documents = new Object();
+
 $(function() {
     var sfProjectUri = $('#project_uri').text();
     var sfProjectName = '';
@@ -282,8 +285,32 @@ $(function() {
         $('#file_upload_input').click();
     });
     $('#file_upload_input').change(function() {
+
+        $("#uploading-file").append('<img src="resources/img/gif-load.gif">');
+
         var fd = new FormData($(file_upload_form)[0]);
         fd.append('group', GROUP_NAME);
+
+        var fields = new Array();
+        var values = new Array();
+        var literalFlags = new Array();
+
+        //ProjectUriとドキュメントの紐づけ
+        fields.push(SF_NAME_SPACE+"relatedFlow");
+        values.push(sfProjectUri);
+        literalFlags.push("false");
+
+        //NodeUriとドキュメントの紐づけ
+        var nodeId = $("#task_id").val();
+        var nodeUri = SF_NAME_SPACE+"node#"+nodeId;//NodeUri -- SPARQL検索に変更したほうがよいか？
+        fields.push(SF_NAME_SPACE+"relatedNode");
+        values.push(nodeUri);
+        literalFlags.push("false");
+
+        fd.append('fields', fields);
+        fd.append('values', values);
+        fd.append('literalFlags', literalFlags);
+
 
         $.ajax({
             url: KASHIWADE_BASE_URL + 'resource/add',
@@ -294,7 +321,11 @@ $(function() {
             dataType: 'text',
             success: function(data) {
                 console.log('File upload succeeded: ' + data);
+                $("#uploading-file").empty();
             },
+            done: function(){
+                $("#uploading-file").empty();
+            }
         });
 
         return false;
@@ -310,6 +341,10 @@ $(function() {
 
     // import project
     $('#import_btn').click();
+
+    getDocumentList(sfProjectUri);
+
+    $("#load-data").empty();
 });
 
 var isRect = function(cell) {
@@ -342,11 +377,38 @@ var setCellColor = function(cell, color) {
 };
 
 var showSfProps = function(prop) {
+
+    $('#task_id').val(prop.id);
     $('#task_name').val(prop.taskName);
     $('#workload').val(prop.workload);
     $('#worker').val(prop.worker);
     $('#location').val(prop.location);
     $('#comment').val(prop.comment);
+
+    var nodeUri = SF_NAME_SPACE+"node#"+prop.id;
+
+    var docArray = documents[nodeUri];
+    if(docArray == null){//関連ドキュメントが存在しない場合
+        $("#doc-list").empty();
+    } else {
+        for(var i = 0; i < docArray.length; i++){
+            var obj = docArray[i];
+
+            var li = $("<li class='list-group-item'>");
+            $("#doc-list").append(li);
+
+            var a = $("<a>");
+            li.append(a);
+            a.attr("href", obj.s.value);
+
+            var span = $("<span>");
+            a.append(span);
+            span.attr("class", "glyphicon glyphicon-file");
+
+            a.append("&nbsp;"+obj.title.value);
+        }
+    }
+
 };
 
 var updateSfProps = function(cell) {
@@ -354,12 +416,14 @@ var updateSfProps = function(cell) {
         cell.sfProp = {
             id: cell.id,
             type: cell.sfProp.type,
+            id: $('#task_id').text(""),
             taskName: $('#task_name').val(),
             workload: $('#workload').val(),
             worker: $('#worker').val(),
             location: $('#location').val(),
             comment: $('#comment').val(),
         };
+        $("#doc-list").empty();
     }
 };
 
@@ -435,3 +499,34 @@ var clearSelect = function() {
     selectedCell = null;
     $('.sf-prop-field').val('');
 };
+
+//プロジェクトに関連するドキュメントの取得
+function getDocumentList(resourceUri){
+    // get project name
+    var query = 'SELECT DISTINCT * WHERE { ';
+    //query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> <' + resourceUri + '> . ';
+    query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> "'+resourceUri + '" . ';
+    query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedNode> ?nodeUri . ';
+    query += '?s <http://purl.org/dc/elements/1.1/title> ?title . ';
+    query += '?s <http://purl.org/dc/elements/1.1/date> ?date . ';
+    query += '}';
+
+    $.ajax({
+        type : 'POST',
+        url : KASHIWADE_BASE_URL + 'sparql',
+        data : { query : query, },
+        success : function(data) {
+            var result = data.results.bindings;
+
+            for(var i = 0; i < result.length; i++){
+                var obj = result[i];
+                var nodeUri = obj.nodeUri.value;
+                if(!documents[nodeUri]){
+                    documents[nodeUri] = new Array();
+                }
+                documents[nodeUri].push(obj);
+            }
+            console.log(documents);
+        },
+    });
+}

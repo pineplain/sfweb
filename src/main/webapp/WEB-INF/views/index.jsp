@@ -24,6 +24,8 @@
         <h3 class="page-header"><span id="project_name"></span></h3>
     </div>
 
+    <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
+
     <div class="col-sm-12 col-md-9">
         <div id="tool_box">
             <!-- cell's addition tools -->
@@ -87,24 +89,28 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>Task id</td>
+                    <td><input readonly class="sf-prop-field form-control" id="task_id"/></td>
+                </tr>
+                <tr>
                     <td>Task name</td>
-                    <td><input id="task_name" class="sf-prop-field" type="text"></td>
+                    <td><input id="task_name" class="sf-prop-field form-control" type="text"></td>
                 </tr>
                 <tr>
                     <td>Workload</td>
-                    <td><input id="workload" class="sf-prop-field" type="text"></td>
+                    <td><input id="workload" class="sf-prop-field form-control" type="text"></td>
                 </tr>
                 <tr>
                     <td>Worker</td>
-                    <td><input id="worker" class="sf-prop-field" type="text"></td>
+                    <td><input id="worker" class="sf-prop-field form-control" type="text"></td>
                 </tr>
                 <tr>
                     <td>Location</td>
-                    <td><input id="location" class="sf-prop-field" type="text"></td>
+                    <td><input id="location" class="sf-prop-field form-control" type="text"></td>
                 </tr>
                 <tr>
                     <td>Comment</td>
-                    <td><textarea id="comment" class="sf-prop-field"></textarea></td>
+                    <td><textarea id="comment" class="sf-prop-field form-control"></textarea></td>
                 </tr>
             </tbody>
         </table>
@@ -115,6 +121,13 @@
         <form id="file_upload_form" method="POST" enctype="multipart/form-data">
             <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
         </form>
+
+        <!-- files list -->
+        <hr>
+        <h4>Documents</h4>
+        <ul id="doc-list" class="list-group"></ul>
+        <!-- uploading file -->
+        <div id="uploading-file" class="text-center"></div>
     </div>
 
 </div>
