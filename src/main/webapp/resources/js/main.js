@@ -1,16 +1,40 @@
 var SF_PROJECT_NAME = 'Experiment Forest';
 var SF_PROJECT_ID = '86714dd1-f276-4ab3-9413-beee8f200f';
-var NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
+var SF_NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
 
 var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
 var GROUP_NAME = 'forest3';
 
+var projectName = null;
 var selectedCell = null;
-var graph, paper;
 
 $(function() {
+    var sfProjectUri = $('#project_uri').text();
+    var sfProjectName = '';
+    var sfProjectId = sfProjectUri.split('#')[1];
+
+    // get project name
+    var query = 'SELECT DISTINCT ?name WHERE { ';
+    query += '<' + sfProjectUri + '> ';
+    query += '<http://sfweb.is.k.u-tokyo.ac.jp/projectName> ';
+    query += '?name }';
+    $.ajax({
+        type : 'POST',
+        url : KASHIWADE_BASE_URL + 'sparql',
+        data : { query : query, },
+        success : function(data) {
+            var result = data.results.bindings[0];
+            if (result) {
+                sfProjectName = result.name.value;
+                $('#project_name').text(sfProjectName);
+            } else {
+                console.log('[ERROR] cannot find resource: ' + sfProjectUri);
+            }
+        },
+    });
+
     // graph
-    graph = new joint.dia.Graph;
+    var graph = new joint.dia.Graph;
 
     // release selected state when removed
     graph.on('remove', function(cell) {
@@ -20,7 +44,7 @@ $(function() {
     });
 
     // paper
-    paper = new joint.dia.Paper({
+    var paper = new joint.dia.Paper({
         el: $('#holder'),
         width: $('#holder').width(),
         height: $('#holder').height(),
@@ -172,7 +196,7 @@ $(function() {
             url: '/sfweb/getWorkflow',
             type: 'POST',
             dataType: 'text',
-            data: { 'projectID': SF_PROJECT_ID },
+            data: { 'projectID': sfProjectId },
             success: function(data) {
                 selectedCell = null;
                 $('.sf-prop-field').val('');
@@ -229,7 +253,7 @@ $(function() {
             type: 'POST',
             dataType: 'text',
             data: {
-                'projectID': SF_PROJECT_ID,
+                'projectID': sfProjectId,
                 'workflowJSON': workflowJSON,
                 'properties': properties
             },
@@ -324,33 +348,33 @@ var updateSfProps = function(cell) {
 
 var createCellFromURIValuePair = function(data) {
     var cell = {};
-    cell.type = data[NAME_SPACE+'shape'];
-    cell.id = data[NAME_SPACE+'id'];
-    cell.z = parseInt(data[NAME_SPACE+'z']);
+    cell.type = data[SF_NAME_SPACE+'shape'];
+    cell.id = data[SF_NAME_SPACE+'id'];
+    cell.z = parseInt(data[SF_NAME_SPACE+'z']);
 
-    if (data[NAME_SPACE+'type'] == 'Node') {
-        cell.angle = parseInt(data[NAME_SPACE+'angle']);
+    if (data[SF_NAME_SPACE+'type'] == 'Node') {
+        cell.angle = parseInt(data[SF_NAME_SPACE+'angle']);
         cell.attrs = {'rect':{},'text':{}};
-        cell.attrs.rect.fill = data[NAME_SPACE+'fill_color'];
-        cell.attrs.text.fill = data[NAME_SPACE+'text_color'];
-        cell.attrs.text.text = data[NAME_SPACE+'text'];
+        cell.attrs.rect.fill = data[SF_NAME_SPACE+'fill_color'];
+        cell.attrs.text.fill = data[SF_NAME_SPACE+'text_color'];
+        cell.attrs.text.text = data[SF_NAME_SPACE+'text'];
         cell.position = {};
-        cell.position.x = parseInt(data[NAME_SPACE+'position_x']);
-        cell.position.y = parseInt(data[NAME_SPACE+'position_y']);
+        cell.position.x = parseInt(data[SF_NAME_SPACE+'position_x']);
+        cell.position.y = parseInt(data[SF_NAME_SPACE+'position_y']);
         cell.size = {};
-        cell.size.height = parseInt(data[NAME_SPACE+'height']);
-        cell.size.width = parseInt(data[NAME_SPACE+'width']);
-    } else if (data[NAME_SPACE+'type'] == 'Link') {
+        cell.size.height = parseInt(data[SF_NAME_SPACE+'height']);
+        cell.size.width = parseInt(data[SF_NAME_SPACE+'width']);
+    } else if (data[SF_NAME_SPACE+'type'] == 'Link') {
         cell.attrs = {'.connection':{},'.marker-target':{}};
-        cell.attrs['.connection'].stroke = data[NAME_SPACE+'stroke'];
-        cell.attrs['.connection']['stroke-width'] = data[NAME_SPACE+'stroke_width'];
-        cell.attrs['.marker-target'].d = data[NAME_SPACE+'d'];
-        cell.attrs['.marker-target'].fill = data[NAME_SPACE+'fill'];
-        cell.attrs['.marker-target'].stroke = data[NAME_SPACE+'stroke'];
+        cell.attrs['.connection'].stroke = data[SF_NAME_SPACE+'stroke'];
+        cell.attrs['.connection']['stroke-width'] = data[SF_NAME_SPACE+'stroke_width'];
+        cell.attrs['.marker-target'].d = data[SF_NAME_SPACE+'d'];
+        cell.attrs['.marker-target'].fill = data[SF_NAME_SPACE+'fill'];
+        cell.attrs['.marker-target'].stroke = data[SF_NAME_SPACE+'stroke'];
         cell.source = {};
-        cell.source.id = data[NAME_SPACE+'source'].split('#')[1];
+        cell.source.id = data[SF_NAME_SPACE+'source'].split('#')[1];
         cell.target = {};
-        cell.target.id = data[NAME_SPACE+'target'].split('#')[1];
+        cell.target.id = data[SF_NAME_SPACE+'target'].split('#')[1];
     }
 
     return cell;
@@ -358,13 +382,13 @@ var createCellFromURIValuePair = function(data) {
 
 var createSfPropFromURIValuePair =  function(data) {
     var prop = {};
-    prop.comment = data[NAME_SPACE+'comment'];
-    prop.id = data[NAME_SPACE+'id'];
-    prop.location = data[NAME_SPACE+'location'];
-    prop.taskName = data[NAME_SPACE+'task_name'];
-    prop.type = data[NAME_SPACE+'type'].toLowerCase();
-    prop.worker = data[NAME_SPACE+'worker'];
-    prop.workload = data[NAME_SPACE+'workload'];
+    prop.comment = data[SF_NAME_SPACE+'comment'];
+    prop.id = data[SF_NAME_SPACE+'id'];
+    prop.location = data[SF_NAME_SPACE+'location'];
+    prop.taskName = data[SF_NAME_SPACE+'task_name'];
+    prop.type = data[SF_NAME_SPACE+'type'].toLowerCase();
+    prop.worker = data[SF_NAME_SPACE+'worker'];
+    prop.workload = data[SF_NAME_SPACE+'workload'];
     return prop;
 };
 
