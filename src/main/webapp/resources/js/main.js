@@ -293,6 +293,9 @@ $(function() {
 
     // tooltip
     $('[data-toggle="tooltip"]').tooltip();
+
+    // import project
+    $('#import_btn').click();
 });
 
 var isRect = function(cell) {
