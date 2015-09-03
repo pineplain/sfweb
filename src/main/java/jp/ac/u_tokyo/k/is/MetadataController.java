@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MetadataController {
 
+    private String addUrl;
+    private String deleteUrl;
+    private String sparqlUrl;
     
     @RequestMapping(value="/addWorkflow", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
     public @ResponseBody String addWorkflow(@RequestParam String projectID,@RequestParam String workflowJSON, @RequestParam String properties)
@@ -32,20 +35,19 @@ public class MetadataController {
         JsonNode cells  = root.get("cells");
         Iterator<JsonNode> fieldNames = cells.getElements();
 
-        String url = "http://heineken.is.k.u-tokyo.ac.jp/forest3/sparql";
+        String url = sparqlUrl;
         String query = "SELECT DISTINCT ?o WHERE {<"+SF.NS+"project#"+projectID+"> <"+SF.NS+"child> ?o . }";
         String postStr = "query="+query+"&infFlag=false";
         JsonNode deleteJson = mapper.readTree(post(url,postStr));
-        System.out.println(deleteJson.toString());
         
         for (JsonNode target :deleteJson.get("results").get("bindings")){
             String targetURI = target.get("o").get("value").asText();
-            url ="http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/delete";
+            url =deleteUrl;
             postStr = "subject="+targetURI;
             post(url,postStr);
         }
         
-        url = "http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/delete";
+        url = deleteUrl;
         postStr = "subject="+SF.NS+"project#"+projectID+"&predicate="+SF.NS+"child";
         post(url,postStr);
 
@@ -60,9 +62,8 @@ public class MetadataController {
             }else {
                 celldata = null;
             }
-            System.out.println(projectID);
             celldata.setProjectID(projectID);
-            celldata.add("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
+            celldata.add(addUrl);
         }
 
         JsonNode props = mapper.readTree(properties).get("props");
@@ -71,7 +72,7 @@ public class MetadataController {
             JsonNode prop = propChildren.next();
             DataObject propdata = mapper.readValue(prop,Property.class);
             propdata.setProjectID(projectID);
-            propdata.add("http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add");
+            propdata.add(addUrl);
         }
 
         return "success /metadata/addWorkflow";
@@ -82,44 +83,12 @@ public class MetadataController {
         String result = "";
         String query = "PREFIX sf: <http://sfweb.is.k.u-tokyo.ac.jp/> SELECT ?childURI ?v ?o WHERE {?projectURI sf:child ?childURI . ?projectURI sf:projectId \""+projectID+"\" . ?childURI ?v ?o. } ";
         String flag = "false";
-        String url  = "http://heineken.is.k.u-tokyo.ac.jp/forest3/sparql";
-        try{
-            URL urlObject = new URL(url);
-            HttpURLConnection connection = null;
-
-            try {
-                connection = (HttpURLConnection) urlObject.openConnection();
-                connection.setDoOutput(true);
-                connection.setRequestMethod("POST");
-                OutputStream os = connection.getOutputStream(); 
-                String postStr = "query="+query+"&infFlag="+flag;
-                System.out.println(postStr);
-                PrintStream ps = new PrintStream(os);
-                ps.print(postStr);
-                ps.close();
-                
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    try (InputStreamReader isr = new InputStreamReader(connection.getInputStream(),StandardCharsets.UTF_8);
-                         BufferedReader reader = new BufferedReader(isr)) {
-                        String line;
-                        
-                        while ((line = reader.readLine()) != null) {
-                            System.out.println(line);
-                            result += line;
-                        }
-                    }
-                }
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+        String url  = sparqlUrl;
+        String postStr = "query="+query+"&infFlag="+flag;
+        result=post(url,postStr); 
         return result;
     }
+
     public String post(String url, String postStr){
         String result = "";
         try{
@@ -131,7 +100,6 @@ public class MetadataController {
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
                 OutputStream os = connection.getOutputStream(); 
-                System.out.println(postStr);
                 PrintStream ps = new PrintStream(os);
                 ps.print(postStr);
                 ps.close();
@@ -158,5 +126,26 @@ public class MetadataController {
 
         return result;
 
+    }
+
+    /**
+     * @param addUrl the addUrl to set
+     */
+    public void setAddUrl(String addUrl) {
+        this.addUrl = addUrl;
+    }
+
+    /**
+     * @param deleteUrl the deleteUrl to set
+     */
+    public void setDeleteUrl(String deleteUrl) {
+        this.deleteUrl = deleteUrl;
+    }
+
+    /**
+     * @param sparqlUrl the sparqlUrl to set
+     */
+    public void setSparqlUrl(String sparqlUrl) {
+        this.sparqlUrl = sparqlUrl;
     }
 }
