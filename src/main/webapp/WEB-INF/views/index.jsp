@@ -8,15 +8,15 @@
     <title>ShareFast Web</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<c:url value='/resources/img/favicon.ico' />">
-    <link rel="stylesheet" href="<c:url value='/resources/css/joint.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.min.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/thirdparty/jointjs/css/joint.min.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/thirdparty/font-awesome/css/font-awesome.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/css/main.css' />">
 </head>
 
 <body>
 
-<c:import url="heading.jsp"></c:import>
+<c:import url="header.jsp"></c:import>
 
 <div class="container">
 
@@ -109,9 +109,9 @@
 
 <c:import url="footer.jsp"></c:import>
 
-<script src="<c:url value='/resources/js/joint.min.js' />"></script>
-<script src="<c:url value='/resources/js/joint.layout.DirectedGraph.min.js' />"></script>
-<script src="<c:url value='/resources/js/bootstrap.min.js' />"></script>
+<script src="<c:url value='/resources/thirdparty/jointjs/js/joint.min.js' />"></script>
+<script src="<c:url value='/resources/thirdparty/jointjs/js/joint.layout.DirectedGraph.min.js' />"></script>
+<script src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
 <script src="<c:url value='/resources/js/main.js' />"></script>
 
 </body>
