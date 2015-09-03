@@ -1,10 +1,9 @@
-var SF_PROJECT_NAME = 'Experiment Forest';
-var SF_PROJECT_ID = '86714dd1-f276-4ab3-9413-beee8f200f';
 var SF_NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
-
 var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
 var GROUP_NAME = 'forest3';
 
+var paper, graph;
+var scale = 1;
 var projectName = null;
 var selectedCell = null;
 
@@ -34,7 +33,7 @@ $(function() {
     });
 
     // graph
-    var graph = new joint.dia.Graph;
+    graph = new joint.dia.Graph;
 
     // release selected state when removed
     graph.on('remove', function(cell) {
@@ -44,10 +43,10 @@ $(function() {
     });
 
     // paper
-    var paper = new joint.dia.Paper({
+    paper = new joint.dia.Paper({
         el: $('#holder'),
-        width: $('#holder').width(),
-        height: $('#holder').height(),
+        width: 2000,
+        height: 2000,
         model: graph,
         gridSize: 1,
         snapLinks: true,
@@ -66,6 +65,9 @@ $(function() {
             return true;
         },
     });
+
+    // zoom with mouse wheel
+    // paper.$el.on('mousewheel', onMouseWheel);
 
     paper.on('blank:pointerclick', function(evt, x, y) {
         if ($('#rect_btn').hasClass('active')) {
@@ -187,6 +189,18 @@ $(function() {
     // $('#center_btn').click(function() {
     //     centerGraph(paper);
     // });
+
+    // zoom in
+    $('#zoom_in_btn').click(function() {
+        scale *= 1.1;
+        paper.scale(scale, scale);
+    });
+
+    // zoom out
+    $('#zoom_out_btn').click(function() {
+        scale *= 0.9;
+        paper.scale(scale, scale);
+    });
 
     // import
     $('#import_btn').click(function() {
