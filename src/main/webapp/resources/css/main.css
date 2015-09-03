@@ -4,6 +4,7 @@
     border: solid;
     margin-top: 10px;
     margin-bottom: 10px;
+    overflow: scroll;
 }
 
 .link-tools .tool-remove {

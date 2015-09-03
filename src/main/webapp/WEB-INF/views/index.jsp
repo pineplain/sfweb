@@ -44,6 +44,12 @@
                 </label>
             </span>
 
+            <!--- zoom -->
+            <span class="btn-group">
+                <button id="zoom_in_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Zoom in"><i class="fa fa-search-plus"></i></button>
+                <button id="zoom_out_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Zoom out"><i class="fa fa-search-minus"></i></button>
+            </span>
+
             <!--- cell's remove tools -->
             <span class="btn-group">
                 <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fa fa-minus-circle"></i></button>
@@ -118,6 +124,7 @@
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.min.js' />"></script>
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.layout.DirectedGraph.min.js' />"></script>
 <script src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
+<!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
 <script src="<c:url value='/resources/js/main.js' />"></script>
 
 </body>
