@@ -30,12 +30,9 @@
     <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
 
     <div class="col-sm-12 col-md-9">
+        <p><button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button></p>
 
-			<p>
-				<button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button>
-			</p>
-
-			<div id="tool_box">
+        <div id="tool_box">
 
             <!-- cell's addition tools -->
             <span class="btn-group" data-toggle="buttons">
@@ -121,45 +118,44 @@
                     <td>Comment</td>
                     <td><textarea id="comment" class="sf-prop-field form-control"></textarea></td>
                 </tr>
+                <tr>
+                    <td>Files</td>
+                    <td>
+                        <p id="file_count"></p>
+                        <span class="btn-group">
+                            <button id="file_list_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="List files"><i class="fa fa-list-alt"></i></button>
+                            <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><i class="fa fa-upload"></i></button>
+                        </span>
+                        <form id="file_upload_form" method="POST" enctype="multipart/form-data">
+                            <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
+                        </form>
+                        <p class="text-center" id="uploading-file"></p>
+                    </td>
+                </tr>
             </tbody>
         </table>
-
-        <!-- files -->
-        <h4>Files</h4>
-        <span class="btn-group">
-        <button id="file_list_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="List files"><i class="fa fa-list-alt"></i></button>
-        <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><i class="fa fa-upload"></i></button>
-        </span>
-        <form id="file_upload_form" method="POST" enctype="multipart/form-data">
-            <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
-        </form>
-        <p class="text-center" id="uploading-file"></p>
     </div>
-
-
-
 </div>
 
-	<div id="file-list" class="mfp-hide white-popup-block">
-		<div class="page-header">
-			<h3>File List</h3>
-		</div>
+<div id="file-list" class="mfp-hide white-popup-block">
+    <div class="page-header">
+        <h3>File List</h3>
+    </div>
 
-		<table class="table table-striped table-hover" id="fileTable">
-			<thead id="thead">
-				<tr>
-					<th>File Name</th>
-					<th>Date</th>
-					<th>Related Task</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody id="tbody">
-			</tbody>
-		</table>
-	</div>
+    <table class="table table-striped table-hover" id="fileTable">
+        <thead id="thead">
+            <tr>
+                <th>File Name</th>
+                <th>Date</th>
+                <th>Related Task</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+</div>
 
-	<c:import url="footer.jsp"></c:import>
+<c:import url="footer.jsp"></c:import>
 
 <span id="project_uri" style="display: none;">${resourceUri}</span>
 
