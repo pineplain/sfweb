@@ -42,10 +42,10 @@
                     <input type="radio" name="tools" autocomplete="off">
                     <i class="fa fa-square"></i>
                 </label>
-                <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
+                <!-- <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
                     <input type="radio" name="tools" autocomplete="off">
                     <i class="fa fa-circle"></i>
-                </label>
+                </label> -->
                 <label id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
                     <input type="radio" name="tools" autocomplete="off">
                     <i class="fa fa-long-arrow-right"></i>
