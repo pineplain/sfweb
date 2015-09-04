@@ -526,7 +526,9 @@ $(function() {
 
     // file upload
     $('#file_upload_btn').click(function() {
-        $('#file_upload_input').click();
+        if (isRect(selectedCell) || isCircle(selectedCell)) {
+            $('#file_upload_input').click();
+        }
     });
 
     $('#file_upload_input').change(function() {
@@ -610,10 +612,12 @@ $(function() {
 
     // 指定したワークフローに関連する文書の表示
     $('#file_list_btn').click(function() {
-        var nodeId = $("#task_id").val();
-        var nodeUri = SF_NAME_SPACE+"node#"+nodeId;
-        var data = getDocumentList(sfProjectUri, nodeUri);
-        showFileListPopUp(data);
+        if (isRect(selectedCell) || isCircle(selectedCell)) {
+            var nodeId = $("#task_id").val();
+            var nodeUri = SF_NAME_SPACE+"node#"+nodeId;
+            var data = getDocumentList(sfProjectUri, nodeUri);
+            showFileListPopUp(data);
+        }
     });
 
     // resize paper object
