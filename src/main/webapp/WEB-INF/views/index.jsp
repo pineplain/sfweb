@@ -30,8 +30,6 @@
     <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
 
     <div class="col-sm-12 col-md-9">
-        <p><button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button></p>
-
         <div id="tool_box">
 
             <!-- cell's addition tools -->
@@ -72,7 +70,12 @@
                 <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
             </span>
 
-            <!-- file io tools -->
+            <!--- all files -->
+            <span class="btn-group">
+                <button id="file_list_all_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="All files"><i class="fa fa-files-o"></i></button>
+            </span>
+
+            <!-- import / export -->
             <span class="btn-group">
                 <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
                 <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>

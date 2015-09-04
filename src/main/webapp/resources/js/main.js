@@ -142,15 +142,13 @@ var clearSelect = function() {
 var getDocumentList = function(resourceUri, nodeUri) {
     // ノード指定がない場合
     if (nodeUri == "http://sfweb.is.k.u-tokyo.ac.jp/node#") {
-        nodeUri = '';
+        nodeUri = null;
     }
-
-    console.log(nodeUri);
 
     var query = 'SELECT DISTINCT * WHERE { ';
     query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> <' + resourceUri + '> . ';
     query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedNode> ?nodeUri . ';
-    if (nodeUri != '') { // ノードの指定がある場合
+    if (nodeUri != null) { // ノードの指定がある場合
         query += 'filter (?nodeUri = <' + nodeUri + '> ) . ';
     }
     query += '?nodeUri <http://sfweb.is.k.u-tokyo.ac.jp/task_name> ?nodeName . ';
@@ -166,7 +164,7 @@ var getDocumentList = function(resourceUri, nodeUri) {
         data : { query : query, },
         async: false,
         success : function(data) {
-            console.log(data.results.bindings);
+            // console.log(data.results.bindings);
             result = data.results.bindings;
         },
     });
@@ -175,7 +173,6 @@ var getDocumentList = function(resourceUri, nodeUri) {
 };
 
 var showFileListPopUp = function(data) {
-    console.log(data);
     var tbody = $("#tbody");
     tbody.empty();
 
@@ -353,9 +350,8 @@ $(function() {
             showSfProps(cell.sfProp);
             // var nodeId = cell.sfProp.id;
             var nodeUri = SF_NAME_SPACE + "node#" + cell.sfProp.id;
-            console.log(sfProjectUri + ', ' + nodeUri);
             var data = getDocumentList(sfProjectUri, nodeUri);
-            console.log(data);
+            // console.log(data);
             $('#file_count').html(data.length + ' files');
         } else {
             $('#file_count').html('');
