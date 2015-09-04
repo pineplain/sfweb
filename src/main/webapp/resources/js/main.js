@@ -533,10 +533,9 @@ $(function() {
                 dataType: 'json',
                 async : false,
                 success: function(data) {
-                    //console.log('File upload succeeded: ');
-                    //console.log(data);
-                    //console.log("------");
-
+                    var nodeUri = SF_NAME_SPACE + "node#" + selectedCell.sfProp.id;
+                    var data = getDocumentList(sfProjectUri, nodeUri);
+                    $('#file_count').html(data.length + ' files');
                 }
             });
         }
