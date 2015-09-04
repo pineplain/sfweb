@@ -1,6 +1,5 @@
 var SF_NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
-//var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
-var KASHIWADE_BASE_URL = 'http://172.16.53.65:7070/kashiwade/';
+var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
 var GROUP_NAME = 'forest3';
 
 var paper, graph;
@@ -72,7 +71,6 @@ $(function() {
 
     // zoom with mouse wheel
     // paper.$el.on('mousewheel', onMouseWheel);
-
     paper.on('blank:pointerclick', function(evt, x, y) {
         if ($('#rect_btn').hasClass('active')) {
             // add rect when clicked
@@ -285,50 +283,56 @@ $(function() {
     $('#file_upload_btn').click(function() {
         $('#file_upload_input').click();
     });
+
     $('#file_upload_input').change(function() {
+        var files = $(file_upload_input)[0].files;
 
         $("#uploading-file").append('<img src="resources/img/gif-load.gif">');
 
-        var fd = new FormData($(file_upload_form)[0]);
-        fd.append('group', GROUP_NAME);
+        for(var i = 0; i < files.length; i++){
+            var fd = new FormData();
+            fd.append("files", files[i]);
 
-        var fields = new Array();
-        var values = new Array();
-        var literalFlags = new Array();
+            fd.append('group', GROUP_NAME);
 
-        //ProjectUriとドキュメントの紐づけ
-        fields.push(SF_NAME_SPACE+"relatedFlow");
-        values.push(sfProjectUri);
-        literalFlags.push("false");
+            var fields = new Array();
+            var values = new Array();
+            var literalFlags = new Array();
 
-        //NodeUriとドキュメントの紐づけ
-        var nodeId = $("#task_id").val();
-        var nodeUri = SF_NAME_SPACE+"node#"+nodeId;//NodeUri -- SPARQL検索に変更したほうがよいか？
-        fields.push(SF_NAME_SPACE+"relatedNode");
-        values.push(nodeUri);
-        literalFlags.push("false");
+          //ProjectUriとドキュメントの紐づけ
+            fields.push(SF_NAME_SPACE+"relatedFlow");
+            values.push(sfProjectUri);
+            literalFlags.push("false");
 
-        fd.append('fields', fields);
-        fd.append('values', values);
-        fd.append('literalFlags', literalFlags);
+            //NodeUriとドキュメントの紐づけ
+            var nodeId = $("#task_id").val();
+            var nodeUri = SF_NAME_SPACE+"node#"+nodeId;//NodeUri -- SPARQL検索に変更したほうがよいか？
+            fields.push(SF_NAME_SPACE+"relatedNode");
+            values.push(nodeUri);
+            literalFlags.push("false");
 
+            fd.append('fields', fields);
+            fd.append('values', values);
+            fd.append('literalFlags', literalFlags);
 
-        $.ajax({
-            url: KASHIWADE_BASE_URL + 'resource/add',
-            type: 'POST',
-            data: fd,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(data) {
-            	console.log(data);
-                console.log('File upload succeeded: ' + data);
-                $("#uploading-file").empty();
-            },
-            done: function(){
-                $("#uploading-file").empty();
-            }
-        });
+            $.ajax({
+                url: KASHIWADE_BASE_URL + 'resource/add',
+                type: 'POST',
+                data: fd,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                async : false,
+                success: function(data) {
+                    //console.log('File upload succeeded: ');
+                    //console.log(data);
+                    //console.log("------");
+
+                }
+            });
+        }
+        $("#uploading-file").empty();
+        alert("Uploaded.");
 
         return false;
     });
@@ -344,8 +348,24 @@ $(function() {
     // import project
     $('#import_btn').click();
 
+
+    //ワークフローに関連するすべての文書を表示
+    $('#file_list_all_btn').click(function() {
+        getDocumentList(sfProjectUri);
+    });
+
     //getDocumentList(sfProjectUri);
 
+    //指定したワークフローに関連する文書の表示
+    $('#file_list_btn').click(function() {
+
+        var nodeId = $("#task_id").val();
+        var nodeUri = SF_NAME_SPACE+"node#"+nodeId;
+
+        getDocumentList(sfProjectUri, nodeUri);
+    });
+
+    //loading-iconの削除
     $("#load-data").empty();
 });
 
@@ -379,38 +399,12 @@ var setCellColor = function(cell, color) {
 };
 
 var showSfProps = function(prop) {
-
     $('#task_id').val(prop.id);
     $('#task_name').val(prop.taskName);
     $('#workload').val(prop.workload);
     $('#worker').val(prop.worker);
     $('#location').val(prop.location);
     $('#comment').val(prop.comment);
-
-    var nodeUri = SF_NAME_SPACE+"node#"+prop.id;
-
-    var docArray = documents[nodeUri];
-    if(docArray == null){//関連ドキュメントが存在しない場合
-        $("#doc-list").empty();
-    } else {
-        for(var i = 0; i < docArray.length; i++){
-            var obj = docArray[i];
-
-            var li = $("<li class='list-group-item'>");
-            $("#doc-list").append(li);
-
-            var a = $("<a>");
-            li.append(a);
-            a.attr("href", obj.s.value);
-
-            var span = $("<span>");
-            a.append(span);
-            span.attr("class", "glyphicon glyphicon-file");
-
-            a.append("&nbsp;"+obj.title.value);
-        }
-    }
-
 };
 
 var updateSfProps = function(cell) {
@@ -502,13 +496,22 @@ var clearSelect = function() {
 };
 
 //プロジェクトに関連するドキュメントの取得
-function getDocumentList(resourceUri){
-    // get project name
+function getDocumentList(resourceUri, nodeUri){
+
+    //console.log(resourceUri+"\t"+nodeUri);
+
+    //ノード指定がない場合
+    if(nodeUri == "http://sfweb.is.k.u-tokyo.ac.jp/node#"){
+        nodeUri = null;
+    }
+
     var query = 'SELECT DISTINCT * WHERE { ';
-    //query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> <' + resourceUri + '> . ';
-    query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> "'+resourceUri + '" . ';
+    query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> <' + resourceUri + '> . ';
     query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedNode> ?nodeUri . ';
-    //query += '?nodeUri ?v ?nodeName . ';
+    if(nodeUri != null){//ノードの指定がある場合
+        query += 'filter (?nodeUri = <'+nodeUri+'> ) . ';
+    }
+    query += '?nodeUri <http://sfweb.is.k.u-tokyo.ac.jp/task_name> ?nodeName . ';
     query += '?s <http://purl.org/dc/elements/1.1/title> ?title . ';
     query += '?s <http://purl.org/dc/elements/1.1/date> ?date . ';
     query += '}';
@@ -523,11 +526,10 @@ function getDocumentList(resourceUri){
         success : function(data) {
             var result = data.results.bindings;
 
-            console.log(result.length);
-
             for(var i = 0; i < result.length; i++){
                 var obj = result[i];
 
+                //表に挿入
                 var tr = $("<tr>");
                 tbody.append(tr);
 
@@ -539,20 +541,26 @@ function getDocumentList(resourceUri){
                 tr.append(td);
                 td.append(obj.date.value);
 
-                //console.log(obj.nodeUri.value);
+                td = $("<td>");
+                tr.append(td);
+                td.append(obj.nodeName.value);
 
                 td = $("<td>");
                 tr.append(td);
-                //td.append(obj.nodeName.value);
 
-
-                var nodeUri = obj.nodeUri.value;
-                if(!documents[nodeUri]){
-                    documents[nodeUri] = new Array();
-                }
-                documents[nodeUri].push(obj);
+                var a = $("<a>");
+                td.append(a);
+                a.attr("href", KASHIWADE_BASE_URL+"common/metadata?resourceUri="+encodeURIComponent(obj.s.value));
+                a.attr("class", "btn btn-primary")
+                a.append("View Detail&nbsp;&raquo;");
             }
-            console.log(documents);
+
+            $.magnificPopup.open({
+                items: {
+                    src: $('#file-list')
+                },
+                type: 'inline'
+            });
         },
     });
 }

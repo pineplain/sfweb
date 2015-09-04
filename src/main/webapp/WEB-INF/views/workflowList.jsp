@@ -129,8 +129,7 @@
 		src="<c:url value='/resources/js/uri.js' />"></script>
 
 	<script type="text/javascript">
-		//var KASHIWADE_BASE_URL = "http://heineken.is.k.u-tokyo.ac.jp/forest3/"
-		var KASHIWADE_BASE_URL = "http://172.16.53.65:7070/kashiwade/"
+		var KASHIWADE_BASE_URL = "http://heineken.is.k.u-tokyo.ac.jp/forest3/"
 
 		jQuery(document).ready(function() {
 			jQuery.ajaxSetup({

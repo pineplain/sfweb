@@ -12,25 +12,8 @@
     <link rel="stylesheet" href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/thirdparty/font-awesome/css/font-awesome.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/css/main.css' />">
-<link
-	href="<c:url value='/resources/thirdparty/Magnific-Popup/magnific-popup.css' />"
-	rel="stylesheet">
-
-<link
-	href="<c:url value='/resources/thirdparty/dataTables/css/jquery.dataTables.css' />"
-	rel="stylesheet">
-
-<style>
-.white-popup-block {
-    background: #FFF;
-    padding: 20px 30px;
-    text-align: left;
-    max-width: 650px;
-    margin: 40px auto;
-    position: relative
-}
-</style>
-
+    <link href="<c:url value='/resources/thirdparty/Magnific-Popup/magnific-popup.css' />" rel="stylesheet">
+    <link href="<c:url value='/resources/thirdparty/dataTables/css/jquery.dataTables.css' />" rel="stylesheet">
 </head>
 
 <body>
@@ -39,6 +22,7 @@
 
 <div class="container">
 
+    <!-- loading json -->
     <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
 
     <div class="col-sm-12 col-md-9">
@@ -46,8 +30,7 @@
         <h3 class="page-header"><span id="project_name"></span></h3>
 
 			<p>
-				<a class="popup-with-form btn btn-default" href="#file-list"><span
-					class="glyphicon glyphicon-search"></span> Show Files</a>
+				<button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button>
 			</p>
 
 			<div id="tool_box">
@@ -140,17 +123,14 @@
 
         <!-- files -->
         <h4>Files</h4>
-        <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><i class="fa fa-folder-open"></i></button>
+        <span class="btn-group">
+        <button id="file_list_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="List files"><i class="fa fa-list-alt"></i></button>
+        <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><i class="fa fa-upload"></i></button>
+        </span>
         <form id="file_upload_form" method="POST" enctype="multipart/form-data">
             <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
         </form>
-
-        <!-- files list -->
-        <hr>
-        <h4>Documents</h4>
-        <ul id="doc-list" class="list-group"></ul>
-        <!-- uploading file -->
-        <div id="uploading-file" class="text-center"></div>
+        <p class="text-center" id="uploading-file"></p>
     </div>
 
 
@@ -159,17 +139,15 @@
 
 	<div id="file-list" class="mfp-hide white-popup-block">
 		<div class="page-header">
-			<h3>New Flow</h3>
+			<h3>File List</h3>
 		</div>
 
-		<table class="table table-striped table-hover" id="table">
+		<table class="table table-striped table-hover" id="fileTable">
 			<thead id="thead">
 				<tr>
-					<th>Name</th>
-					<th>Creator</th>
-					<th>Created Date</th>
-					<th>Updator</th>
-					<th>Updated Date</th>
+					<th>File Name</th>
+					<th>Date</th>
+					<th>Related Task</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -187,35 +165,7 @@
 <script src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
 <!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
 <script src="<c:url value='/resources/js/main.js' />"></script>
-
-	<script type="text/javascript"
-		src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
-	<script type="text/javascript">
-		$('.popup-with-form').magnificPopup({
-            type : 'inline',
-            preloader : false,
-            focus : '#name',
-
-            // When elemened is focused, some mobile browsers in some cases zoom in
-            // It looks not nice, so we disable it:
-            callbacks : {
-                beforeOpen : function() {
-                    if ($(window).width() < 700) {
-                        this.st.focus = false;
-                    } else {
-                        this.st.focus = '#name';
-                    }
-                }
-            }
-        });
-
-		// DataTable
-        var table = $('#table').DataTable({
-            "iDisplayLength" : 50
-        });
-		</script>
+<script type="text/javascript" src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 </body>
 
 </html>
