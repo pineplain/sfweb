@@ -1,5 +1,6 @@
 var SF_NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
-var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
+//var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
+var KASHIWADE_BASE_URL = 'http://172.16.53.65:7070/kashiwade/';
 var GROUP_NAME = 'forest3';
 
 var paper, graph;
@@ -318,8 +319,9 @@ $(function() {
             data: fd,
             processData: false,
             contentType: false,
-            dataType: 'text',
+            dataType: 'json',
             success: function(data) {
+            	console.log(data);
                 console.log('File upload succeeded: ' + data);
                 $("#uploading-file").empty();
             },
@@ -342,7 +344,7 @@ $(function() {
     // import project
     $('#import_btn').click();
 
-    getDocumentList(sfProjectUri);
+    //getDocumentList(sfProjectUri);
 
     $("#load-data").empty();
 });
@@ -506,9 +508,13 @@ function getDocumentList(resourceUri){
     //query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> <' + resourceUri + '> . ';
     query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> "'+resourceUri + '" . ';
     query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedNode> ?nodeUri . ';
+    //query += '?nodeUri ?v ?nodeName . ';
     query += '?s <http://purl.org/dc/elements/1.1/title> ?title . ';
     query += '?s <http://purl.org/dc/elements/1.1/date> ?date . ';
     query += '}';
+
+    var tbody = $("#tbody");
+    tbody.empty();
 
     $.ajax({
         type : 'POST',
@@ -517,8 +523,29 @@ function getDocumentList(resourceUri){
         success : function(data) {
             var result = data.results.bindings;
 
+            console.log(result.length);
+
             for(var i = 0; i < result.length; i++){
                 var obj = result[i];
+
+                var tr = $("<tr>");
+                tbody.append(tr);
+
+                var td = $("<td>");
+                tr.append(td);
+                td.append(obj.title.value);
+
+                td = $("<td>");
+                tr.append(td);
+                td.append(obj.date.value);
+
+                //console.log(obj.nodeUri.value);
+
+                td = $("<td>");
+                tr.append(td);
+                //td.append(obj.nodeName.value);
+
+
                 var nodeUri = obj.nodeUri.value;
                 if(!documents[nodeUri]){
                     documents[nodeUri] = new Array();

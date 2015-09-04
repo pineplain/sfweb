@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/thirdparty/font-awesome/css/font-awesome.min.css' />">
     <link rel="stylesheet" href="<c:url value='/resources/css/main.css' />">
+<link
+	href="<c:url value='/resources/thirdparty/Magnific-Popup/magnific-popup.css' />"
+	rel="stylesheet">
+
+<link
+	href="<c:url value='/resources/thirdparty/dataTables/css/jquery.dataTables.css' />"
+	rel="stylesheet">
+
+<style>
+.white-popup-block {
+    background: #FFF;
+    padding: 20px 30px;
+    text-align: left;
+    max-width: 650px;
+    margin: 40px auto;
+    position: relative
+}
+</style>
+
 </head>
 
 <body>
@@ -26,7 +45,12 @@
         <!-- project name -->
         <h3 class="page-header"><span id="project_name"></span></h3>
 
-        <div id="tool_box">
+			<p>
+				<a class="popup-with-form btn btn-default" href="#file-list"><span
+					class="glyphicon glyphicon-search"></span> Show Files</a>
+			</p>
+
+			<div id="tool_box">
             <!-- cell's addition tools -->
             <span class="btn-group" data-toggle="buttons">
                 <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
@@ -129,11 +153,34 @@
         <div id="uploading-file" class="text-center"></div>
     </div>
 
+
+
 </div>
 
-<c:import url="footer.jsp"></c:import>
+	<div id="file-list" class="mfp-hide white-popup-block">
+		<div class="page-header">
+			<h3>New Flow</h3>
+		</div>
 
-<span id="project_uri" style="display: none;">${resourceUri}</span>>
+		<table class="table table-striped table-hover" id="table">
+			<thead id="thead">
+				<tr>
+					<th>Name</th>
+					<th>Creator</th>
+					<th>Created Date</th>
+					<th>Updator</th>
+					<th>Updated Date</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+	</div>
+
+	<c:import url="footer.jsp"></c:import>
+
+<span id="project_uri" style="display: none;">${resourceUri}</span>
 
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.min.js' />"></script>
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.layout.DirectedGraph.min.js' />"></script>
@@ -141,6 +188,34 @@
 <!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
 <script src="<c:url value='/resources/js/main.js' />"></script>
 
+	<script type="text/javascript"
+		src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
+	<script type="text/javascript"
+		src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
+	<script type="text/javascript">
+		$('.popup-with-form').magnificPopup({
+            type : 'inline',
+            preloader : false,
+            focus : '#name',
+
+            // When elemened is focused, some mobile browsers in some cases zoom in
+            // It looks not nice, so we disable it:
+            callbacks : {
+                beforeOpen : function() {
+                    if ($(window).width() < 700) {
+                        this.st.focus = false;
+                    } else {
+                        this.st.focus = '#name';
+                    }
+                }
+            }
+        });
+
+		// DataTable
+        var table = $('#table').DataTable({
+            "iDisplayLength" : 50
+        });
+		</script>
 </body>
 
 </html>

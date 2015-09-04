@@ -1,5 +1,3 @@
-var endpoint = "http://heineken.is.k.u-tokyo.ac.jp/forest3"
-
 var prefixes = new Object();
 prefixes ["dc"] = "http://purl.org/dc/elements/1.1/";
 prefixes ["rdf"]= "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
