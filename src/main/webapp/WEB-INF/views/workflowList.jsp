@@ -196,7 +196,7 @@
 
                         var a = $("<a>");
                         td.append(a);
-                        a.attr("href", "workflowEditor?resourceUri="
+                        a.attr("href", "edit?resourceUri="
                                 + encodeURIComponent(obj.s.value));
                         a.attr("class", "btn btn-default");
                         a.append("View Detail&nbsp;&raquo;");
@@ -285,7 +285,7 @@
                 success : function(data) {
 
                     alert(data);
-                    location.href = "workflowEditor?resourceUri="
+                    location.href = "edit?resourceUri="
                             + encodeURIComponent(resourceUri);
 
                 },

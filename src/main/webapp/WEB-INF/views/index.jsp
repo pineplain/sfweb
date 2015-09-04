@@ -1,186 +1,250 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="false"%>
-<jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
-<html>
+<jsp:directive.page contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" />
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>ShareFast Web</title>
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<c:url value='/resources/img/favicon.ico' />">
-    <link rel="stylesheet" href="<c:url value='/resources/thirdparty/jointjs/css/joint.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/thirdparty/font-awesome/css/font-awesome.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/css/main.css' />">
-    <link href="<c:url value='/resources/thirdparty/Magnific-Popup/magnific-popup.css' />" rel="stylesheet">
-    <link href="<c:url value='/resources/thirdparty/dataTables/css/jquery.dataTables.css' />" rel="stylesheet">
+<link rel="shortcut icon"
+    href="<c:url value='/resources/img/favicon.ico' />">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Index</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet"
+    href="<c:url value='/resources/thirdparty/bootstrap/css/bootstrap.min.css' />">
+
+<!-- Custom Fonts -->
+<link
+    href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+    rel='stylesheet' type='text/css'>
+<link
+    href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+    rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+    href="resources/thirdparty/creative/font-awesome/css/font-awesome.min.css"
+    type="text/css">
+
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="resources/thirdparty/creative/css/animate.min.css"
+    type="text/css">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="resources/thirdparty/creative/css/creative.css"
+    type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.resources/creative/js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 
-<body>
+<body id="page-top">
 
-<c:import url="header.jsp"></c:import>
-
-<div class="container">
-    <div class="col-xs-12">
-        <!-- project name -->
-        <h3 class="page-header"><span id="project_name"></span></h3>
-    </div>
-
-    <!-- loading json -->
-    <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"/></div>
-
-    <div class="col-sm-12 col-md-9">
-        <div id="tool_box">
-
-            <!-- cell's addition tools -->
-            <span class="btn-group" data-toggle="buttons">
-                <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">
-                    <input type="radio" name="tools" autocomplete="off" checked>
-                    <i class="fa fa-mouse-pointer"></i>
-                </label>
-                <label id="rect_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Rect">
-                    <input type="radio" name="tools" autocomplete="off">
-                    <i class="fa fa-square"></i>
-                </label>
-                <!-- <label id="circle_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Circle">
-                    <input type="radio" name="tools" autocomplete="off">
-                    <i class="fa fa-circle"></i>
-                </label> -->
-                <label id="edge_btn" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Edge">
-                    <input type="radio" name="tools" autocomplete="off">
-                    <i class="fa fa-long-arrow-right"></i>
-                </label>
-            </span>
-
-            <!--- zoom -->
-            <span class="btn-group">
-                <button id="zoom_in_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Zoom in"><i class="fa fa-search-plus"></i></button>
-                <button id="zoom_out_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Zoom out"><i class="fa fa-search-minus"></i></button>
-            </span>
-
-            <!--- cell's remove tools -->
-            <span class="btn-group">
-                <button id="remove_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Remove"><i class="fa fa-minus-circle"></i></button>
-                <button id="clear_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Clear"><i class="fa fa-times-circle"></i></button>
-            </span>
-
-            <!--- layout -->
-            <span class="btn-group">
-                <button id="layout_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Layout"><i class="fa fa-sort-amount-asc"></i></button>
-                <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
-            </span>
-
-            <!--- all files -->
-            <span class="btn-group">
-                <button id="file_list_all_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="All files"><i class="fa fa-files-o"></i></button>
-            </span>
-
-            <!-- import / export -->
-            <span class="btn-group">
-                <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
-                <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>
-            </span>
-        </div>
-
-        <!-- graph -->
-        <div id="holder"></div>
-    </div>
-
-    <div class="col-sm-12 col-md-3">
-        <!-- properties -->
-        <h4>Properties</h4>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Task id</td>
-                    <td><input readonly class="sf-prop-field form-control" id="task_id"/></td>
-                </tr>
-                <tr>
-                    <td>Task name</td>
-                    <td><input id="task_name" class="sf-prop-field form-control" type="text"></td>
-                </tr>
-                <tr>
-                    <td>Workload</td>
-                    <td><input id="workload" class="sf-prop-field form-control" type="text"></td>
-                </tr>
-                <tr>
-                    <td>Worker</td>
-                    <td><input id="worker" class="sf-prop-field form-control" type="text"></td>
-                </tr>
-                <tr>
-                    <td>Location</td>
-                    <td><input id="location" class="sf-prop-field form-control" type="text"></td>
-                </tr>
-                <tr>
-                    <td>Comment</td>
-                    <td><textarea id="comment" class="sf-prop-field form-control"></textarea></td>
-                </tr>
-                <tr>
-                    <td>Files</td>
-                    <td>
-                        <p id="file_count"></p>
-                        <span class="btn-group">
-                            <button id="file_list_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="List files"><i class="fa fa-list-alt"></i></button>
-                            <button id="file_upload_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Upload files"><i class="fa fa-upload"></i></button>
-                        </span>
-                        <form id="file_upload_form" method="POST" enctype="multipart/form-data">
-                            <input id="file_upload_input" type="file" name="files[]" style="display: none;" multiple>
-                        </form>
-                        <p class="text-center" id="uploading-file"></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div id="file-list" class="mfp-hide white-popup-block">
-    <div class="page-header">
-        <h3>File List</h3>
-    </div>
-
-    <table class="table table-striped table-hover" id="fileTable">
-        <thead id="thead">
-            <tr>
-                <th>File Name</th>
-                <th>Date</th>
-                <th>Related Task</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-    </table>
-</div>
-
-    <div id="dialog" class="mfp-hide white-popup-block">
-        <div class="row">
-            <div class="col-xs-6">
-                <img id="dialog-icon" style="width : 100%;"/>
-            </div>
-            <div class="col-xs-6">
-                <h3 class="page-header" id="dialog-head"></h3>
-                <p id="dialog-text"></p>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="<c:url value='/' />">ShareFast
+                    Web</a>
             </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse"
+                id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="workflowList">Workflow List</a></li>
+                    <li><a
+                        href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList">Document
+                            List</a></li>
+                    <li><a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/">KASHIWADE</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-<c:import url="footer.jsp"></c:import>
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>ShareFast WEB</h1>
+                <hr>
+                <p>Application for document management system based on workflow</p>
+            </div>
+        </div>
+    </header>
 
-<span id="project_uri" style="display: none;">${resourceUri}</span>
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">We've got what you need!</h2>
+                    <hr class="light">
+                    <p class="text-faded">The association between design documents and workflow is described by metadata based on semantic Web technology. This system offers a workflow editor to create and edit workflow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script src="<c:url value='/resources/thirdparty/jointjs/js/joint.min.js' />"></script>
-<script src="<c:url value='/resources/thirdparty/jointjs/js/joint.layout.DirectedGraph.min.js' />"></script>
-<script src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
-<!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
-<script src="<c:url value='/resources/js/main.js' />"></script>
-<script type="text/javascript" src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Developers</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                        <h3>Taiga Mitsuyuki</h3>
+                        <p class="text-muted">Assistant Professor</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"
+                            data-wow-delay=".1s"></i>
+                        <h3>Hiroya Matsubara</h3>
+                        <p class="text-muted">M2</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"
+                            data-wow-delay=".2s"></i>
+                        <h3>Shinnosuke Wanaka</h3>
+                        <p class="text-muted">M2</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-heart wow bounceIn text-primary"
+                            data-wow-delay=".3s"></i>
+                        <h3>Satoru Nakamura</h3>
+                        <p class="text-muted">D2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <div class="col-lg-4 col-sm-6">
+                    <a href="workflowList" class="portfolio-box"> <img
+                        src="resources/thirdparty/creative/img/portfolio/1.jpg"
+                        class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">Category</div>
+                                <div class="project-name">Workflow List</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a
+                        href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList"
+                        class="portfolio-box"> <img
+                        src="resources/thirdparty/creative/img/portfolio/2.jpg"
+                        class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">Category</div>
+                                <div class="project-name">Document List</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/" class="portfolio-box"> <img
+                        src="resources/thirdparty/creative/img/portfolio/3.jpg"
+                        class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">Category</div>
+                                <div class="project-name">KASHIWADE</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>GitHub</h2>
+                <a href="https://github.com/pineplain/sfweb" class="btn btn-default btn-xl wow tada">Download
+                    Now!</a>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="primary">
+                    <p>Ready to start your next project with us? That's great! Give
+                        us a call or send us an email and we will get back to you as soon
+                        as possible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                    <p>04-7136-4626</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p>
+                        <a href="mailto:info@is.k.u-tokyo.ac.jp">info@is.k.u-tokyo.ac.jp</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <c:import url="footer.jsp"></c:import>
+    <!-- jQuery -->
+    <script src="resources/thirdparty/creative/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="resources/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="resources/thirdparty/creative/js/jquery.easing.min.js"></script>
+    <script src="resources/thirdparty/creative/js/jquery.fittext.js"></script>
+    <script src="resources/thirdparty/creative/js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="resources/thirdparty/creative/js/creative.js"></script>
+
 </body>
 
 </html>
