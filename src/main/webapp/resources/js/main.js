@@ -7,9 +7,6 @@ var scale = 1;
 var projectName = null;
 var selectedCell = null;
 
-//ワークフローに関連するドキュメント
-var documents = new Object();
-
 $(function() {
     var sfProjectUri = $('#project_uri').text();
     var sfProjectName = '';
@@ -30,7 +27,17 @@ $(function() {
                 sfProjectName = result.name.value;
                 $('#project_name').text(sfProjectName);
             } else {
-                console.log('[ERROR] cannot find resource: ' + sfProjectUri);
+
+            	//dialog
+            	$("#dialog-icon").attr('src', 'resources/img/errorIcon.png');
+            	$("#dialog-head").text('ERROR');
+            	$("#dialog-text").text(sfProjectUri+'cannot be loaded.');
+                $.magnificPopup.open({
+                    items: {
+                        src: $('#dialog')
+                    },
+                    type: 'inline'
+                });
             }
         },
     });
@@ -259,6 +266,8 @@ $(function() {
     $('#export_btn').click(function() {
         clearSelect();
 
+        $("#load-data").append('<img src="resources/img/gif-load.gif"/>');
+
         var sfPropAry = $.map(graph.getElements(), function(val, idx) {
             return val.sfProp;
         });
@@ -274,7 +283,34 @@ $(function() {
                 'properties': properties
             },
             success: function(data) {
-                console.log('Export succeeded: ' + data);
+
+            	//dialog
+            	$("#dialog-icon").attr('src', 'resources/img/completeIcon.png');
+            	$("#dialog-head").text('Saved.');
+            	$("#dialog-text").empty();
+            	$("#dialog-text").append('<label>Date：</label>'+new Date().toLocaleString()+'<br>');
+            	$("#dialog-text").append('<label>Project ID：</label><br>'+sfProjectUri);
+                $.magnificPopup.open({
+                    items: {
+                        src: $('#dialog')
+                    },
+                    type: 'inline'
+                });
+            },
+            error : function(data){
+            	//dialog
+            	$("#dialog-icon").attr('src', 'resources/img/errorIcon.png');
+            	$("#dialog-head").text('Error.');
+            	$("#dialog-text").text(data.statusText);
+                $.magnificPopup.open({
+                    items: {
+                        src: $('#dialog')
+                    },
+                    type: 'inline'
+                });
+            },
+            complete : function(){
+            	 $("#load-data").empty();
             }
         });
     });
@@ -288,6 +324,8 @@ $(function() {
         var files = $(file_upload_input)[0].files;
 
         $("#uploading-file").append('<img src="resources/img/gif-load.gif">');
+
+        var filenames = new Array();
 
         for(var i = 0; i < files.length; i++){
             var fd = new FormData();
@@ -324,15 +362,30 @@ $(function() {
                 dataType: 'json',
                 async : false,
                 success: function(data) {
-                    //console.log('File upload succeeded: ');
-                    //console.log(data);
-                    //console.log("------");
-
+                	filenames.push(data[0].title);
                 }
             });
         }
         $("#uploading-file").empty();
-        alert("Uploaded.");
+
+
+        //dialog
+        $("#dialog-icon").attr('src', 'resources/img/completeIcon.png');
+        $("#dialog-head").text("Uploaded.");
+        $("#dialog-text").empty();
+        for(var i = 0; i < filenames.length; i++){
+        	$("#dialog-text").append((i+1)+"："+filenames[i]);
+        	if(i != filenames.length - 1){
+        		$("#dialog-text").append("<br>");
+        	}
+        }
+
+        $.magnificPopup.open({
+            items: {
+                src: $('#dialog')
+            },
+            type: 'inline'
+        });
 
         return false;
     });
@@ -497,8 +550,6 @@ var clearSelect = function() {
 
 //プロジェクトに関連するドキュメントの取得
 function getDocumentList(resourceUri, nodeUri){
-
-    //console.log(resourceUri+"\t"+nodeUri);
 
     //ノード指定がない場合
     if(nodeUri == "http://sfweb.is.k.u-tokyo.ac.jp/node#"){

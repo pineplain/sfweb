@@ -27,15 +27,15 @@
     </div>
 
     <!-- loading json -->
-    <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
+    <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"/></div>
 
     <div class="col-sm-12 col-md-9">
 
-			<p>
-				<button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button>
-			</p>
+            <p>
+                <button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button>
+            </p>
 
-			<div id="tool_box">
+            <div id="tool_box">
 
             <!-- cell's addition tools -->
             <span class="btn-group" data-toggle="buttons">
@@ -140,26 +140,39 @@
 
 </div>
 
-	<div id="file-list" class="mfp-hide white-popup-block">
-		<div class="page-header">
-			<h3>File List</h3>
-		</div>
+    <div id="file-list" class="mfp-hide white-popup-block">
+        <div class="page-header">
+            <h3>File List</h3>
+        </div>
 
-		<table class="table table-striped table-hover" id="fileTable">
-			<thead id="thead">
-				<tr>
-					<th>File Name</th>
-					<th>Date</th>
-					<th>Related Task</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody id="tbody">
-			</tbody>
-		</table>
-	</div>
+        <table class="table table-striped table-hover" id="fileTable">
+            <thead id="thead">
+                <tr>
+                    <th>File Name</th>
+                    <th>Date</th>
+                    <th>Related Task</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
 
-	<c:import url="footer.jsp"></c:import>
+    <div id="dialog" class="mfp-hide white-popup-block">
+        <div class="row">
+            <div class="col-xs-6">
+                <img id="dialog-icon" style="width : 100%;"/>
+            </div>
+            <div class="col-xs-6">
+                <h3 class="page-header" id="dialog-head"></h3>
+                <p id="dialog-text"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <c:import url="footer.jsp"></c:import>
 
 <span id="project_uri" style="display: none;">${resourceUri}</span>
 
