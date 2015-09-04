@@ -53,9 +53,9 @@ public class UIController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/workflowList", method = RequestMethod.GET)
-    public String workflowList() throws Exception {
-        return "workflowList";
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list() throws Exception {
+        return "list";
     }
 
     @ExceptionHandler(Exception.class)

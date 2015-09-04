@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="workflowList">Workflow List</a>
+                    <a href="list">Workflow List</a>
                 </li>
                 <li>
                     <a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList">Document List</a>

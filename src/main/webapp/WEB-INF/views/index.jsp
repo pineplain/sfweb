@@ -70,7 +70,7 @@
             <div class="collapse navbar-collapse"
                 id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="workflowList">Workflow List</a></li>
+                    <li><a href="list">Workflow List</a></li>
                     <li><a
                         href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList">Document
                             List</a></li>
@@ -155,7 +155,7 @@
         <div class="container-fluid">
             <div class="row no-gutter">
                 <div class="col-lg-4 col-sm-6">
-                    <a href="workflowList" class="portfolio-box"> <img
+                    <a href="list" class="portfolio-box"> <img
                         src="resources/thirdparty/creative/img/portfolio/1.jpg"
                         class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
