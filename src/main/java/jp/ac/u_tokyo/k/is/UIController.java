@@ -25,15 +25,15 @@ public class UIController {
     private HttpServletRequest request;
 
     /**
-     * 検索
+     * ワークフローの編集
      *
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/workflowEditor", method = RequestMethod.GET)
-    public String index(Model model, @RequestParam String resourceUri) throws Exception {
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String edit(Model model, @RequestParam String resourceUri) throws Exception {
         model.addAttribute("resourceUri", resourceUri);
-        return "index";
+        return "edit";
     }
 
     /**
@@ -43,8 +43,8 @@ public class UIController {
      * @throws Exception
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index2() throws Exception {
-        return "index2";
+    public String index() throws Exception {
+        return "index";
     }
 
     /**
