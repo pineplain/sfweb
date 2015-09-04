@@ -21,19 +21,22 @@
 <c:import url="header.jsp"></c:import>
 
 <div class="container">
+    <div class="col-xs-12">
+        <!-- project name -->
+        <h3 class="page-header"><span id="project_name"></span></h3>
+    </div>
 
     <!-- loading json -->
     <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
 
     <div class="col-sm-12 col-md-9">
-        <!-- project name -->
-        <h3 class="page-header"><span id="project_name"></span></h3>
 
 			<p>
 				<button id="file_list_all_btn" class="btn btn-default"><i class="fa fa-search"></i> Show All Files</button>
 			</p>
 
 			<div id="tool_box">
+
             <!-- cell's addition tools -->
             <span class="btn-group" data-toggle="buttons">
                 <label id="mouse_btn" class="btn btn-default active" data-toggle="tooltip" data-placement="bottom" title="Mouse">

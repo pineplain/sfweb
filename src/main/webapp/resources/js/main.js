@@ -338,9 +338,9 @@ $(function() {
     });
 
     // resize paper object
-    $(window).resize(function() {
-        paper.setDimensions($('#holder').width(), $('#holder').height());
-    });
+    // $(window).resize(function() {
+    //     paper.setDimensions($('#holder').width(), $('#holder').height());
+    // });
 
     // tooltip
     $('[data-toggle="tooltip"]').tooltip();
