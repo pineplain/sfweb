@@ -27,7 +27,7 @@
     </div>
 
     <!-- loading json -->
-    <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"></div>
+    <div id="load-data" class="text-center"><img src="resources/img/gif-load.gif"/></div>
 
     <div class="col-sm-12 col-md-9">
         <div id="tool_box">
@@ -157,6 +157,19 @@
         <tbody id="tbody"></tbody>
     </table>
 </div>
+
+    <div id="dialog" class="mfp-hide white-popup-block">
+        <div class="row">
+            <div class="col-xs-6">
+                <img id="dialog-icon" style="width : 100%;"/>
+            </div>
+            <div class="col-xs-6">
+                <h3 class="page-header" id="dialog-head"></h3>
+                <p id="dialog-text"></p>
+            </div>
+
+        </div>
+    </div>
 
 <c:import url="footer.jsp"></c:import>
 
