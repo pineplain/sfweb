@@ -186,6 +186,7 @@
 <!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
 <script src="<c:url value='/resources/js/main.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
 </body>
 
 </html>

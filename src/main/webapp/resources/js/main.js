@@ -1,5 +1,5 @@
 var SF_NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
-var KASHIWADE_BASE_URL = 'http://heineken.is.k.u-tokyo.ac.jp/forest3/';
+var KASHIWADE_BASE_URL = "http://heineken.is.k.u-tokyo.ac.jp/forest3/";
 var GROUP_NAME = 'forest3';
 
 var sfProjectUri, sfProjectId, sfProjectName;
@@ -170,6 +170,10 @@ var getDocumentList = function(resourceUri, nodeUri) {
 };
 
 var showFileListPopUp = function(data) {
+
+	//dataTablesのReset
+	$("#fileTable").dataTable().fnDestroy();
+
     var tbody = $("#tbody");
     tbody.empty();
 
@@ -198,7 +202,7 @@ var showFileListPopUp = function(data) {
         var a = $("<a>");
         td.append(a);
         a.attr("href", KASHIWADE_BASE_URL+"common/metadata?resourceUri="+encodeURIComponent(obj.s.value));
-        a.attr("class", "btn btn-primary")
+        a.attr("class", "btn btn-default")
         a.append("View Detail&nbsp;&raquo;");
     }
 
@@ -206,7 +210,11 @@ var showFileListPopUp = function(data) {
         items: {
             src: $('#file-list')
         },
-        type: 'inline',
+        type: 'inline'
+    });
+
+    $('#fileTable').DataTable({
+        "iDisplayLength" : 50
     });
 };
 
@@ -215,6 +223,9 @@ $(function() {
     $("#link_to_kashiwade").attr("href", KASHIWADE_BASE_URL + "common/metadata?resourceUri="+encodeURIComponent(sfProjectUri));//Link to KASHIWADE
     sfProjectName = '';
     sfProjectId = sfProjectUri.split('#')[1];
+
+    //initialize dataTable
+    $('#fileTable').DataTable();
 
     // get project name
     var query = 'SELECT DISTINCT ?name WHERE { ';
@@ -588,7 +599,7 @@ $(function() {
         $("#dialog-text").empty();
         for(var i = 0; i < data.length; i++){
             $("#dialog-text").append((i+1)+"："+data[i].title.value);
-            if(i != filenames.length - 1){
+            if(i != data.length - 1){
                 $("#dialog-text").append("<br>");
             }
         }
