@@ -110,7 +110,7 @@
         src="<c:url value='/resources/js/uri.js' />"></script>
 
     <script type="text/javascript">
-        var KASHIWADE_BASE_URL = "http://heineken.is.k.u-tokyo.ac.jp/forest3/"
+        var KASHIWADE_BASE_URL = "http://localhost:7070/kashiwade/"//"http://heineken.is.k.u-tokyo.ac.jp/forest3/"
 
         jQuery(document).ready(function() {
             jQuery.ajaxSetup({
@@ -208,8 +208,12 @@
                         "sorting" : [ [ 4, "desc" ] ]
                     //更新日時でソート
                     });
-
-                    // #loading は、ローディングの画像（を囲む）要素名に置き換えてください。
+                },
+                error : function(data){
+                	alert(data.statusText);
+                },
+                complete : function(){
+                	// #loading は、ローディングの画像（を囲む）要素名に置き換えてください。
                     $("#loading").hide();
                 }
             });
