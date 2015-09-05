@@ -536,8 +536,7 @@ $(function() {
 
         $("#uploading-file").append('<img src="resources/img/gif-load.gif">');
 
-        var filenames = new Array();
-
+        //各ファイルに対して
         for(var i = 0; i < files.length; i++){
             var fd = new FormData();
             fd.append("files", files[i]);
@@ -571,24 +570,23 @@ $(function() {
                 processData: false,
                 contentType: false,
                 dataType: 'json',
-                async : false,
-                success: function(data) {
-                    var nodeUri = SF_NAME_SPACE + "node#" + selectedCell.sfProp.id;
-                    var data = getDocumentList(sfProjectUri, nodeUri);
-                    $('#file_count').html(data.length + ' files');
-                    filenames.push(data[0].title);
-                }
+                async : false
             });
         }
+
         $("#uploading-file").empty();
+
+        var nodeUri = SF_NAME_SPACE + "node#" + selectedCell.sfProp.id;
+        var data = getDocumentList(sfProjectUri, nodeUri);
+        $('#file_count').html(data.length + ' files');
 
 
         //dialog
         $("#dialog-icon").attr('src', 'resources/img/completeIcon.png');
         $("#dialog-head").text("Uploaded.");
         $("#dialog-text").empty();
-        for(var i = 0; i < filenames.length; i++){
-            $("#dialog-text").append((i+1)+"："+filenames[i]);
+        for(var i = 0; i < data.length; i++){
+            $("#dialog-text").append((i+1)+"："+data[i].title.value);
             if(i != filenames.length - 1){
                 $("#dialog-text").append("<br>");
             }
