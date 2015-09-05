@@ -12,7 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 public abstract class DataObject {
+
+    private static final Logger logger = Logger.getLogger(DataObject.class);
 
     public String targetURI;
     private String projectID;
@@ -22,6 +26,10 @@ public abstract class DataObject {
 
     public void add(String url){
             HashMap<String,String> fields = getFields();
+
+            //logger.info(new Throwable().getStackTrace()[0].getClassName() + " : "+ new Throwable().getStackTrace()[0].getMethodName() + " : fields >>> ");
+            //System.out.println(fields);
+
             Set<String> keys = fields.keySet();
             for (String key:keys){
                 String subject = this.targetURI;
@@ -35,7 +43,7 @@ public abstract class DataObject {
                     }
                 }
 
-                if (key.equals("typeClass")){ 
+                if (key.equals("typeClass")){
                     predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
                     object = "http://kashiwade.org/2012/09/kd/class/"+ object;
                     flag = "false";
@@ -74,9 +82,9 @@ public abstract class DataObject {
                 connection = (HttpURLConnection) urlObject.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                OutputStream os = connection.getOutputStream(); 
+                OutputStream os = connection.getOutputStream();
                 String postStr = "subject="+subject+"&predicate="+predicate+"&object="+object+"&literalFlag="+flag;
-                System.out.println(postStr);
+                //System.out.println(postStr);
                 PrintStream ps = new PrintStream(os);
                 ps.print(postStr);
                 ps.close();
@@ -84,10 +92,10 @@ public abstract class DataObject {
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     try (InputStreamReader isr = new InputStreamReader(connection.getInputStream(),
                                                                        StandardCharsets.UTF_8);
-                         BufferedReader reader = new BufferedReader(isr)) {
+                        BufferedReader reader = new BufferedReader(isr)) {
                         String line;
                         while ((line = reader.readLine()) != null) {
-                            System.out.println(line);
+                            //System.out.println(line);
                         }
                     }
                 }

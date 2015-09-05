@@ -10,6 +10,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -23,13 +24,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MetadataController {
 
+    private static final Logger logger = Logger.getLogger(MetadataController.class);
+
     private String addUrl;
     private String deleteUrl;
     private String sparqlUrl;
-    
+
     @RequestMapping(value="/addWorkflow", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
     public @ResponseBody String addWorkflow(@RequestParam String projectID,@RequestParam String workflowJSON, @RequestParam String properties)
             throws JsonProcessingException, IOException {
+
+        //logger.info(new Throwable().getStackTrace()[0].getClassName() + " : "+ new Throwable().getStackTrace()[0].getMethodName() + " : properties >>> ");
+        //System.out.println(properties);
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(workflowJSON);
         JsonNode cells  = root.get("cells");
@@ -39,14 +46,14 @@ public class MetadataController {
         String query = "SELECT DISTINCT ?o WHERE {<"+SF.NS+"project#"+projectID+"> <"+SF.NS+"child> ?o . }";
         String postStr = "query="+query+"&infFlag=false";
         JsonNode deleteJson = mapper.readTree(post(url,postStr));
-        
+
         for (JsonNode target :deleteJson.get("results").get("bindings")){
             String targetURI = target.get("o").get("value").asText();
             url =deleteUrl;
             postStr = "subject="+targetURI;
             post(url,postStr);
         }
-        
+
         url = deleteUrl;
         postStr = "subject="+SF.NS+"project#"+projectID+"&predicate="+SF.NS+"child";
         post(url,postStr);
@@ -85,7 +92,7 @@ public class MetadataController {
         String flag = "false";
         String url  = sparqlUrl;
         String postStr = "query="+query+"&infFlag="+flag;
-        result=post(url,postStr); 
+        result=post(url,postStr);
         return result;
     }
 
@@ -99,18 +106,18 @@ public class MetadataController {
                 connection = (HttpURLConnection) urlObject.openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                OutputStream os = connection.getOutputStream(); 
+                OutputStream os = connection.getOutputStream();
                 PrintStream ps = new PrintStream(os);
                 ps.print(postStr);
                 ps.close();
-                
+
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     try (InputStreamReader isr = new InputStreamReader(connection.getInputStream(),StandardCharsets.UTF_8);
-                         BufferedReader reader = new BufferedReader(isr)) {
+                        BufferedReader reader = new BufferedReader(isr)) {
                         String line;
-                        
+
                         while ((line = reader.readLine()) != null) {
-                            System.out.println(line);
+                            //System.out.println(line);
                             result += line;
                         }
                     }
