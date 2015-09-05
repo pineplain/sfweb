@@ -212,6 +212,7 @@ var showFileListPopUp = function(data) {
 
 $(function() {
     sfProjectUri = $('#project_uri').text();
+    $("#link_to_kashiwade").attr("href", KASHIWADE_BASE_URL + "common/metadata?resourceUri="+encodeURIComponent(sfProjectUri));//Link to KASHIWADE
     sfProjectName = '';
     sfProjectId = sfProjectUri.split('#')[1];
 

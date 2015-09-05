@@ -80,6 +80,11 @@
                 <button id="import_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Import"><i class="fa fa-download"></i></button>
                 <button id="export_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Export"><i class="fa fa-upload"></i></button>
             </span>
+
+            <!-- link to kashiwade -->
+            <span class="btn-group">
+                <a id="link_to_kashiwade" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="View on KASHIWADE"><i class="fa fa-list-alt"></i></a>
+            </span>
         </div>
 
         <!-- graph -->
