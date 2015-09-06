@@ -143,7 +143,7 @@ var getDocumentList = function(resourceUri, nodeUri) {
     }
 
     var query = 'SELECT DISTINCT * WHERE { ';
-    query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedFlow> <' + resourceUri + '> . ';
+    query += '<' + resourceUri + '> <http://sfweb.is.k.u-tokyo.ac.jp/child> ?nodeUri . ';
     query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedNode> ?nodeUri . ';
     if (nodeUri != null) { // ノードの指定がある場合
         query += 'filter (?nodeUri = <' + nodeUri + '> ) . ';
@@ -561,11 +561,6 @@ $(function() {
             var fields = new Array();
             var values = new Array();
             var literalFlags = new Array();
-
-            //ProjectUriとドキュメントの紐づけ
-            fields.push(SF_NAME_SPACE+"relatedFlow");
-            values.push(sfProjectUri);
-            literalFlags.push("false");
 
             //NodeUriとドキュメントの紐づけ
             var nodeId = $("#task_id").val();
