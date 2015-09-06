@@ -227,6 +227,9 @@ $(function() {
     //initialize dataTable
     $('#fileTable').DataTable();
 
+    //auto resize textarea
+    $('textarea').autosize();
+
     // get project name
     var query = 'SELECT DISTINCT ?name WHERE { ';
     query += '<' + sfProjectUri + '> ';

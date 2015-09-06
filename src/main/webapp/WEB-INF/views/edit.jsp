@@ -104,23 +104,23 @@
             <tbody>
                 <tr>
                     <td>Task id</td>
-                    <td><input readonly class="sf-prop-field form-control" id="task_id"/></td>
+                    <td><textarea id="task_id" readonly class="sf-prop-field form-control"></textarea></td>
                 </tr>
                 <tr>
                     <td>Task name</td>
-                    <td><input id="task_name" class="sf-prop-field form-control" type="text"></td>
+                    <td><textarea id="task_name" class="sf-prop-field form-control" ></textarea></td>
                 </tr>
                 <tr>
                     <td>Workload</td>
-                    <td><input id="workload" class="sf-prop-field form-control" type="text"></td>
+                    <td><textarea id="workload" class="sf-prop-field form-control" ></textarea></td>
                 </tr>
                 <tr>
                     <td>Worker</td>
-                    <td><input id="worker" class="sf-prop-field form-control" type="text"></td>
+                    <td><textarea id="worker" class="sf-prop-field form-control" ></textarea></td>
                 </tr>
                 <tr>
                     <td>Location</td>
-                    <td><input id="location" class="sf-prop-field form-control" type="text"></td>
+                    <td><textarea id="location" class="sf-prop-field form-control"></textarea></td>
                 </tr>
                 <tr>
                     <td>Comment</td>
@@ -187,6 +187,7 @@
 <script src="<c:url value='/resources/js/main.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/thirdparty/autoSize/jquery.autosize-min.js' />"></script>
 </body>
 
 </html>
