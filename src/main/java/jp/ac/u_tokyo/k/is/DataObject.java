@@ -95,8 +95,8 @@ public abstract class DataObject {
                         BufferedReader reader = new BufferedReader(isr)) {
                         String line;
                         while ((line = reader.readLine()) != null) {
-                            logger.info(new Throwable().getStackTrace()[0].getClassName() + " : "+ new Throwable().getStackTrace()[0].getMethodName() + " : line >>> ");
-                            System.out.println(line);
+                            //logger.info(new Throwable().getStackTrace()[0].getClassName() + " : "+ new Throwable().getStackTrace()[0].getMethodName() + " : line >>> ");
+                            //System.out.println(line);
                         }
                     }
                 }

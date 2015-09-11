@@ -25,18 +25,6 @@ public class UIController {
     private HttpServletRequest request;
 
     /**
-     * ワークフローの編集
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String edit(Model model, @RequestParam String resourceUri) throws Exception {
-        model.addAttribute("resourceUri", resourceUri);
-        return "edit";
-    }
-
-    /**
      * HOME画面
      *
      * @return
@@ -56,6 +44,30 @@ public class UIController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list() throws Exception {
         return "list";
+    }
+
+    /**
+     * ワークフローの閲覧
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    public String view(Model model, @RequestParam String resourceUri) throws Exception {
+        model.addAttribute("resourceUri", resourceUri);
+        return "view";
+    }
+
+    /**
+     * ワークフローの編集
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String edit(Model model, @RequestParam String resourceUri) throws Exception {
+        model.addAttribute("resourceUri", resourceUri);
+        return "edit";
     }
 
     @ExceptionHandler(Exception.class)

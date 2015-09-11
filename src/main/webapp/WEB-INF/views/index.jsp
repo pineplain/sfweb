@@ -71,10 +71,9 @@
                 id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="list">Workflow List</a></li>
-                    <li><a
-                        href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList">Document
+                    <li><a id="document_link">Document
                             List</a></li>
-                    <li><a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/">KASHIWADE</a>
+                    <li><a id="kashiwade_link">KASHIWADE</a>
                     </li>
                 </ul>
             </div>
@@ -244,6 +243,22 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="resources/thirdparty/creative/js/creative.js"></script>
+
+    <script type="text/javascript"
+        src="<c:url value='/resources/js/uri.js' />"></script>
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(function() {
+            jQuery.ajaxSetup({
+                cache : false
+            });
+
+            $("#document_link").attr("href", KASHIWADE_BASE_URL+"common/resourceList");
+            $("#kashiwade_link").attr("href", KASHIWADE_BASE_URL);
+        });
+
+        </script>
 
 </body>
 

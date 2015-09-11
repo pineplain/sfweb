@@ -95,6 +95,7 @@ var createCellFromURIValuePair = function(data) {
 };
 
 var createSfPropFromURIValuePair =  function(data) {
+	console.log(data);
     var prop = {};
     prop.comment = data[SF_NAME_SPACE+'comment'];
     prop.id = data[SF_NAME_SPACE+'id'];

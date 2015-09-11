@@ -22,12 +22,6 @@
                 <li>
                     <a href="list">Workflow List</a>
                 </li>
-                <li>
-                    <a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/common/resourceList">Document List</a>
-                </li>
-                <li>
-                    <a href="http://heineken.is.k.u-tokyo.ac.jp/forest3/">KASHIWADE</a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
