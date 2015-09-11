@@ -184,6 +184,7 @@
 <script src="<c:url value='/resources/thirdparty/jointjs/js/joint.layout.DirectedGraph.min.js' />"></script>
 <script src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
 <!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
+<script type="text/javascript" src="<c:url value='/resources/js/uri.js' />"></script>
 <script src="<c:url value='/resources/js/main.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>

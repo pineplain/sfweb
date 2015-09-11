@@ -1,5 +1,4 @@
-var SF_NAME_SPACE = "http://sfweb.is.k.u-tokyo.ac.jp/";
-var KASHIWADE_BASE_URL = "http://heineken.is.k.u-tokyo.ac.jp/forest3/";
+var SF_NAME_SPACE = prefixes.sf;
 var GROUP_NAME = 'forest3';
 
 var sfProjectUri, sfProjectId, sfProjectName;
@@ -171,8 +170,8 @@ var getDocumentList = function(resourceUri, nodeUri) {
 
 var showFileListPopUp = function(data) {
 
-	//dataTablesのReset
-	$("#fileTable").dataTable().fnDestroy();
+    //dataTablesのReset
+    $("#fileTable").dataTable().fnDestroy();
 
     var tbody = $("#tbody");
     tbody.empty();
