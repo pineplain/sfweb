@@ -29,9 +29,9 @@
 
     <!-- Constructor Injection of Setting-->
     <beans:bean id="metadataController" class="jp.ac.u_tokyo.k.is.MetadataController">
-        <beans:property name="deleteUrl" value="http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/delete"/>
-        <beans:property name="addUrl" value="http://heineken.is.k.u-tokyo.ac.jp/forest3/metadata/add"/>
-        <beans:property name="sparqlUrl" value="http://heineken.is.k.u-tokyo.ac.jp/forest3/sparql"/>
+        <beans:property name="deleteUrl" value="http://172.16.53.65:7070/kashiwade/metadata/delete"/>
+        <beans:property name="addUrl" value="http://172.16.53.65:7070/kashiwade/metadata/add"/>
+        <beans:property name="sparqlUrl" value="http://172.16.53.65:7070/kashiwade/sparql"/>
     </beans:bean>
 
 

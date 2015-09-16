@@ -95,7 +95,6 @@ var createCellFromURIValuePair = function(data) {
 };
 
 var createSfPropFromURIValuePair =  function(data) {
-	console.log(data);
     var prop = {};
     prop.comment = data[SF_NAME_SPACE+'comment'];
     prop.id = data[SF_NAME_SPACE+'id'];
@@ -118,12 +117,14 @@ var importSfPropFromJSON = function(graph, json) {
     });
 };
 
+//中心を設定する
 var centerGraph = function(paper) {
     var $holder = $('#holder');
     var box = paper.getContentBBox();
-    paper.setOrigin(($holder.width() - box.width) / 2, ($holder.height() - box.height) / 2);
+    //paper.setOrigin(($holder.width() - box.width) / 2, ($holder.height() - box.height) / 2);
 };
 
+//選択解除
 var clearSelect = function() {
     if (isRect(selectedCell) || isCircle(selectedCell)) {
         setCellColor(selectedCell, 'blue');
@@ -161,7 +162,6 @@ var getDocumentList = function(resourceUri, nodeUri) {
         data : { query : query, },
         async: false,
         success : function(data) {
-            // console.log(data.results.bindings);
             result = data.results.bindings;
         },
     });
@@ -249,7 +249,7 @@ $(function() {
                 //dialog
                 $("#dialog-icon").attr('src', 'resources/img/errorIcon.png');
                 $("#dialog-head").text('ERROR');
-                $("#dialog-text").text(sfProjectUri+'cannot be loaded.');
+                $("#dialog-text").text(sfProjectUri+' cannot be loaded.');
                 $.magnificPopup.open({
                     items: {
                         src: $('#dialog')
@@ -373,7 +373,6 @@ $(function() {
             // var nodeId = cell.sfProp.id;
             var nodeUri = SF_NAME_SPACE + "node#" + cell.sfProp.id;
             var data = getDocumentList(sfProjectUri, nodeUri);
-            // console.log(data);
             $('#file_count').html(data.length + ' files');
         } else {
             $('#file_count').html('');
@@ -453,8 +452,6 @@ $(function() {
                 var propsJson = { 'props': [] };
                 var resultJson = $.parseJSON(data).results.bindings;
 
-                // console.log(resultJson);
-
                 var dataJson = {};
                 $.each(resultJson, function(i, result) {
                     var uri = result.childURI.value;
@@ -466,17 +463,12 @@ $(function() {
                     dataJson[uri][property] = value;
                 });
 
-                // console.log(dataJson);
-
                 $.each(dataJson, function(i, data) {
                     var cell = createCellFromURIValuePair(data);
                     graphJson.cells.push(cell);
                     var prop = createSfPropFromURIValuePair(data);
                     propsJson.props.push(prop);
                 });
-
-                // console.log(graphJson);
-                // console.log(propsJson);
 
                 graph.fromJSON(graphJson);
                 importSfPropFromJSON(graph, propsJson);
@@ -498,7 +490,7 @@ $(function() {
         var workflowJSON = JSON.stringify(graph.toJSON());
         var properties = JSON.stringify({ props: sfPropAry });
         $.ajax({
-            url: '/sfweb/addWorkflow',
+            url: '/sfweb/addWorkflow2',
             type: 'POST',
             dataType: 'text',
             data: {

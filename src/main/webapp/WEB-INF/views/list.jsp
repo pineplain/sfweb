@@ -195,7 +195,7 @@
 
                         var a = $("<a>");
                         td.append(a);
-                        a.attr("href", "edit?resourceUri="
+                        a.attr("href", "view?resourceUri="
                                 + encodeURIComponent(obj.s.value));
                         a.attr("class", "btn btn-default");
                         a.append("View Detail&nbsp;&raquo;");

@@ -1,14 +1,19 @@
 #holder {
     width: 100%;
-    height: 600px;
-    border: solid;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    overflow: scroll;
+    height: 80%;
+    border: 1px solid lightgray;
+}
+
+.sf-container {
+    margin : 50px;
 }
 
 .link-tools .tool-remove {
     display: none;
+}
+
+.tool_box {
+    margin: 5px;
 }
 
 .white-popup-block {

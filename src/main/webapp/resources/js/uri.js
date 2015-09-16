@@ -1,4 +1,4 @@
-var KASHIWADE_BASE_URL = "http://heineken.is.k.u-tokyo.ac.jp/forest3/";
+var KASHIWADE_BASE_URL = "http://172.16.53.65:7070/kashiwade/";
 
 var prefixes = new Object();
 prefixes ["dc"] = "http://purl.org/dc/elements/1.1/";
