@@ -284,48 +284,7 @@ $(function() {
 		}
 	});
 
-	var paperScroller = new joint.ui.PaperScroller({
-		autoResizePaper : true,
-		padding : 50,
-		paper : paper
-	});
-
-	// Initiate panning when the user grabs the blank area of the paper.
-	paper.on('blank:pointerdown', paperScroller.startPanning);
-
-	paperScroller.$el.css({
-		width : "100%",
-		height : "100%"
-	});
-
-	$app.append(paperScroller.render().el);
-
-	// Example of centering the paper.
-	paperScroller.center();
-
-	// Toolbar buttons.
-
-	$('#btn-center').on('click', _.bind(paperScroller.center, paperScroller));
-	$('#btn-center-content').on('click',
-			_.bind(paperScroller.centerContent, paperScroller));
-
-	$('#btn-zoomin').on('click', function() {
-		paperScroller.zoom(0.2, {
-			max : 2
-		});
-	});
-	$('#btn-zoomout').on('click', function() {
-		paperScroller.zoom(-0.2, {
-			min : 0.2
-		});
-	});
-	$('#btn-zoomtofit').on('click', function() {
-		paperScroller.zoomToFit({
-			minScale : 0.2,
-			maxScale : 2
-		});
-	});
-
+	// add nodes and edges
 	paper.on('blank:pointerclick', function(evt, x, y) {
 		if ($('#rect_btn').hasClass('active')) {
 			// add rect when clicked
@@ -420,6 +379,48 @@ $(function() {
 		}
 	});
 
+	var paperScroller = new joint.ui.PaperScroller({
+		autoResizePaper : true,
+		padding : 50,
+		paper : paper
+	});
+
+	// Initiate panning when the user grabs the blank area of the paper.
+	paper.on('blank:pointerdown', paperScroller.startPanning);
+
+	paperScroller.$el.css({
+		width : "100%",
+		height : "100%"
+	});
+
+	$app.append(paperScroller.render().el);
+
+	// Example of centering the paper.
+	paperScroller.center();
+
+	// Toolbar buttons.
+
+	$('#btn-center').on('click', _.bind(paperScroller.center, paperScroller));
+	$('#btn-center-content').on('click',
+			_.bind(paperScroller.centerContent, paperScroller));
+
+	$('#btn-zoomin').on('click', function() {
+		paperScroller.zoom(0.2, {
+			max : 2
+		});
+	});
+	$('#btn-zoomout').on('click', function() {
+		paperScroller.zoom(-0.2, {
+			min : 0.2
+		});
+	});
+	$('#btn-zoomtofit').on('click', function() {
+		paperScroller.zoomToFit({
+			minScale : 0.2,
+			maxScale : 2
+		});
+	});
+
 	// show property icon when mouseovered
 	paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 		// change color
@@ -471,8 +472,14 @@ $(function() {
 
 	// clear graph when clear button clicked
 	$('#clear_btn').click(function() {
-		graph.clear();
-		selectedCell = null;
+
+		if (window.confirm('Are you sure?')) {
+			graph.clear();
+			selectedCell = null;
+		} else {
+			window.alert('Cancelled.');
+		}
+
 	});
 
 	// auto layout
@@ -548,11 +555,14 @@ $(function() {
 				// loading-iconの削除
 				$("#load-data").empty();
 
-				// zoom to fit
-				paperScroller.zoomToFit({
-					minScale : 0.2,
-					maxScale : 2
-				});
+				// 初期読み込み（空）でなければ
+				if (graphJson.cells.length != 0) {
+					// zoom to fit
+					paperScroller.zoomToFit({
+						minScale : 0.2,
+						maxScale : 2
+					});
+				}
 			}
 		});
 	});
