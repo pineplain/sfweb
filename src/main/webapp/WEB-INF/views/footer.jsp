@@ -4,12 +4,13 @@
 <hr>
 
 <footer class="footer">
-    <div class="container" style="text-align: center">
-        <p>
-            Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
-            The University of Tokyo<br> This web site is powered by <a
-                href="https://sourceforge.net/projects/kashiwade/">KASHIWADE</a>
-            <span class="glyphicon glyphicon-copyright-mark"></span> The Univ. of Tokyo
-        </p>
-    </div>
+	<div class="container" style="text-align: center">
+		<p>
+			Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
+			The University of Tokyo<br> This web site is powered by <a
+				href="https://sourceforge.net/projects/kashiwade/">KASHIWADE</a> <span
+				class="glyphicon glyphicon-copyright-mark"></span> The Univ. of
+			Tokyo
+		</p>
+	</div>
 </footer>

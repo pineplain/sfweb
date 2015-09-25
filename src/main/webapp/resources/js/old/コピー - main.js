@@ -46,12 +46,12 @@ var setCellColor = function(cell, color) {
 };
 
 var showSfProps = function(prop) {
-	$('#task_id').text(prop.id);
-	$('#task_name').text(prop.taskName);
-	$('#workload').text(prop.workload);
-	$('#worker').text(prop.worker);
-	$('#location').text(prop.location);
-	$('#comment').text(prop.comment);
+	$('#task_id').val(prop.id);
+	$('#task_name').val(prop.taskName);
+	$('#workload').val(prop.workload);
+	$('#worker').val(prop.worker);
+	$('#location').val(prop.location);
+	$('#comment').val(prop.comment);
 };
 
 var updateSfProps = function(cell) {
@@ -133,6 +133,15 @@ var importSfPropFromJSON = function(graph, json) {
 	});
 };
 
+// 中心を設定する
+var centerGraph = function(paper) {
+	var $holder = $('#holder');
+	var box = paper.getContentBBox();
+	// paper.setOrigin(($holder.width() - box.width) / 2, ($holder.height() -
+	// box.height) / 2);
+};
+
+// 選択解除
 var clearSelect = function() {
 	if (isRect(selectedCell) || isCircle(selectedCell)) {
 		setCellColor(selectedCell, 'blue');
@@ -236,9 +245,6 @@ $(function() {
 			"href",
 			KASHIWADE_BASE_URL + "common/metadata?resourceUri="
 					+ encodeURIComponent(sfProjectUri));// Link to KASHIWADE
-	$("#link_to_edit").attr(
-			"href","edit?resourceUri="
-					+ encodeURIComponent(sfProjectUri));// Link to EDIT
 	sfProjectName = '';
 	sfProjectId = sfProjectUri.split('#')[1];
 
@@ -280,7 +286,8 @@ $(function() {
 		},
 	});
 
-	var graph = new joint.dia.Graph;
+	// graph
+	graph = new joint.dia.Graph;
 
 	// release selected state when removed
 	graph.on('remove', function(cell) {
@@ -319,48 +326,8 @@ $(function() {
 		}
 	});
 
-	var paperScroller = new joint.ui.PaperScroller({
-		autoResizePaper : true,
-		padding : 50,
-		paper : paper
-	});
-
-	// Initiate panning when the user grabs the blank area of the paper.
-	paper.on('blank:pointerdown', paperScroller.startPanning);
-
-	paperScroller.$el.css({
-		width : "100%",
-		height : "100%"
-	});
-
-	$app.append(paperScroller.render().el);
-
-	// Example of centering the paper.
-	paperScroller.center();
-
-	// Toolbar buttons.
-
-	$('#btn-center').on('click', _.bind(paperScroller.center, paperScroller));
-	$('#btn-center-content').on('click',
-			_.bind(paperScroller.centerContent, paperScroller));
-
-	$('#btn-zoomin').on('click', function() {
-		paperScroller.zoom(0.2, {
-			max : 2
-		});
-	});
-	$('#btn-zoomout').on('click', function() {
-		paperScroller.zoom(-0.2, {
-			min : 0.2
-		});
-	});
-	$('#btn-zoomtofit').on('click', function() {
-		paperScroller.zoomToFit({
-			minScale : 0.2,
-			maxScale : 2
-		});
-	});
-
+	// zoom with mouse wheel
+	// paper.$el.on('mousewheel', onMouseWheel);
 	paper.on('blank:pointerclick', function(evt, x, y) {
 		if ($('#rect_btn').hasClass('active')) {
 			// add rect when clicked
@@ -455,6 +422,48 @@ $(function() {
 		}
 	});
 
+	var paperScroller = new joint.ui.PaperScroller({
+		autoResizePaper : true,
+		padding : 50,
+		paper : paper
+	});
+
+	// Initiate panning when the user grabs the blank area of the paper.
+	paper.on('blank:pointerdown', paperScroller.startPanning);
+
+	paperScroller.$el.css({
+		width : "100%",
+		height : "100%"
+	});
+
+	$app.append(paperScroller.render().el);
+
+	// Example of centering the paper.
+	paperScroller.center();
+
+	// Toolbar buttons.
+
+	$('#btn-center').on('click', _.bind(paperScroller.center, paperScroller));
+	$('#btn-center-content').on('click',
+			_.bind(paperScroller.centerContent, paperScroller));
+
+	$('#btn-zoomin').on('click', function() {
+		paperScroller.zoom(0.2, {
+			max : 2
+		});
+	});
+	$('#btn-zoomout').on('click', function() {
+		paperScroller.zoom(-0.2, {
+			min : 0.2
+		});
+	});
+	$('#btn-zoomtofit').on('click', function() {
+		paperScroller.zoomToFit({
+			minScale : 0.2,
+			maxScale : 2
+		});
+	});
+
 	// show property icon when mouseovered
 	paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 		// change color
@@ -512,7 +521,6 @@ $(function() {
 
 	// auto layout
 	$('#layout_btn').click(function() {
-		$("#load-data").append('<img src="resources/img/gif-load.gif"/>');
 		var elements = graph.getElements();
 		var links = graph.getLinks();
 		var cells = elements.concat(links);
@@ -521,8 +529,6 @@ $(function() {
 		joint.layout.DirectedGraph.layout(graph, {
 			setLinkVertices : false,
 		});
-		$("#load-data").empty();
-
 		// zoom to fit
 		paperScroller.zoomToFit({
 			minScale : 0.2,
@@ -575,7 +581,6 @@ $(function() {
 				});
 
 				graph.fromJSON(graphJson);
-
 				importSfPropFromJSON(graph, propsJson);
 
 				console.log('Import succeeded');
@@ -603,56 +608,13 @@ $(function() {
 				var sfPropAry = $.map(graph.getElements(), function(val, idx) {
 					return val.sfProp;
 				});
-
 				var workflowJSON = JSON.stringify(graph.toJSON());
 				var properties = JSON.stringify({
 					props : sfPropAry
 				});
-
-				console.log(sfPropAry);
-				console.log(graph);
-
-				var sfURI = prefixes.sf;
-				var nodeURI = sfURI+"node#";
-			    var linkURI = sfURI+"link#";
-			    var projectURI = sfURI + "project#";
-
-			    var subs = new Array();
-			    var pres = new Array();
-			    var objs = new Array();
-			    var flgs = new Array();
-
-				//Property
-				for(var i = 0; i < sfPropAry.length; i++){
-					var obj = sfPropAry[i];
-					var nodeId = obj.id;
-					$.each(obj, function(k, v) {
-					    if(k != "type"){
-					    	subs.push(nodeURI+nodeId);
-					    	pres.push(sfURI+k);
-					    	objs.push(v);
-					    	flgs.push("true");
-					    }
-
-					});
-
-					subs.push(nodeURI+nodeId);
-					pres.push(sfURI+"prop");
-					objs.push(JSON.stringify(sfPropAry));
-					flgs.push("true");
-				}
-
-				console.log(objs);
-				//Graph
-				var models = graph.attributes.cells;
-				console.log(models);
-
-
-				/*
-
 				$
 						.ajax({
-							url : '/sfweb/addWorkflow2',
+							url : '/sfweb/addWorkflow',
 							type : 'POST',
 							dataType : 'text',
 							data : {
@@ -698,8 +660,6 @@ $(function() {
 								$("#load-data").empty();
 							}
 						});
-
-						*/
 			});
 
 	// file upload
@@ -728,7 +688,7 @@ $(function() {
 			// NodeUriとドキュメントの紐づけ
 			var nodeId = $("#task_id").val();
 			var nodeUri = SF_NAME_SPACE + "node#" + nodeId;// NodeUri --
-			// SPARQL検索に変更したほうがよいか？
+															// SPARQL検索に変更したほうがよいか？
 			fields.push(SF_NAME_SPACE + "relatedNode");
 			values.push(nodeUri);
 			literalFlags.push("false");
@@ -791,14 +751,12 @@ $(function() {
 		}
 	});
 
-	// resize paper object
-	// $(window).resize(function() {
-	// paper.setDimensions($('#holder').width(), $('#holder').height());
-	// });
-
 	// tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 
 	// import project
 	$('#import_btn').click();
+
+	// loading-iconの削除
+	$("#load-data").empty();
 });

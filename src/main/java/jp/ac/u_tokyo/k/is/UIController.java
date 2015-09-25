@@ -19,60 +19,63 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 public class UIController {
-    private static final Logger logger = Logger.getLogger(UIController.class);
+	private static final Logger logger = Logger.getLogger(UIController.class);
 
-    @Autowired
-    private HttpServletRequest request;
+	@Autowired
+	private HttpServletRequest request;
 
-    /**
-     * HOME画面
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() throws Exception {
-        return "index";
-    }
+	/**
+	 * HOME画面
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index() throws Exception {
+		return "index";
+	}
 
-    /**
-     * ワークフローのリスト
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list() throws Exception {
-        return "list";
-    }
+	/**
+	 * ワークフローのリスト
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list() throws Exception {
+		return "list";
+	}
 
-    /**
-     * ワークフローの閲覧
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String view(Model model, @RequestParam String resourceUri) throws Exception {
-        model.addAttribute("resourceUri", resourceUri);
-        return "view";
-    }
+	/**
+	 * ワークフローの閲覧
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String view(Model model, @RequestParam String resourceUri)
+			throws Exception {
+		model.addAttribute("resourceUri", resourceUri);
+		return "view";
+	}
 
-    /**
-     * ワークフローの編集
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String edit(Model model, @RequestParam String resourceUri) throws Exception {
-        model.addAttribute("resourceUri", resourceUri);
-        return "edit";
-    }
+	/**
+	 * ワークフローの編集
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String edit(Model model, @RequestParam String resourceUri)
+			throws Exception {
+		model.addAttribute("resourceUri", resourceUri);
+		return "edit";
+	}
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public @ResponseBody String handleException(Exception ex, HttpServletRequest request) {
-        return ex.getMessage();
-    }
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public @ResponseBody String handleException(Exception ex,
+			HttpServletRequest request) {
+		return ex.getMessage();
+	}
 }

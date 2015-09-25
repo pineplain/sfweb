@@ -104,11 +104,11 @@
 					</span>
 
 					<!-- edit -->
-                    <span class="btn-group"> <a id="link_to_edit"
-                        type="button" class="btn btn-default" data-toggle="tooltip"
-                        data-placement="bottom" title="Edit"><i
-                            class="fa fa-pencil-square-o"></i></a>
-                    </span>
+					<span class="btn-group"> <a id="link_to_edit" type="button"
+						class="btn btn-default" data-toggle="tooltip"
+						data-placement="bottom" title="Edit"><i
+							class="fa fa-pencil-square-o"></i></a>
+					</span>
 
 					<!-- link to kashiwade -->
 					<span class="btn-group"> <a id="link_to_kashiwade"
@@ -168,10 +168,6 @@
 							</span>
 							</td>
 						</tr>
-						<tr>
-							<td>Test</td>
-							<td><div id="test"></div></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -222,7 +218,8 @@
 		src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/js/uri.js' />"></script>
-	<script src="<c:url value='/resources/js/main2.js' />"></script>
+	<script src="<c:url value='/resources/js/common.js' />"></script>
+	<script src="<c:url value='/resources/js/view.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 
