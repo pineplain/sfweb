@@ -18,11 +18,17 @@
 				Web</a>
 		</div>
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
+            id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="nav">
+                <li><a href="list"><span class="glyphicon glyphicon-list"></span>&nbsp;Workflow List</a></li>
+                    </ul>
+
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="list">Workflow List</a></li>
+				                <li><a><span class="glyphicon glyphicon-user"></span>&nbsp;<sec:authentication
+                            property="principal.username" /></a></li>
+                <li><a href="<c:url value='/logout' />"><span
+                        class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

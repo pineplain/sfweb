@@ -7,6 +7,33 @@ var showSfProps = function(prop) {
 	$('#comment').val(prop.comment);
 };
 
+var showInfo = function(data){
+
+	var attrs = data.attributes.attrs;
+
+	//Fill Color
+	var type;
+	if(attrs.circle){
+		type = attrs.circle;
+	} else if(attrs.rect){
+		type = attrs.rect;
+	}
+
+	var fill_color_type = type.fill;
+	$("#fill_color_type").val(fill_color_type);
+
+	var text = attrs.text;
+
+	//Text Color
+	var fill_color_text = text.fill;
+	$("#fill_color_text").val(fill_color_text);
+
+	//Font Size
+	var fontSize = text["font-size"];
+	$("#font_size").val(fontSize);
+
+};
+
 var updateSfProps = function(cell) {
 	if (cell !== null) {
 		cell.sfProp = {
@@ -22,13 +49,32 @@ var updateSfProps = function(cell) {
 	}
 };
 
+var updateInfo = function(cell) {
+	if (cell !== null) {
+		var attributes = cell.attributes;
+
+		var attrs = attributes.attrs;
+
+		var text = attrs.text;
+		text.fill = $("#fill_color_text").val();
+		text["font-size"] = $("#font_size").val();
+
+		//---------------------------
+
+		var type;
+		if(attrs.circle){
+			type = attrs.circle;
+		} else if(attrs.rect){
+			type = attrs.rect;
+		}
+
+		type.fill = $("#fill_color_type").val();
+	}
+};
+
 // 選択解除
 var clearSelect = function() {
-	if (isRect(selectedCell) || isCircle(selectedCell)) {
-		setCellColor(selectedCell, 'blue');
-	} else if (isLink(selectedCell)) {
-		setCellColor(selectedCell, 'black');
-	}
+	unSelectCell(selectedCell);
 	selectedCell = null;
 	$('.sf-prop-field').val('');
 	$('file_count').html('');

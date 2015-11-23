@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ page session="false"%>
 <jsp:directive.page contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" />
@@ -33,7 +35,7 @@
 
 	<div class="container">
 		<h3 class="page-header">
-			<span id="project_name"></span>
+			<small>Project Name：</small>&nbsp;<span id="project_name"></span>
 		</h3>
 
 		<!-- loading json -->
@@ -44,13 +46,21 @@
 
 		<div class="row">
 			<div class="col-md-9">
-				<div id="tool_box" class="tool_box">
+				<div id="tool_box" class="tool_box panel panel-default">
+                    <div class="panel-heading">
 					<!--- fit / zoom -->
 					<span class="btn-group">
 						<button id="btn-zoomtofit" type="button" class="btn btn-default"
 							data-toggle="tooltip" data-placement="bottom" title="Zoom to fit">
 							<i class="fa fa-align-center"></i>
-						</button>
+						</button> <!--- layout -->
+						<button id="layout_btn" type="button" class="btn btn-default"
+							data-toggle="tooltip" data-placement="bottom" title="Layout">
+							<i class="fa fa-sort-amount-asc"></i>
+						</button> <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
+
+
+					</span> <span class="btn-group">
 						<button id="btn-zoomin" type="button" class="btn btn-default"
 							data-toggle="tooltip" data-placement="bottom" title="Zoom in">
 							<i class="fa fa-search-plus"></i>
@@ -59,14 +69,6 @@
 							data-toggle="tooltip" data-placement="bottom" title="Zoom out">
 							<i class="fa fa-search-minus"></i>
 						</button>
-					</span>
-
-					<!--- layout -->
-					<span class="btn-group">
-						<button id="layout_btn" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Layout">
-							<i class="fa fa-sort-amount-asc"></i>
-						</button> <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
 					</span>
 
 					<!--- all files -->
@@ -81,16 +83,13 @@
 					<!-- import / export -->
 					<span class="btn-group">
 						<button id="import_btn" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Import">
-							<i class="fa fa-download"></i>
-						</button>
-						<button id="export_btn" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Export">
-							<i class="fa fa-upload"></i>
+							data-toggle="tooltip" data-placement="bottom" title="Reload">
+							<i class="fa fa-refresh"></i>
 						</button>
 					</span>
 
 					<!-- center -->
+					<!--
 					<span class="btn-group">
 						<button id="btn-center" type="button" class="btn btn-default"
 							data-toggle="tooltip" data-placement="bottom" title="Center">
@@ -102,20 +101,17 @@
 							<i class="fa fa-align-center"></i>
 						</button>
 					</span>
+					 -->
 
 					<!-- edit -->
-					<span class="btn-group"> <a id="link_to_edit" type="button"
-						class="btn btn-default" data-toggle="tooltip"
-						data-placement="bottom" title="Edit"><i
-							class="fa fa-pencil-square-o"></i></a>
-					</span>
-
-					<!-- link to kashiwade -->
-					<span class="btn-group"> <a id="link_to_kashiwade"
-						type="button" class="btn btn-default" data-toggle="tooltip"
-						data-placement="bottom" title="View on KASHIWADE"><i
-							class="fa fa-list-alt"></i></a>
-					</span>
+					<sec:authorize ifAnyGranted="ROLE_ADMIN">
+						<span class="btn-group"> <a id="link_to_edit" type="button"
+							class="btn btn-default" data-toggle="tooltip"
+							data-placement="bottom" title="Edit mode"><i
+								class="fa fa-pencil-square-o"></i></a>
+						</span>
+					</sec:authorize>
+				</div>
 				</div>
 				<!-- graph -->
 				<div id="holder"></div>
@@ -123,53 +119,55 @@
 
 			<div class="col-md-3">
 				<!-- properties -->
-				<h4>Properties</h4>
-				<table class="table table-hover table-striped table-bordered">
-					<thead>
-						<tr>
-							<th>Key</th>
-							<th>Value</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Task id</td>
-							<td><span id="task_id" class="sf-prop-field"></span></td>
-						</tr>
-						<tr>
-							<td>Task name</td>
-							<td><span id="task_name" class="sf-prop-field"></span></td>
-						</tr>
-						<tr>
-							<td>Workload</td>
-							<td><span id="workload" class="sf-prop-field"></span></td>
-						</tr>
-						<tr>
-							<td>Worker</td>
-							<td><span id="worker" class="sf-prop-field"></span></td>
-						</tr>
-						<tr>
-							<td>Location</td>
-							<td><span id="location" class="sf-prop-field"></span></td>
-						</tr>
-						<tr>
-							<td>Comment</td>
-							<td><span id="comment" class="sf-prop-field"></span></td>
-						</tr>
-						<tr>
-							<td>Files</td>
-							<td>
-								<p id="file_count"></p> <span class="btn-group">
-									<button id="file_list_btn" type="button"
-										class="btn btn-default" data-toggle="tooltip"
-										data-placement="bottom" title="List files">
-										<i class="fa fa-list-alt"></i>
-									</button>
-							</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Properties</h3>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Key</th>
+									<th>Value</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Task name</td>
+									<td><span id="task_name" class="sf-prop-field"></span></td>
+								</tr>
+								<tr>
+									<td>Workload</td>
+									<td><span id="workload" class="sf-prop-field"></span></td>
+								</tr>
+								<tr>
+									<td>Worker</td>
+									<td><span id="worker" class="sf-prop-field"></span></td>
+								</tr>
+								<tr>
+									<td>Location</td>
+									<td><span id="location" class="sf-prop-field"></span></td>
+								</tr>
+								<tr>
+									<td>Comment</td>
+									<td><span id="comment" class="sf-prop-field"></span></td>
+								</tr>
+								<tr>
+									<td>Files</td>
+									<td>
+										<p id="file_count"></p> <span class="btn-group">
+											<button id="file_list_btn" type="button"
+												class="btn btn-default" data-toggle="tooltip"
+												data-placement="bottom" title="List files">
+												<i class="fa fa-list-alt"></i>
+											</button>
+									</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 
