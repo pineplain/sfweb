@@ -1,14 +1,19 @@
-# sfweb
 
-1. KASHIWADEのURL設定
-   Windows Server 2008 R2 Standard 64bit、Windows7 64bitで動作確認済み
-   以下の開発環境の内、1つをセットアップします。
+#ShareFast Web 設定手順
+######2015/11/24 作成
 
-   動作確認済み
-     ■Eclipse Pleiades All in One（Luna 32bit/64bit Java Full Edition) + m2eプラグイン（ヘルプ -> 新規ソフトウェアのインストールからインストール可能）
-       http://ftp.jaist.ac.jp/pub/mergedoc/pleiades/4.4/pleiades-e4.4-java-32bit-jre_20140926.zip
-       http://ftp.jaist.ac.jp/pub/mergedoc/pleiades/4.4/pleiades-e4.4-java-jre_20140926.zip
 
-   動作未確認
-     ■Eclipse + Tomcat 7 + WTPプラグイン + m2eプラグイン
-     ■STS(3.1) + Tomcat 7
+##1. 前提条件
+本アプリケーションの実行には別途「KASHIWADE」アプリケーションが必要です。
+「KASHIWADE」のセットアップが済んでいない方は, 以下からセットアップしてください。
+
+[https://sourceforge.net/projects/kashiwade/](https://sourceforge.net/projects/kashiwade/)
+
+
+##2. 設定項目（必須）：「KASHIWADE」サーバ情報の設定
+「sfweb\src\main\webapp\resources\js\uri.js」内に記述されている「KASHIWADE_BASE_URL」を自身の環境に合わせて修正してください。
+合わせて「GROUP＿NAME」についても, 自由に変更してください。ファイル登録時のメタデータの一つとなります。
+
+##3. 設定項目（任意）：ユーザ情報の設定
+「sfweb\src\main\webapp\WEB-INF\spring\security.xml」内にログインユーザ情報が記載されています。
+必要に応じてユーザの登録や, 権限の変更を行ってください。
