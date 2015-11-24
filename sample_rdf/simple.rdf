@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://kashiwade.org/2012/09/kd/class/"
+    xmlns:j.1="http://sfweb.is.k.u-tokyo.ac.jp/">
+  <j.0:project rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/project#1448265582719">
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#5d474cef-4f79-4c7d-b3c8-740debed7f12">
+        <j.1:graphJson>{"type":"link","source":{"id":"2c3aee80-820d-4498-8f26-8e5be8f7bf68"},"target":{"id":"7cb1c858-e5d9-4228-b411-34ec48e7c63c"},"id":"5d474cef-4f79-4c7d-b3c8-740debed7f12","z":3,"smooth":false,"attrs":{".connection":{"stroke-width":3,"stroke":"black","stroke-dasharray":"0"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:target>
+          <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#7cb1c858-e5d9-4228-b411-34ec48e7c63c">
+            <j.1:taskName>Task 2</j.1:taskName>
+            <j.1:graphJson>{"type":"basic.Rect","position":{"x":1102,"y":960},"size":{"width":150,"height":60},"angle":0,"id":"7cb1c858-e5d9-4228-b411-34ec48e7c63c","z":2,"attrs":{"rect":{"fill":"rgb(240, 14, 240)","stroke":"black","stroke-width":1},"text":{"fill":"rgb(255, 255, 255)","text":"Task 2","font-size":"14"}}}</j.1:graphJson>
+            <j.1:worker></j.1:worker>
+            <j.1:location></j.1:location>
+            <j.1:comment></j.1:comment>
+            <j.1:workload></j.1:workload>
+            <j.1:id>7cb1c858-e5d9-4228-b411-34ec48e7c63c</j.1:id>
+          </j.0:Node>
+        </j.1:target>
+        <j.1:source>
+          <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#2c3aee80-820d-4498-8f26-8e5be8f7bf68">
+            <j.1:taskName>Task 1</j.1:taskName>
+            <j.1:graphJson>{"type":"basic.Rect","position":{"x":629,"y":732},"size":{"width":150,"height":60},"angle":0,"id":"2c3aee80-820d-4498-8f26-8e5be8f7bf68","z":1,"attrs":{"rect":{"fill":"blue","stroke":"black","stroke-width":1},"text":{"fill":"white","text":"Task 1"}}}</j.1:graphJson>
+            <j.1:worker></j.1:worker>
+            <j.1:location></j.1:location>
+            <j.1:comment></j.1:comment>
+            <j.1:workload></j.1:workload>
+            <j.1:id>2c3aee80-820d-4498-8f26-8e5be8f7bf68</j.1:id>
+          </j.0:Node>
+        </j.1:source>
+        <j.1:id>5d474cef-4f79-4c7d-b3c8-740debed7f12</j.1:id>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:projectName>サンプルプロジェクト</j.1:projectName>
+    <j.1:child rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#2c3aee80-820d-4498-8f26-8e5be8f7bf68"/>
+    <j.1:created>2015/11/23 16:59:42</j.1:created>
+    <j.1:creator>中村覚</j.1:creator>
+    <j.1:child rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#7cb1c858-e5d9-4228-b411-34ec48e7c63c"/>
+    <j.1:updatedBy>?user</j.1:updatedBy>
+    <j.1:projectId>1448265582719</j.1:projectId>
+    <j.1:updated>2015/11/24 19:59:03</j.1:updated>
+  </j.0:project>
+</rdf:RDF>

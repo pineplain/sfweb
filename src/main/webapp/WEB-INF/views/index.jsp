@@ -33,7 +33,11 @@
 		<div class="jumbotron">
 			<h1>ShareFast Web</h1>
 			<p>Application for document management system based on workflow</p>
-			<p>
+            <p>
+			<img class="img-thumbnail img-responsive"
+				src="<c:url value='/resources/img/sf.png' />" />
+            </p>
+			<p class="text-center">
 				<a class="btn btn-lg btn-primary" href="list" role="button">View
 					Workflow List &raquo;</a>
 			</p>

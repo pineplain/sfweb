@@ -1,5 +1,4 @@
 var SF_NAME_SPACE = prefixes.sf;
-var GROUP_NAME = 'forest3';
 
 var sfProjectUri, sfProjectId, sfProjectName;
 var paper, graph;
@@ -79,58 +78,6 @@ var unSelectCell = function(cell) {
 	}
 };
 
-var createCellFromURIValuePair = function(data) {
-	var cell = {};
-	cell.type = data[SF_NAME_SPACE + 'shape'];
-	cell.id = data[SF_NAME_SPACE + 'id'];
-	cell.z = parseInt(data[SF_NAME_SPACE + 'z']);
-
-	if (data[SF_NAME_SPACE + 'type'] == 'Node') {
-		cell.angle = parseInt(data[SF_NAME_SPACE + 'angle']);
-		cell.attrs = {
-			'rect' : {},
-			'text' : {}
-		};
-		cell.attrs.rect.fill = data[SF_NAME_SPACE + 'fill_color'];
-		cell.attrs.text.fill = data[SF_NAME_SPACE + 'text_color'];
-		cell.attrs.text.text = data[SF_NAME_SPACE + 'text'];
-		cell.position = {};
-		cell.position.x = parseInt(data[SF_NAME_SPACE + 'position_x']);
-		cell.position.y = parseInt(data[SF_NAME_SPACE + 'position_y']);
-		cell.size = {};
-		cell.size.height = parseInt(data[SF_NAME_SPACE + 'height']);
-		cell.size.width = parseInt(data[SF_NAME_SPACE + 'width']);
-	} else if (data[SF_NAME_SPACE + 'type'] == 'Link') {
-		cell.attrs = {
-			'.connection' : {},
-			'.marker-target' : {}
-		};
-		cell.attrs['.connection'].stroke = data[SF_NAME_SPACE + 'stroke'];
-		cell.attrs['.connection']['stroke-width'] = data[SF_NAME_SPACE
-				+ 'stroke_width'];
-		cell.attrs['.marker-target'].d = data[SF_NAME_SPACE + 'd'];
-		cell.attrs['.marker-target'].fill = data[SF_NAME_SPACE + 'fill'];
-		cell.attrs['.marker-target'].stroke = data[SF_NAME_SPACE + 'stroke'];
-		cell.source = {};
-		cell.source.id = data[SF_NAME_SPACE + 'source'].split('#')[1];
-		cell.target = {};
-		cell.target.id = data[SF_NAME_SPACE + 'target'].split('#')[1];
-	}
-
-	return cell;
-};
-
-var createSfPropFromURIValuePair = function(data) {
-	var prop = {};
-	prop.comment = data[SF_NAME_SPACE + 'comment'];
-	prop.id = data[SF_NAME_SPACE + 'id'];
-	prop.location = data[SF_NAME_SPACE + 'location'];
-	prop.taskName = data[SF_NAME_SPACE + 'task_name'];
-	prop.type = data[SF_NAME_SPACE + 'type'].toLowerCase();
-	prop.worker = data[SF_NAME_SPACE + 'worker'];
-	prop.workload = data[SF_NAME_SPACE + 'workload'];
-	return prop;
-};
 
 var importSfPropFromJSON = function(graph, json) {
 	$.each(graph.getElements(), function(i, node) {
@@ -143,91 +90,7 @@ var importSfPropFromJSON = function(graph, json) {
 	});
 };
 
-// プロジェクトに関連するドキュメントの取得
-var getDocumentList = function(resourceUri, nodeUri) {
-	// ノード指定がない場合
-	if (nodeUri == "http://sfweb.is.k.u-tokyo.ac.jp/node#") {
-		nodeUri = null;
-	}
 
-	var query = 'SELECT DISTINCT * WHERE { ';
-	query += '<' + resourceUri
-			+ '> <http://sfweb.is.k.u-tokyo.ac.jp/child> ?nodeUri . ';
-	query += '?s <http://sfweb.is.k.u-tokyo.ac.jp/relatedNode> ?nodeUri . ';
-	if (nodeUri != null) { // ノードの指定がある場合
-		query += 'filter (?nodeUri = <' + nodeUri + '> ) . ';
-	}
-	query += '?nodeUri <http://sfweb.is.k.u-tokyo.ac.jp/taskName> ?nodeName . ';
-	query += '?s <http://purl.org/dc/elements/1.1/title> ?title . ';
-	query += '?s <http://purl.org/dc/elements/1.1/date> ?date . ';
-	query += '}';
-
-	var result = null;
-
-	$.ajax({
-		type : 'POST',
-		url : KASHIWADE_BASE_URL + 'sparql',
-		data : {
-			query : query,
-		},
-		async : false,
-		success : function(data) {
-			result = data.results.bindings;
-		},
-	});
-
-	return result;
-};
-
-var showFileListPopUp = function(data) {
-
-	// dataTablesのReset
-	$("#fileTable").dataTable().fnDestroy();
-
-	var tbody = $("#tbody");
-	tbody.empty();
-
-	for (var i = 0; i < data.length; i++) {
-		var obj = data[i];
-
-		// 表に挿入
-		var tr = $("<tr>");
-		tbody.append(tr);
-
-		var td = $("<td>");
-		tr.append(td);
-		td.append(obj.title.value);
-
-		td = $("<td>");
-		tr.append(td);
-		td.append(obj.date.value);
-
-		td = $("<td>");
-		tr.append(td);
-		td.append(obj.nodeName.value);
-
-		td = $("<td>");
-		tr.append(td);
-
-		var a = $("<a>");
-		td.append(a);
-		a.attr("href", KASHIWADE_BASE_URL + "common/metadata?resourceUri="
-				+ encodeURIComponent(obj.s.value));
-		a.attr("class", "btn btn-default")
-		a.append("View Detail&nbsp;&raquo;");
-	}
-
-	$.magnificPopup.open({
-		items : {
-			src : $('#file-list')
-		},
-		type : 'inline'
-	});
-
-	$('#fileTable').DataTable({
-		"iDisplayLength" : 50
-	});
-};
 
 $(function() {
 	sfProjectUri = $('#project_uri').text();
@@ -249,38 +112,6 @@ $(function() {
 
 	// auto resize textarea
 	$('textarea').autosize();
-
-	// get project name
-	var query = 'SELECT DISTINCT ?name WHERE { ';
-	query += '<' + sfProjectUri + '> ';
-	query += '<http://sfweb.is.k.u-tokyo.ac.jp/projectName> ';
-	query += '?name }';
-	$.ajax({
-		type : 'POST',
-		url : KASHIWADE_BASE_URL + 'sparql',
-		data : {
-			query : query,
-		},
-		success : function(data) {
-			var result = data.results.bindings[0];
-			if (result) {
-				sfProjectName = result.name.value;
-				$('#project_name').text(sfProjectName);
-			} else {
-
-				// dialog
-				$("#dialog-icon").attr('src', 'resources/img/errorIcon.png');
-				$("#dialog-head").text('ERROR');
-				$("#dialog-text").text(sfProjectUri + ' cannot be loaded.');
-				$.magnificPopup.open({
-					items : {
-						src : $('#dialog')
-					},
-					type : 'inline'
-				});
-			}
-		},
-	});
 
 	var graph = new joint.dia.Graph;
 
@@ -323,6 +154,7 @@ $(function() {
 
 	// add nodes and edges
 	paper.on('blank:pointerclick', function(evt, x, y) {
+
 		if ($('#rect_btn').hasClass('active')) {
 			// add rect when clicked
 			var rect = new joint.shapes.basic.Rect({
@@ -458,6 +290,7 @@ $(function() {
 
 	// show property icon when mouseovered
 	paper.on('cell:pointerclick', function(cellView, evt, x, y) {
+
 		// change color
 		var cell = cellView.model;
 
@@ -476,18 +309,20 @@ $(function() {
 		// show properties
 		if (isRect(cell) || isCircle(cell)) {
 			showSfProps(cell.sfProp);
-			if (typeof showInfo == 'function'){
-				showInfo(cell);
+			if (typeof showPresentation == 'function') {
+				showPresentation(cell);
 			}
 
 			// var nodeId = cell.sfProp.id;
 			var nodeUri = SF_NAME_SPACE + "node#" + cell.sfProp.id;
 			var data = getDocumentList(sfProjectUri, nodeUri);
 			$('#file_count').html(data.length + ' files');
-		} else {
-			$('#file_count').html('');
+		} else if (isLink(cell)) {
+			if (typeof showPresentation == 'function') {
+				showPresentation(cell);
+			}
 			$('.sf-prop-field').val('');
-			$('.presentation-field').val('');
+			$('#file_count').html('');
 		}
 	});
 
@@ -504,11 +339,9 @@ $(function() {
 		}
 	});
 
-	// reflect properties modification
-	$('.presentaion-field').change(function() {
-		if (isRect(selectedCell) || isCircle(selectedCell)) {
-			updateInfo(selectedCell);
-		}
+	// reflect presentation information modification
+	$('.presentation-field').change(function() {
+		updatePresentation(selectedCell);
 	});
 
 	// remove cell when remove button clicked
@@ -553,293 +386,25 @@ $(function() {
 
 	// import
 	$('#import_btn').click(function() {
-		clearSelect();
+		importRDF(graph);
 
-		$("#load-data").append('<img src="resources/img/gif-load.gif"/>');
+		// loading-iconの削除
+		$("#load-data").empty();
 
-		var query = 'SELECT DISTINCT * WHERE { ';
-		query += '<'+sfProjectUri+'> ?v ?o . ';//Projectに関するRDFトリプル
-		query += 'OPTIONAL { ?o ?v2 ?o2 } ';//NodeやLinkeに関するRDFトリプル
-		query += '}';
-
-		var result = null;
-
-		$.ajax({
-			type : 'POST',
-			url : KASHIWADE_BASE_URL + 'sparql',
-			data : {
-				query : query,
-			},
-			async : false,
-			success : function(data) {
-				result = data.results.bindings;
-
-				//検索結果をURI毎に整形する
-				var resultJson = new Object();
-
-				for(var i = 0; i < result.length; i++){
-					var obj = result[i];
-
-					var v = obj.v.value;
-					var o = obj.o.value;
-
-					//整形処理部分
-					if(obj.v2){
-						var v2 = obj.v2.value;
-						var o2 = obj.o2.value;
-
-						if(!resultJson[o]){
-							resultJson[o] = new Object();
-						}
-
-						resultJson[o][v2] = o2;
-					}
-				}
-
-				// create graph
-				var graphJson = {
-					'cells' : []
-				};
-
-				var propsJson = {
-						'props' : []
-					};
-
-				//整形した値を描画情報, Property情報に修正
-				$.each(resultJson, function(uri, obj){
-
-					var prop = new Object();
-
-
-
-					$.each(obj, function(key, value){
-
-						//描画情報を含む場合
-						if(key == prefixes.sf+"graphJson"){
-							graphJson.cells.push($.parseJSON(value));
-						}
-
-						prop[key.replace(prefixes.sf, "")] = value;
-
-					});
-
-					//ノード情報ならば
-					if(prop[prefixes.rdf+"type"] == prefixes.kdclass+"Node"){
-						propsJson.props.push(prop);
-					}
-
-
-				});
-
-				graph.fromJSON(graphJson);
-
-				importSfPropFromJSON(graph, propsJson);
-
-				console.log('Import succeeded');
-
-				// loading-iconの削除
-				$("#load-data").empty();
-
-				// 初期読み込み（空）でなければ
-				if (graphJson.cells.length != 0) {
-					// zoom to fit
-					paperScroller.zoomToFit({
-						minScale : 0.2,
-						maxScale : 2
-					});
-				}
-			}
-		});
-
-
+		// 初期読み込み（空）でなければ
+		if (graph.attributes.cells.length != 0) {
+			// zoom to fit
+			paperScroller.zoomToFit({
+				minScale : 0.2,
+				maxScale : 2
+			});
+		}
 	});
 
 	// export
-	$('#export_btn').click(
-			function() {
-				clearSelect();
-
-				$("#load-data").append(
-						'<img src="resources/img/gif-load.gif"/>');
-
-
-
-				var sfPropAry = $.map(graph.getElements(), function(val, idx) {
-					return val.sfProp;
-				});
-				var workflowJSON = JSON.stringify(graph.toJSON());
-				var properties = JSON.stringify({
-					props : sfPropAry
-				});
-
-				//Exportする配列
-				var subs = new Array();
-				var pres = new Array();
-				var objs = new Array();
-				var flgs = new Array();
-
-
-				//---------------------------------------
-
-				var deletedUriArray = new Array();
-
-				//描画情報
-				var array = graph.toJSON().cells;
-				for(var i = 0; i < array.length; i++){
-					var obj = array[i];
-					var id = obj.id;
-					var uri;
-					var attrs = obj.attrs;
-					if(attrs.text){//Node or Link
-						var text = attrs.text.text;
-						uri = prefixes.sf+"node#"+id;
-
-						//登録情報（Type）
-						subs.push(uri);
-						pres.push(prefixes.rdf+"type");
-						objs.push(prefixes.kdclass+"Node");
-						flgs.push("false");
-
-					} else {
-						uri = prefixes.sf+"link#"+id;
-
-						//TargetNode
-						var targetUri = prefixes.sf+"node#"+obj.target.id;
-						subs.push(uri);
-						pres.push(prefixes.sf+"target");
-						objs.push(targetUri);
-						flgs.push("false");
-
-						//SourceNode
-						var sourceUri = prefixes.sf+"node#"+obj.source.id;
-						subs.push(uri);
-						pres.push(prefixes.sf+"source");
-						objs.push(sourceUri);
-						flgs.push("false");
-
-						//登録情報（Type）
-						subs.push(uri);
-						pres.push(prefixes.rdf+"type");
-						objs.push(prefixes.kdclass+"Link");
-						flgs.push("false");
-					}
-
-					//登録情報（ID）
-					subs.push(uri);
-					pres.push(prefixes.sf+"id");
-					objs.push(id);
-					flgs.push("true");
-
-					//登録情報（描画JSON）
-					subs.push(uri);
-					pres.push(prefixes.sf+"graphJson");
-					objs.push(JSON.stringify(obj));
-					flgs.push("true");
-
-					//削除するURI（NodeとLinkのURI）
-					deletedUriArray.push(uri);
-
-					//登録情報（Projectに関するChild）
-					subs.push(sfProjectUri);
-					pres.push(prefixes.sf+"child");
-					objs.push(uri);
-					flgs.push("false");
-				}
-
-				//Properties情報
-				for(var i = 0; i < sfPropAry.length; i++){
-					var obj = sfPropAry[i];
-					var uri = prefixes.sf+"node#"+obj.id;
-					$.each(obj, function(key, value) {
-						if(key != prefixes.rdf+"type"){//Typeでなければ
-							subs.push(uri);
-						    pres.push(prefixes.sf+key);
-						    objs.push(value);
-						    flgs.push("true");
-						}
-
-					});
-
-				}
-
-				//プロジェクトに関連するNode, Linkの削除
-				$.ajax({
-					type : 'POST',
-					url : KASHIWADE_BASE_URL + 'metadata/delete',
-					aync : false,
-					data : {
-						subject : sfProjectUri,
-						predicate : "http://sfweb.is.k.u-tokyo.ac.jp/child"
-					},
-					success : function(data) {
-						//Node, Linkのそれぞれの情報の削除
-						$.ajax({
-							type : 'POST',
-							url : KASHIWADE_BASE_URL + 'metadata/deletes',
-							aync : false,
-							data : {
-								subject : deletedUriArray
-							},
-							traditional : true, //Important
-							success : function(data) {
-
-								//RDFトリプルの追加処理
-								$.ajax({
-									type : 'POST',
-									url : KASHIWADE_BASE_URL + 'metadata/adds',
-									aync : false,
-									data : {
-										subject : subs,
-										predicate : pres,
-										object : objs,
-										literalFlag : flgs,
-									},
-									traditional : true, //Important
-									success : function(data) {
-
-										// dialog
-										$("#dialog-icon").attr('src',
-												'resources/img/completeIcon.png');
-										$("#dialog-head").text('Saved.');
-										$("#dialog-text").empty();
-										$("#dialog-text").append(
-												'<label>Date：</label>'
-														+ new Date().toLocaleString()
-														+ '<br>');
-										$("#dialog-text").append(
-												'<label>Project ID：</label><br>'
-														+ sfProjectUri);
-										$.magnificPopup.open({
-											items : {
-												src : $('#dialog')
-											},
-											type : 'inline'
-										});
-									},
-									error : function(data) {
-										// dialog
-										$("#dialog-icon").attr('src',
-												'resources/img/errorIcon.png');
-										$("#dialog-head").text('Error.');
-										$("#dialog-text").text(data.statusText);
-										$.magnificPopup.open({
-											items : {
-												src : $('#dialog')
-											},
-											type : 'inline'
-										});
-									},
-									complete : function() {
-										$("#load-data").empty();
-									}
-								});
-
-							}
-						});
-
-					}
-				});
-			});
+	$('#export_btn').click(function() {
+		exportRDF(graph);
+	});
 
 	// file upload
 	$('#file_upload_btn').click(function() {
@@ -848,71 +413,7 @@ $(function() {
 		}
 	});
 
-	$('#file_upload_input').change(function() {
-		var files = $('#file_upload_input')[0].files;
 
-		$("#uploading-file").append('<img src="resources/img/gif-load.gif">');
-
-		// 各ファイルに対して
-		for (var i = 0; i < files.length; i++) {
-			var fd = new FormData();
-			fd.append("files", files[i]);
-
-			fd.append('group', GROUP_NAME);
-
-			var fields = new Array();
-			var values = new Array();
-			var literalFlags = new Array();
-
-			// NodeUriとドキュメントの紐づけ
-			var nodeId = $("#task_id").val();
-			var nodeUri = SF_NAME_SPACE + "node#" + nodeId;// NodeUri --
-			// SPARQL検索に変更したほうがよいか？
-			fields.push(SF_NAME_SPACE + "relatedNode");
-			values.push(nodeUri);
-			literalFlags.push("false");
-
-			fd.append('fields', fields);
-			fd.append('values', values);
-			fd.append('literalFlags', literalFlags);
-
-			$.ajax({
-				url : KASHIWADE_BASE_URL + 'resource/add',
-				type : 'POST',
-				data : fd,
-				processData : false,
-				contentType : false,
-				dataType : 'json',
-				async : false
-			});
-		}
-
-		$("#uploading-file").empty();
-
-		var nodeUri = SF_NAME_SPACE + "node#" + selectedCell.sfProp.id;
-		var data = getDocumentList(sfProjectUri, nodeUri);
-		$('#file_count').html(data.length + ' files');
-
-		// dialog
-		$("#dialog-icon").attr('src', 'resources/img/completeIcon.png');
-		$("#dialog-head").text("Uploaded.");
-		$("#dialog-text").empty();
-		for (var i = 0; i < data.length; i++) {
-			$("#dialog-text").append((i + 1) + "：" + data[i].title.value);
-			if (i != data.length - 1) {
-				$("#dialog-text").append("<br>");
-			}
-		}
-
-		$.magnificPopup.open({
-			items : {
-				src : $('#dialog')
-			},
-			type : 'inline'
-		});
-
-		return false;
-	});
 
 	// ワークフローに関連するすべての文書を表示
 	$('#file_list_all_btn').click(function() {
@@ -925,4 +426,22 @@ $(function() {
 
 	// import project
 	$('#import_btn').click();
+});
+
+// 選択解除
+var clearSelect = function() {
+	unSelectCell(selectedCell);
+	selectedCell = null;
+	$('.sf-prop-field').text('');
+	$('file_count').html('');
+};
+
+//指定したワークフローに関連する文書の表示
+$('#file_list_btn').click(function() {
+	if (isRect(selectedCell) || isCircle(selectedCell)) {
+		var nodeId = selectedCell.id;
+		var nodeUri = SF_NAME_SPACE + "node#" + nodeId;
+		var data = getDocumentList(sfProjectUri, nodeUri);
+		showFileListPopUp(data);
+	}
 });

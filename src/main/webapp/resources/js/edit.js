@@ -7,30 +7,63 @@ var showSfProps = function(prop) {
 	$('#comment').val(prop.comment);
 };
 
-var showInfo = function(data){
+var showPresentation = function(data) {
 
 	var attrs = data.attributes.attrs;
 
-	//Fill Color
-	var type;
-	if(attrs.circle){
-		type = attrs.circle;
-	} else if(attrs.rect){
-		type = attrs.rect;
+	if (isLink(data)) {
+
+		$("#presentation-node").attr("style", "display : none;");
+		$("#presentation-link").attr("style", "display : inline;");
+
+		var conn = attrs[".connection"];
+
+		var dash = conn["stroke-dasharray"];
+		if (!dash) {
+			dash = 0;
+		}
+		$("#dash").val(dash);
+
+		var smooth = data.attributes["smooth"];
+		if (!smooth) {
+			$("#smooth").bootstrapToggle('off');
+		} else {
+			$("#smooth").bootstrapToggle('on');
+		}
+
+	} else {
+
+		$("#presentation-node").attr("style", "display : inline;");
+		$("#presentation-link").attr("style", "display : none;");
+
+		// Fill Color
+		var type;
+		if (attrs.circle) {
+			type = attrs.circle;
+		} else if (attrs.rect) {
+			type = attrs.rect;
+		}
+
+		var fill_color_type = type.fill;
+		$('#typeSelector div').css('backgroundColor', fill_color_type);
+
+		// -------------------------------------------------
+
+		var text = attrs.text;
+
+		// Text Color
+		var fill_color_text = text.fill;
+		$('#colorSelector div').css('backgroundColor', fill_color_text);
+
+		// Font Size
+		var fontSize = text["font-size"];
+
+		$('#jquery-ui-slider').slider({
+			value : fontSize
+		});
+		$('#jquery-ui-slider-value').text(fontSize);
+
 	}
-
-	var fill_color_type = type.fill;
-	$("#fill_color_type").val(fill_color_type);
-
-	var text = attrs.text;
-
-	//Text Color
-	var fill_color_text = text.fill;
-	$("#fill_color_text").val(fill_color_text);
-
-	//Font Size
-	var fontSize = text["font-size"];
-	$("#font_size").val(fontSize);
 
 };
 
@@ -38,7 +71,6 @@ var updateSfProps = function(cell) {
 	if (cell !== null) {
 		cell.sfProp = {
 			id : cell.id,
-			type : cell.sfProp.type,
 			taskName : $('#task_name').val(),
 			workload : $('#workload').val(),
 			worker : $('#worker').val(),
@@ -49,46 +81,107 @@ var updateSfProps = function(cell) {
 	}
 };
 
-var updateInfo = function(cell) {
+var updatePresentation = function(cell) {
+
 	if (cell !== null) {
 		var attributes = cell.attributes;
-
 		var attrs = attributes.attrs;
 
-		var text = attrs.text;
-		text.fill = $("#fill_color_text").val();
-		text["font-size"] = $("#font_size").val();
+		if (isLink(cell)) {
+			var conn = attrs[".connection"];
 
-		//---------------------------
+			conn["stroke-dasharray"] = $("#dash").val();
+			attributes["smooth"] = $("#smooth").prop('checked');
 
-		var type;
-		if(attrs.circle){
-			type = attrs.circle;
-		} else if(attrs.rect){
-			type = attrs.rect;
+		} else {
+
+			// テキスト情報
+			var text = attrs.text;
+
+			var text_color = $('#colorSelector div').css('backgroundColor');
+			text.fill = text_color;
+
+			var fontSize = $("#jquery-ui-slider-value").text();
+			text["font-size"] = fontSize;
+
+			// ---------------------------
+
+			// Fill情報
+
+			var type;
+			if (attrs.circle) {
+				type = attrs.circle;
+			} else if (attrs.rect) {
+				type = attrs.rect;
+			}
+
+			var type_color = $('#typeSelector div').css('backgroundColor');
+			type.fill = type_color;
 		}
 
-		type.fill = $("#fill_color_type").val();
 	}
-};
-
-// 選択解除
-var clearSelect = function() {
-	unSelectCell(selectedCell);
-	selectedCell = null;
-	$('.sf-prop-field').val('');
-	$('file_count').html('');
 };
 
 $(function() {
 
-	// 指定したワークフローに関連する文書の表示
-	$('#file_list_btn').click(function() {
-		if (isRect(selectedCell) || isCircle(selectedCell)) {
-			var nodeId = $("#task_id").val();
-			var nodeUri = SF_NAME_SPACE + "node#" + nodeId;
-			var data = getDocumentList(sfProjectUri, nodeUri);
-			showFileListPopUp(data);
-		}
+	// テキストサイズのためのSlider
+	$(function() {
+		$('#jquery-ui-slider').slider({
+			range : 'min',
+			min : 0,
+			max : 50,
+			step : 1,
+			slide : function(event, ui) {
+				$('#jquery-ui-slider-value').text(ui.value)
+			},
+			stop : function(event, ui) {
+				$('#jquery-ui-slider-value').trigger("change");// ダミー
+			}
+		});
 	});
+
+	// TEXT情報のためのColor pickup
+	$(function() {
+		$('#colorSelector').ColorPicker({
+			onShow : function(colorpicker) {
+				$(colorpicker).fadeIn(500);
+				return false;
+			},
+			onHide : function(colorpicker) {
+				$(colorpicker).fadeOut(500);
+				return false;
+			},
+			onSubmit : function(hsb, hex, rgb) {
+				$('#colorSelector div').css('backgroundColor', '#' + hex);
+				$('#jquery-ui-slider-value').trigger("change");// ダミー
+			},
+			onBeforeShow : function() {
+				var color = $('#colorSelector div').css('backgroundColor');
+				$(this).ColorPickerSetColor(color);
+			}
+		});
+	});
+
+	// FillのためのColor pickup
+	$(function() {
+		$('#typeSelector').ColorPicker({
+			onShow : function(colorpicker) {
+				$(colorpicker).fadeIn(500);
+				return false;
+			},
+			onHide : function(colorpicker) {
+				$(colorpicker).fadeOut(500);
+				return false;
+			},
+			onSubmit : function(hsb, hex, rgb) {
+				$('#typeSelector div').css('backgroundColor', '#' + hex);
+				$('#jquery-ui-slider-value').trigger("change");// ダミー
+			},
+			onBeforeShow : function() {
+				var color = $('#typeSelector div').css('backgroundColor');
+				$(this).ColorPickerSetColor(color);
+			}
+		});
+	});
+
 });

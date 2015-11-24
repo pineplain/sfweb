@@ -2,7 +2,6 @@ package jp.ac.u_tokyo.k.is;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 public class UIController {
-	private static final Logger logger = Logger.getLogger(UIController.class);
 
 	@Autowired
 	private HttpServletRequest request;

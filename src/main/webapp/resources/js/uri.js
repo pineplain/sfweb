@@ -1,4 +1,5 @@
-var KASHIWADE_BASE_URL = "http://172.16.53.65:7070/kashiwade/";
+var KASHIWADE_BASE_URL = "http://localhost:8080/kashiwade/";
+var GROUP_NAME = 'forest3';
 
 var prefixes = new Object();
 prefixes["dc"] = "http://purl.org/dc/elements/1.1/";

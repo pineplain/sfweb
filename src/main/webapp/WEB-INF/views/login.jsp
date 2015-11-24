@@ -48,24 +48,22 @@
 						</div>
 					</div>
 					<div class="form-group">
-                        <label class="col-sm-2 control-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" name="j_password" class="form-control">
-                        </div>
-                    </div>
-                    <input type="submit"
-                        class="btn btn-primary" value="Login">
+						<label class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" name="j_password" class="form-control">
+						</div>
+					</div>
+					<input type="submit" class="btn btn-primary" value="Login">
 				</form>
 			</div>
 			<div class="col-md-6">
 				<h2>Guest User</h2>
 				<p>Continue as a guest. No sign-up required.</p>
 				<form action="j_spring_security_check" method="post">
-				<input type="hidden" name="j_username" value="user">
-				<input type="hidden" name="j_password" value="user">
-				 <input type="submit"
-                        class="btn btn-primary" value="Login as Guest">
-                        </form>
+					<input type="hidden" name="j_username" value="user"> <input
+						type="hidden" name="j_password" value="user"> <input
+						type="submit" class="btn btn-primary" value="Login as Guest">
+				</form>
 			</div>
 		</div>
 	</div>

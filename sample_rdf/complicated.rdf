@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:fn="http://www.w3.org/2005/xpath-functions/#"
+    xmlns:xslwd="http://www.w3.org/TR/WD-xsl"
+    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns:ldp="http://www.w3.org/ns/ldp#"
+    xmlns:yago="http://dbpedia.org/class/yago/"
+    xmlns:nci="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"
+    xmlns:xsl10="http://www.w3.org/XSL/Transform/1.0"
+    xmlns:ogcsf="http://www.opengis.net/ont/sf#"
+    xmlns:virtcxml="http://www.openlinksw.com/schemas/virtcxml#"
+    xmlns:product="http://www.buy.com/rss/module/productV2/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:j.0="http://kashiwade.org/2012/09/kd/class/"
+    xmlns:obo="http://www.geneontology.org/formats/oboInOwl#"
+    xmlns:ogc="http://www.opengis.net/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:sql="sql:"
+    xmlns:xf="http://www.w3.org/2004/07/xpath-functions"
+    xmlns:math="http://www.w3.org/2000/10/swap/math#"
+    xmlns:protseq="http://purl.org/science/protein/bysequence/"
+    xmlns:mf="http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#"
+    xmlns:go="http://purl.org/obo/owl/GO#"
+    xmlns:xsl1999="http://www.w3.org/1999/XSL/Transform"
+    xmlns:sd="http://www.w3.org/ns/sparql-service-description#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    xmlns:virtrdf="http://www.openlinksw.com/schemas/virtrdf#"
+    xmlns:rdfa="http://www.w3.org/ns/rdfa#"
+    xmlns:j.1="http://sfweb.is.k.u-tokyo.ac.jp/"
+    xmlns:rdfdf="http://www.openlinksw.com/virtrdf-data-formats#"
+    xmlns:ogcgml="http://www.opengis.net/ont/gml#"
+    xmlns:dbpedia="http://dbpedia.org/resource/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:ogcgsf="http://www.opengis.net/def/function/geosparql/"
+    xmlns:sc="http://purl.org/science/owl/sciencecommons/"
+    xmlns:dbpprop="http://dbpedia.org/property/"
+    xmlns:ogcgsr="http://www.opengis.net/def/rule/geosparql/"
+    xmlns:void="http://rdfs.org/ns/void#"
+    xmlns:dawgt="http://www.w3.org/2001/sw/DataAccess/tests/test-dawg#"
+    xmlns:scovo="http://purl.org/NET/scovo#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:bif="bif:"
+    xmlns:sioc="http://rdfs.org/sioc/ns#"
+    xmlns:mesh="http://purl.org/commons/record/mesh/"
+    xmlns:vcard2006="http://www.w3.org/2006/vcard/ns#"
+    xmlns:ogcgs="http://www.opengis.net/ont/geosparql#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <j.0:project rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/project#1448352551955">
+    <j.1:child>
+      <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#b3c90b24-874e-421b-b7b9-2609e94c4a02">
+        <j.1:worker></j.1:worker>
+        <j.1:taskName>有識者へ相談</j.1:taskName>
+        <j.1:location></j.1:location>
+        <j.1:graphJson>{"type":"basic.Circle","size":{"width":150,"height":60},"position":{"x":707,"y":963},"angle":0,"id":"b3c90b24-874e-421b-b7b9-2609e94c4a02","z":17,"attrs":{"circle":{"fill":"rgb(100, 240, 19)","stroke":"black","stroke-width":1},"text":{"font-size":"23","text":"有識者へ相談","fill":"rgb(245, 10, 10)"}}}</j.1:graphJson>
+        <j.1:workload></j.1:workload>
+        <j.1:id>b3c90b24-874e-421b-b7b9-2609e94c4a02</j.1:id>
+        <j.1:comment></j.1:comment>
+      </j.0:Node>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#25356e6e-965e-4ece-be14-e24b25b3a982">
+        <j.1:target>
+          <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#08ab6710-9284-442f-8dcc-4db97a01b745">
+            <j.1:worker></j.1:worker>
+            <j.1:taskName>伐採範囲の見直し or 対応策</j.1:taskName>
+            <j.1:location></j.1:location>
+            <j.1:graphJson>{"type":"basic.Circle","size":{"width":150,"height":60},"position":{"x":250,"y":690},"angle":0,"id":"08ab6710-9284-442f-8dcc-4db97a01b745","z":18,"attrs":{"circle":{"fill":"rgb(224, 20, 20)","stroke":"black","stroke-width":1},"text":{"font-size":"11","text":"伐採範囲の見直し or 対応策","fill":"rgb(255, 255, 255)"}}}</j.1:graphJson>
+            <j.1:workload></j.1:workload>
+            <j.1:id>08ab6710-9284-442f-8dcc-4db97a01b745</j.1:id>
+            <j.1:comment></j.1:comment>
+          </j.0:Node>
+        </j.1:target>
+        <j.1:graphJson>{"type":"link","source":{"id":"b3c90b24-874e-421b-b7b9-2609e94c4a02"},"target":{"id":"08ab6710-9284-442f-8dcc-4db97a01b745"},"id":"25356e6e-965e-4ece-be14-e24b25b3a982","z":24,"smooth":false,"vertices":[{"x":316,"y":989}],"attrs":{".connection":{"stroke-width":3,"stroke":"black","stroke-dasharray":"0"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>25356e6e-965e-4ece-be14-e24b25b3a982</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#b3c90b24-874e-421b-b7b9-2609e94c4a02"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:creator>admin</j.1:creator>
+    <j.1:created>2015/11/24 17:09:11</j.1:created>
+    <j.1:projectName>ShareFast Web</j.1:projectName>
+    <j.1:projectId>1448352551955</j.1:projectId>
+    <j.1:child>
+      <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#4190c5a1-d3fd-4430-aad8-b59576ab449c">
+        <j.1:worker></j.1:worker>
+        <j.1:taskName>3.樹木伐採方法の検討</j.1:taskName>
+        <j.1:location></j.1:location>
+        <j.1:graphJson>{"type":"basic.Rect","position":{"x":707,"y":860},"size":{"width":150,"height":60},"angle":0,"id":"4190c5a1-d3fd-4430-aad8-b59576ab449c","z":4,"attrs":{"rect":{"fill":"blue","stroke":"black","stroke-width":1},"text":{"fill":"white","text":"3.樹木伐採方法の検討"}}}</j.1:graphJson>
+        <j.1:workload></j.1:workload>
+        <j.1:id>4190c5a1-d3fd-4430-aad8-b59576ab449c</j.1:id>
+        <j.1:comment></j.1:comment>
+      </j.0:Node>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#4eea76bf-e767-42b0-afb5-0e5ec824e60f">
+        <j.1:worker></j.1:worker>
+        <j.1:taskName>2.伐採範囲の保全の必要性</j.1:taskName>
+        <j.1:location></j.1:location>
+        <j.1:graphJson>{"type":"basic.Rect","position":{"x":702,"y":752},"size":{"width":150,"height":60},"angle":0,"id":"4eea76bf-e767-42b0-afb5-0e5ec824e60f","z":3,"attrs":{"rect":{"fill":"rgb(0, 0, 255)","stroke":"black","stroke-width":1},"text":{"fill":"rgb(255, 255, 255)","text":"2.伐採範囲の保全の必要性","font-size":"11"}}}</j.1:graphJson>
+        <j.1:workload></j.1:workload>
+        <j.1:id>4eea76bf-e767-42b0-afb5-0e5ec824e60f</j.1:id>
+        <j.1:comment></j.1:comment>
+      </j.0:Node>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#b28b61e2-6310-4783-ae8a-62fa03778230">
+        <j.1:target>
+          <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4">
+            <j.1:worker></j.1:worker>
+            <j.1:taskName>1.樹木伐採範囲の選定</j.1:taskName>
+            <j.1:location></j.1:location>
+            <j.1:graphJson>{"type":"basic.Rect","position":{"x":705,"y":650},"size":{"width":150,"height":60},"angle":0,"id":"2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4","z":7,"attrs":{"rect":{"fill":"blue","stroke":"black","stroke-width":1},"text":{"fill":"white","text":"1.樹木伐採範囲の選定"}}}</j.1:graphJson>
+            <j.1:workload></j.1:workload>
+            <j.1:id>2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4</j.1:id>
+            <j.1:comment></j.1:comment>
+          </j.0:Node>
+        </j.1:target>
+        <j.1:graphJson>{"type":"link","source":{"id":"54c273bc-d452-4c2d-842f-689ad07d796e"},"target":{"id":"2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4"},"id":"b28b61e2-6310-4783-ae8a-62fa03778230","z":9,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>b28b61e2-6310-4783-ae8a-62fa03778230</j.1:id>
+        <j.1:source>
+          <j.0:Node rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/node#54c273bc-d452-4c2d-842f-689ad07d796e">
+            <j.1:worker></j.1:worker>
+            <j.1:taskName>樹木管理手順</j.1:taskName>
+            <j.1:location></j.1:location>
+            <j.1:graphJson>{"type":"basic.Rect","position":{"x":707,"y":533},"size":{"width":150,"height":60},"angle":0,"id":"54c273bc-d452-4c2d-842f-689ad07d796e","z":2,"attrs":{"rect":{"fill":"rgb(230, 159, 18)","stroke":"black","stroke-width":1},"text":{"fill":"rgb(0, 0, 0)","text":"樹木管理手順","font-size":"22"}}}</j.1:graphJson>
+            <j.1:workload></j.1:workload>
+            <j.1:id>54c273bc-d452-4c2d-842f-689ad07d796e</j.1:id>
+            <j.1:comment></j.1:comment>
+          </j.0:Node>
+        </j.1:source>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#54c273bc-d452-4c2d-842f-689ad07d796e"/>
+    <j.1:updated>2015/11/24 17:17:56</j.1:updated>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#33628f02-246a-4f0c-a50f-34b50ce7bcfd">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#4eea76bf-e767-42b0-afb5-0e5ec824e60f"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4"},"target":{"id":"4eea76bf-e767-42b0-afb5-0e5ec824e60f"},"id":"33628f02-246a-4f0c-a50f-34b50ce7bcfd","z":10,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>33628f02-246a-4f0c-a50f-34b50ce7bcfd</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#75757f71-464c-4f23-a483-cf2ba0c157dc">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#b3c90b24-874e-421b-b7b9-2609e94c4a02"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"08ab6710-9284-442f-8dcc-4db97a01b745"},"target":{"id":"b3c90b24-874e-421b-b7b9-2609e94c4a02"},"id":"75757f71-464c-4f23-a483-cf2ba0c157dc","z":23,"smooth":true,"vertices":[],"attrs":{".connection":{"stroke-width":3,"stroke":"black","stroke-dasharray":"5,5"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>75757f71-464c-4f23-a483-cf2ba0c157dc</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#08ab6710-9284-442f-8dcc-4db97a01b745"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#451353af-774c-40fc-a3dd-d2f5da661038">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#4190c5a1-d3fd-4430-aad8-b59576ab449c"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"08ab6710-9284-442f-8dcc-4db97a01b745"},"target":{"id":"4190c5a1-d3fd-4430-aad8-b59576ab449c"},"id":"451353af-774c-40fc-a3dd-d2f5da661038","z":22,"smooth":true,"attrs":{".connection":{"stroke-width":3,"stroke":"black","stroke-dasharray":"5,5"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>451353af-774c-40fc-a3dd-d2f5da661038</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#08ab6710-9284-442f-8dcc-4db97a01b745"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#2ad13556-7c65-45b7-99fb-4902332f2c71">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#4eea76bf-e767-42b0-afb5-0e5ec824e60f"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"08ab6710-9284-442f-8dcc-4db97a01b745"},"target":{"id":"4eea76bf-e767-42b0-afb5-0e5ec824e60f"},"id":"2ad13556-7c65-45b7-99fb-4902332f2c71","z":21,"smooth":true,"attrs":{".connection":{"stroke-width":3,"stroke":"black","stroke-dasharray":"5,5"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>2ad13556-7c65-45b7-99fb-4902332f2c71</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#08ab6710-9284-442f-8dcc-4db97a01b745"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#7301d801-f2a2-447f-a8ab-bc8e5b0d8c99">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#4190c5a1-d3fd-4430-aad8-b59576ab449c"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"4eea76bf-e767-42b0-afb5-0e5ec824e60f"},"target":{"id":"4190c5a1-d3fd-4430-aad8-b59576ab449c"},"id":"7301d801-f2a2-447f-a8ab-bc8e5b0d8c99","z":11,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>7301d801-f2a2-447f-a8ab-bc8e5b0d8c99</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#4eea76bf-e767-42b0-afb5-0e5ec824e60f"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#a56d5aa6-0245-474b-b4c3-226f9da36754">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#b3c90b24-874e-421b-b7b9-2609e94c4a02"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"4190c5a1-d3fd-4430-aad8-b59576ab449c"},"target":{"id":"b3c90b24-874e-421b-b7b9-2609e94c4a02"},"id":"a56d5aa6-0245-474b-b4c3-226f9da36754","z":25,"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>a56d5aa6-0245-474b-b4c3-226f9da36754</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#4190c5a1-d3fd-4430-aad8-b59576ab449c"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:child>
+      <j.0:Link rdf:about="http://sfweb.is.k.u-tokyo.ac.jp/link#9b77651d-4db3-46d9-8a2e-60843769d019">
+        <j.1:target rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#54c273bc-d452-4c2d-842f-689ad07d796e"/>
+        <j.1:graphJson>{"type":"link","source":{"id":"08ab6710-9284-442f-8dcc-4db97a01b745"},"target":{"id":"54c273bc-d452-4c2d-842f-689ad07d796e"},"id":"9b77651d-4db3-46d9-8a2e-60843769d019","z":19,"vertices":[{"x":314,"y":551}],"attrs":{".connection":{"stroke-width":3,"stroke":"black"},".marker-target":{"stroke":"black","fill":"black","d":"M 12 0 L 0 6 L 12 12 z"}}}</j.1:graphJson>
+        <j.1:id>9b77651d-4db3-46d9-8a2e-60843769d019</j.1:id>
+        <j.1:source rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#08ab6710-9284-442f-8dcc-4db97a01b745"/>
+      </j.0:Link>
+    </j.1:child>
+    <j.1:updatedBy>admin</j.1:updatedBy>
+    <j.1:child rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#08ab6710-9284-442f-8dcc-4db97a01b745"/>
+    <j.1:child rdf:resource="http://sfweb.is.k.u-tokyo.ac.jp/node#2a6ba0a3-ac55-41dd-89ce-1ce13baee3e4"/>
+  </j.0:project>
+  <rdf:Description rdf:about="http://kashiwade.org/2012/09/kd/class/project">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:label>project</rdfs:label>
+  </rdf:Description>
+</rdf:RDF>

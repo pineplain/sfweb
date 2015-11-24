@@ -25,6 +25,54 @@
 <link
 	href="<c:url value='/resources/thirdparty/dataTables/css/jquery.dataTables.css' />"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="<c:url value='/resources/thirdparty/bootstrap-toggle/css/bootstrap-toggle.min.css' />">
+<link type="text/css" rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/thirdparty/colorpicker/css/colorpicker.css' />">
+
+
+<style>
+<!--
+#colorSelector {
+	position: relative;
+	width: 36px;
+	height: 36px;
+	background:
+		url( "<c:url value='/resources/thirdparty/colorpicker/images/select.png' />" );
+}
+
+#typeSelector {
+	position: relative;
+	width: 36px;
+	height: 36px;
+	background:
+		url( "<c:url value='/resources/thirdparty/colorpicker/images/select.png' />" );
+}
+
+#colorSelector div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 30px;
+	height: 30px;
+	background:
+		url( "<c:url value='/resources/thirdparty/colorpicker/images/select.png' />" );
+}
+
+#typeSelector div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 30px;
+	height: 30px;
+	background:
+		url( "<c:url value='/resources/thirdparty/colorpicker/images/select.png' />" );
+}
+-->
+</style>
+
 </head>
 
 <body>
@@ -48,7 +96,7 @@
 			<div class="col-md-9">
 
 				<div id="tool_box" class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-body">
 
 						<!-- cell's addition tools -->
 						<span class="btn-group" data-toggle="buttons"> <label
@@ -226,24 +274,58 @@
 
 							<div class="tab-pane" id="presentation">
 								<br>
-								<form>
+								<div>
 
-									<div class="form-group">
-										<label>Font size</label> <input type="text" id="font_size"
-											class="form-control presentaion-field ">
+									<div id="presentation-node">
+
+										<div class="form-group">
+											<label>Font size&nbsp;:&nbsp; </label><span
+												id="jquery-ui-slider-value" class="presentation-field"></span>&nbsp;px
+											<div id="jquery-ui-slider" id="font_size"
+												class="form-control"></div>
+										</div>
+
+										<div class="form-group">
+											<label>Text color</label>
+											<div id="colorSelector">
+												<div style="background-color: #ffffffff"></div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label>Fill color</label>
+											<div id="typeSelector">
+												<div style="background-color: #ffffffff"></div>
+											</div>
+										</div>
+
 									</div>
 
-									<div class="form-group">
-										<label>Text color</label> <input type="text"
-											id="fill_color_text" class="form-control presentaion-field ">
-									</div>
+									<div id="presentation-link">
 
-									<div class="form-group">
-										<label>Fill color</label> <input type="text"
-											id="fill_color_type" class="form-control presentaion-field ">
-									</div>
+										<div class="form-group">
+											<label>strokedash array</label> <select id="dash"
+												class="form-control presentation-field">
+												<option>0</option>
+												<option>1</option>
+												<option>5,5</option>
+												<option>5,10</option>
+												<option>10,5</option>
+												<option>5,1</option>
+												<option>15,10,5,10,15</option>
+											</select>
+										</div>
 
-								</form>
+										<div class="form-group">
+											<label>smooth</label>
+											<p>
+												<input id="smooth" type="checkbox" data-toggle="toggle"
+													class="form-control presentation-field">
+											</p>
+										</div>
+
+									</div>
+								</div>
 							</div>
 
 						</div>
@@ -300,14 +382,23 @@
 	<!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
 	<script type="text/javascript"
 		src="<c:url value='/resources/js/uri.js' />"></script>
-	<script src="<c:url value='/resources/js/common.js' />"></script>
-	<script src="<c:url value='/resources/js/edit.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/autoSize/jquery.autosize-min.js' />"></script>
+	<script type="text/javascript"
+		src="<c:url value='/resources/thirdparty/bootstrap-toggle/js/bootstrap-toggle.min.js' />"></script>
+	<script type="text/javascript"
+		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	<script type="text/javascript"
+		src="<c:url value='/resources/thirdparty/colorpicker/js/colorpicker.js' />"></script>
+    <script src="<c:url value='/resources/js/common.js' />"></script>
+    <script src="<c:url value='/resources/js/io.js' />"></script>
+    <script src="<c:url value='/resources/js/files.js' />"></script>
+	<script src="<c:url value='/resources/js/edit.js' />"></script>
+
 </body>
 
 </html>

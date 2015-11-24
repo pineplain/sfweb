@@ -47,49 +47,50 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div id="tool_box" class="tool_box panel panel-default">
-                    <div class="panel-heading">
-					<!--- fit / zoom -->
-					<span class="btn-group">
-						<button id="btn-zoomtofit" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Zoom to fit">
-							<i class="fa fa-align-center"></i>
-						</button> <!--- layout -->
-						<button id="layout_btn" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Layout">
-							<i class="fa fa-sort-amount-asc"></i>
-						</button> <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
+					<div class="panel-body">
+						<!--- fit / zoom -->
+						<span class="btn-group">
+							<button id="btn-zoomtofit" type="button" class="btn btn-default"
+								data-toggle="tooltip" data-placement="bottom"
+								title="Zoom to fit">
+								<i class="fa fa-align-center"></i>
+							</button> <!--- layout -->
+							<button id="layout_btn" type="button" class="btn btn-default"
+								data-toggle="tooltip" data-placement="bottom" title="Layout">
+								<i class="fa fa-sort-amount-asc"></i>
+							</button> <!-- <button id="center_btn" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Center"><i class="fa fa-dot-circle-o"></i></button> -->
 
 
-					</span> <span class="btn-group">
-						<button id="btn-zoomin" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Zoom in">
-							<i class="fa fa-search-plus"></i>
-						</button>
-						<button id="btn-zoomout" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Zoom out">
-							<i class="fa fa-search-minus"></i>
-						</button>
-					</span>
+						</span> <span class="btn-group">
+							<button id="btn-zoomin" type="button" class="btn btn-default"
+								data-toggle="tooltip" data-placement="bottom" title="Zoom in">
+								<i class="fa fa-search-plus"></i>
+							</button>
+							<button id="btn-zoomout" type="button" class="btn btn-default"
+								data-toggle="tooltip" data-placement="bottom" title="Zoom out">
+								<i class="fa fa-search-minus"></i>
+							</button>
+						</span>
 
-					<!--- all files -->
-					<span class="btn-group">
-						<button id="file_list_all_btn" type="button"
-							class="btn btn-default" data-toggle="tooltip"
-							data-placement="bottom" title="All files">
-							<i class="fa fa-files-o"></i>
-						</button>
-					</span>
+						<!--- all files -->
+						<span class="btn-group">
+							<button id="file_list_all_btn" type="button"
+								class="btn btn-default" data-toggle="tooltip"
+								data-placement="bottom" title="All files">
+								<i class="fa fa-files-o"></i>
+							</button>
+						</span>
 
-					<!-- import / export -->
-					<span class="btn-group">
-						<button id="import_btn" type="button" class="btn btn-default"
-							data-toggle="tooltip" data-placement="bottom" title="Reload">
-							<i class="fa fa-refresh"></i>
-						</button>
-					</span>
+						<!-- import / export -->
+						<span class="btn-group">
+							<button id="import_btn" type="button" class="btn btn-default"
+								data-toggle="tooltip" data-placement="bottom" title="Reload">
+								<i class="fa fa-refresh"></i>
+							</button>
+						</span>
 
-					<!-- center -->
-					<!--
+						<!-- center -->
+						<!--
 					<span class="btn-group">
 						<button id="btn-center" type="button" class="btn btn-default"
 							data-toggle="tooltip" data-placement="bottom" title="Center">
@@ -103,15 +104,15 @@
 					</span>
 					 -->
 
-					<!-- edit -->
-					<sec:authorize ifAnyGranted="ROLE_ADMIN">
-						<span class="btn-group"> <a id="link_to_edit" type="button"
-							class="btn btn-default" data-toggle="tooltip"
-							data-placement="bottom" title="Edit mode"><i
-								class="fa fa-pencil-square-o"></i></a>
-						</span>
-					</sec:authorize>
-				</div>
+						<!-- edit -->
+						<sec:authorize ifAnyGranted="ROLE_ADMIN">
+							<span class="btn-group"> <a id="link_to_edit"
+								type="button" class="btn btn-default" data-toggle="tooltip"
+								data-placement="bottom" title="Edit mode"><i
+									class="fa fa-pencil-square-o"></i></a>
+							</span>
+						</sec:authorize>
+					</div>
 				</div>
 				<!-- graph -->
 				<div id="holder"></div>
@@ -217,6 +218,8 @@
 	<script type="text/javascript"
 		src="<c:url value='/resources/js/uri.js' />"></script>
 	<script src="<c:url value='/resources/js/common.js' />"></script>
+	<script src="<c:url value='/resources/js/io.js' />"></script>
+	<script src="<c:url value='/resources/js/files.js' />"></script>
 	<script src="<c:url value='/resources/js/view.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
