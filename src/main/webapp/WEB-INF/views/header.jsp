@@ -25,7 +25,7 @@
                     </ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				                <li><a><span class="glyphicon glyphicon-user"></span>&nbsp;<sec:authentication
+				                <li><a id="username"><span class="glyphicon glyphicon-user"></span>&nbsp;<sec:authentication
                             property="principal.username" /></a></li>
                 <li><a href="<c:url value='/logout' />"><span
                         class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
