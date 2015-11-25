@@ -101,17 +101,16 @@ function exportRDF(graph) {
 
 	}
 
-	var date = new Date()
-	.toLocaleString();
+	var date = new Date().toLocaleString();
 
-	//プロジェクトの更新者, 更新日時
+	// プロジェクトの更新者, 更新日時
 	subs.push(sfProjectUri);
-	pres.push(prefixes.sf+"updated");
+	pres.push(prefixes.sf + "updated");
 	objs.push(date);
 	flgs.push("true");
 
 	subs.push(sfProjectUri);
-	pres.push(prefixes.sf+"updatedBy");
+	pres.push(prefixes.sf + "updatedBy");
 	objs.push($("#username").text().trim());
 	flgs.push("true");
 
@@ -125,14 +124,15 @@ function exportRDF(graph) {
 			predicate : "http://sfweb.is.k.u-tokyo.ac.jp/child"
 		},
 		success : function(data) {
-			//プロジェクトの更新者, 更新日時の変更
+			// プロジェクトの更新者, 更新日時の変更
 			$.ajax({
 				type : 'POST',
 				url : KASHIWADE_BASE_URL + 'metadata/deletes',
 				aync : false,
 				data : {
-					subject : [sfProjectUri, sfProjectUri],
-					predicate : [prefixes.sf+"updated", prefixes.sf+"updatedBy"]
+					subject : [ sfProjectUri, sfProjectUri ],
+					predicate : [ prefixes.sf + "updated",
+							prefixes.sf + "updatedBy" ]
 				},
 				traditional : true, // Important
 				success : function(data) {
@@ -167,8 +167,7 @@ function exportRDF(graph) {
 									$("#dialog-head").text('Saved.');
 									$("#dialog-text").empty();
 									$("#dialog-text").append(
-											'<label>Date：</label>'
-													+ date
+											'<label>Date：</label>' + date
 													+ '<br>');
 									$("#dialog-text").append(
 											'<label>Project ID：</label><br>'
@@ -309,7 +308,7 @@ function importRDF(graph) {
 			console.log('Import succeeded');
 
 		},
-		error : function(data){
+		error : function(data) {
 			alert(data.statusText);
 		}
 	});

@@ -78,7 +78,6 @@ var unSelectCell = function(cell) {
 	}
 };
 
-
 var importSfPropFromJSON = function(graph, json) {
 	$.each(graph.getElements(), function(i, node) {
 		var prop = json.props.filter(function(prop, j) {
@@ -89,8 +88,6 @@ var importSfPropFromJSON = function(graph, json) {
 		node.sfProp = prop;
 	});
 };
-
-
 
 $(function() {
 	sfProjectUri = $('#project_uri').text();
@@ -413,8 +410,6 @@ $(function() {
 		}
 	});
 
-
-
 	// ワークフローに関連するすべての文書を表示
 	$('#file_list_all_btn').click(function() {
 		var data = getDocumentList(sfProjectUri);
@@ -436,7 +431,7 @@ var clearSelect = function() {
 	$('file_count').html('');
 };
 
-//指定したワークフローに関連する文書の表示
+// 指定したワークフローに関連する文書の表示
 $('#file_list_btn').click(function() {
 	if (isRect(selectedCell) || isCircle(selectedCell)) {
 		var nodeId = selectedCell.id;

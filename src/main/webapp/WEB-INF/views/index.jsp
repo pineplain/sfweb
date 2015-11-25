@@ -33,10 +33,10 @@
 		<div class="jumbotron">
 			<h1>ShareFast Web</h1>
 			<p>Application for document management system based on workflow</p>
-            <p>
-			<img class="img-thumbnail img-responsive"
-				src="<c:url value='/resources/img/sf.png' />" />
-            </p>
+			<p>
+				<img class="img-thumbnail img-responsive"
+					src="<c:url value='/resources/img/sf.png' />" />
+			</p>
 			<p class="text-center">
 				<a class="btn btn-lg btn-primary" href="list" role="button">View
 					Workflow List &raquo;</a>
@@ -48,7 +48,7 @@
 	<c:import url="footer.jsp"></c:import>
 
 	<!-- jQuery -->
-	<script src="resources/thirdparty/creative/js/jquery.js"></script>
+	<script src="resources/thirdparty/jquery/jquery-1.11.1.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="resources/thirdparty/bootstrap/js/bootstrap.min.js"></script>

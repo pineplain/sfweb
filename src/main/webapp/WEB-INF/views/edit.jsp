@@ -27,8 +27,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value='/resources/thirdparty/bootstrap-toggle/css/bootstrap-toggle.min.css' />">
-<link type="text/css" rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+<link rel="stylesheet"
+	href="<c:url value='/resources/thirdparty/jquery-ui-1.11.4/jquery-ui.min.css' />">
 <link rel="stylesheet"
 	href="<c:url value='/resources/thirdparty/colorpicker/css/colorpicker.css' />">
 
@@ -391,12 +391,12 @@
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/bootstrap-toggle/js/bootstrap-toggle.min.js' />"></script>
 	<script type="text/javascript"
-		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+		src="<c:url value='/resources/thirdparty/jquery-ui-1.11.4/jquery-ui.min.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/colorpicker/js/colorpicker.js' />"></script>
-    <script src="<c:url value='/resources/js/common.js' />"></script>
-    <script src="<c:url value='/resources/js/io.js' />"></script>
-    <script src="<c:url value='/resources/js/files.js' />"></script>
+	<script src="<c:url value='/resources/js/common.js' />"></script>
+	<script src="<c:url value='/resources/js/io.js' />"></script>
+	<script src="<c:url value='/resources/js/files.js' />"></script>
 	<script src="<c:url value='/resources/js/edit.js' />"></script>
 
 </body>

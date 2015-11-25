@@ -101,7 +101,7 @@
 	<c:import url="footer.jsp"></c:import>
 
 	<!-- jQuery -->
-	<script src="resources/thirdparty/creative/js/jquery.js"></script>
+	<script src="resources/thirdparty/jquery/jquery-1.11.1.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="resources/thirdparty/bootstrap/js/bootstrap.min.js"></script>
