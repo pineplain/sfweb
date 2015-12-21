@@ -263,8 +263,8 @@ $(function() {
 	paperScroller.center();
 
 	// Toolbar buttons.
-
 	$('#btn-center').on('click', _.bind(paperScroller.center, paperScroller));
+
 	$('#btn-center-content').on('click',
 			_.bind(paperScroller.centerContent, paperScroller));
 
@@ -406,7 +406,9 @@ $(function() {
 	// file upload
 	$('#file_upload_btn').click(function() {
 		if (isRect(selectedCell) || isCircle(selectedCell)) {
-			$('#file_upload_input').click();
+			// $('#file_upload_input').click();
+			showFileUploadPopUp();
+
 		}
 	});
 

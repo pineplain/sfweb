@@ -101,7 +101,7 @@ function exportRDF(graph) {
 
 	}
 
-	var date = new Date().toLocaleString();
+	var date = getDateStr(new Date());
 
 	// プロジェクトの更新者, 更新日時
 	subs.push(sfProjectUri);
@@ -207,6 +207,28 @@ function exportRDF(graph) {
 		}
 	});
 };
+
+/**
+ * 日付をフォーマットするメソッド
+ *
+ * @param dd
+ * @returns {String}
+ */
+function getDateStr(dd) {
+	yy = dd.getYear();
+	mm = dd.getMonth() + 1;
+	dd = dd.getDate();
+	if (yy < 2000) {
+		yy += 1900;
+	}
+	if (mm < 10) {
+		mm = "0" + mm;
+	}
+	if (dd < 10) {
+		dd = "0" + dd;
+	}
+	return yy + "-" + mm + "-" + dd;
+}
 
 // import
 function importRDF(graph) {

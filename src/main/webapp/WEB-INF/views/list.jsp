@@ -57,6 +57,8 @@
 					<a class="popup-with-form btn btn-primary" href="#test-form"><span
 						class="glyphicon glyphicon-plus"></span> Add New Flow</a>
 				</p>
+
+				<hr>
 			</sec:authorize>
 
 			<table class="table table-striped table-hover" id="table">
@@ -67,7 +69,11 @@
 						<th>Created Date</th>
 						<th>Updator</th>
 						<th>Updated Date</th>
-						<th></th>
+						<th>Detail</th>
+						<th>KASHIWADE</th>
+						<sec:authorize ifAnyGranted="ROLE_ADMIN">
+							<th>Delete</th>
+						</sec:authorize>
 					</tr>
 				</thead>
 				<tbody id="tbody">
@@ -113,9 +119,11 @@
 		src="<c:url value='/resources/thirdparty/dataTables/js/jquery.dataTables.js' />"></script>
 
 	<script type="text/javascript"
-		src="<c:url value='/resources/js/uri.js' />"></script>
+		src="<c:url value='/resources/setting.js' />"></script>
 
 	<script type="text/javascript">
+		var result;
+
 		jQuery(document).ready(function() {
 			jQuery.ajaxSetup({
 				cache : false
@@ -145,6 +153,11 @@
 
 		//既存ワークフローの取得
 		function getWorkflowList() {
+
+			//権限の取得
+			var principal = '<sec:authentication property="principal" />';
+			var auth = principal.split("ROLE")[1];
+
 			var query = getPrefixes();
 			query += " select distinct * where { ";
 			query += " ?s rdf:type kdclass:project . ";
@@ -166,8 +179,7 @@
 				},
 				success : function(data) {
 
-					var result = data.results.bindings;
-					console.log(result);
+					result = data.results.bindings;
 
 					for (var i = 0; i < result.length; i++) {
 						var obj = result[i];
@@ -202,8 +214,40 @@
 						td.append(a);
 						a.attr("href", "view?resourceUri="
 								+ encodeURIComponent(obj.s.value));
+						a.attr("class", "btn btn-primary");
+						a.append("View&nbsp;&raquo;");
+
+						td = $("<td>");
+						tr.append(td);
+
+						var a = $("<a>");
+						td.append(a);
+						a.attr("href", KASHIWADE_BASE_URL
+								+ "common/metadata?resourceUri="
+								+ encodeURIComponent(obj.s.value));
 						a.attr("class", "btn btn-default");
-						a.append("View Detail&nbsp;&raquo;");
+						a.append("View&nbsp;&raquo;");
+
+						//削除機能
+						if (auth.indexOf("ADMIN") != -1) {
+							td = $("<td>");
+							tr.append(td);
+
+							var a = $("<button>");
+							td.append(a);
+							a.attr("href", KASHIWADE_BASE_URL
+									+ "common/metadata?resourceUri="
+									+ encodeURIComponent(obj.s.value));
+							a.attr("class", "btn btn-danger");
+
+							var span = $("<span>");
+							a.append(span);
+							span.attr("class", "glyphicon glyphicon-remove");
+
+							a.attr("onclick", "deleteRow('" + i + "')");
+							a.append(" Delete");
+						}
+
 					}
 
 					// DataTable
@@ -231,10 +275,10 @@
 			var objs = new Array();
 			var flgs = new Array();
 
-			var date = new Date();
-			var id = date.getTime();
+			var dd = new Date();
+			var id = dd.getTime();
 
-			var dateStr = date.toLocaleString();
+			var dateStr = getDateStr(dd);
 
 			var resourceUri = prefixes.sf + "project#" + id;
 			//クラス
@@ -302,6 +346,123 @@
 				}
 			});
 
+		}
+
+		//日付をフォーマットするメソッド
+		function getDateStr(dd) {
+			yy = dd.getYear();
+			mm = dd.getMonth() + 1;
+			dd = dd.getDate();
+			if (yy < 2000) {
+				yy += 1900;
+			}
+			if (mm < 10) {
+				mm = "0" + mm;
+			}
+			if (dd < 10) {
+				dd = "0" + dd;
+			}
+			return yy + "-" + mm + "-" + dd;
+		}
+
+		//delete project
+		function deleteRow(data) {
+
+			if (window.confirm('Are you sure？')) {
+
+				var resourceUri = result[data].s.value;
+				var query = 'SELECT DISTINCT * WHERE { ';
+				query += '<' + resourceUri + '> ?v ?o . ';
+				query += ' OPTIONAL { ?doc <'+prefixes.sf+'relatedNode> ?o . } ';
+				query += '}';
+
+				$
+						.ajax({
+							type : 'POST',
+							url : KASHIWADE_BASE_URL + 'sparql',
+							data : {
+								query : query,
+							},
+							success : function(data) {
+								var result = data.results.bindings;
+
+								var subs = new Array();
+								var docs = new Array();
+
+								for (var i = 0; i < result.length; i++) {
+									var obj = result[i];
+									var o = obj.o.value;
+									var oType = obj.o.type;
+									if (oType != "literal"
+											&& o != "http://kashiwade.org/2012/09/kd/class/project") {
+										subs.push(o);
+									}
+
+									if (obj.doc) {
+										docs.push(obj.doc.value);
+									}
+								}
+
+								subs.push(resourceUri);
+
+								//プロジェクトの削除
+								$
+										.ajax({
+											type : 'POST',
+											url : KASHIWADE_BASE_URL
+													+ 'metadata/deletes',
+											data : {
+												subject : subs,
+											},
+											traditional : true,
+											success : function(data) {
+
+												//関連ドキュメントが存在する場合
+												if (docs.length > 0) {
+													var pres = new Array();
+													for (var i = 0; i < docs.length; i++) {
+														pres
+																.push(prefixes.sf
+																		+ "relatedNode");
+													}
+
+													//Nodeとファイルの関係削除
+													$
+															.ajax({
+																type : 'POST',
+																url : KASHIWADE_BASE_URL
+																		+ 'metadata/deletes',
+																data : {
+																	subject : docs,
+																	predicate : pres
+																},
+																traditional : true,
+																success : function(
+																		data) {
+
+																}
+															});
+												} else {
+													alert("Deleted.");
+													location.reload();
+												}
+
+											}
+										});
+
+							},
+						});
+
+			}
+			// 「OK」時の処理終了
+
+			// 「キャンセル」時の処理開始
+			else {
+
+				window.alert('Cenceled.'); // 警告ダイアログを表示
+
+			}
+			// 「キャンセル」時の処理終了
 		}
 	</script>
 

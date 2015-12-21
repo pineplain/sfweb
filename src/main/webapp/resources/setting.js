@@ -1,6 +1,11 @@
+/**
+ * 設定項目
+ */
 var KASHIWADE_BASE_URL = "http://localhost:8080/kashiwade/";
-var GROUP_NAME = 'forest3';
 
+/**
+ * 以下、変数とメソッド群
+ */
 var prefixes = new Object();
 prefixes["dc"] = "http://purl.org/dc/elements/1.1/";
 prefixes["rdf"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";

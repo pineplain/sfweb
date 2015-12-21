@@ -80,15 +80,13 @@
 	<c:import url="header.jsp"></c:import>
 
 	<div class="container">
-		<div class="col-xs-12">
-			<!-- project name -->
-			<h3 class="page-header">
-				<small>Project Name：</small>&nbsp;<span id="project_name"></span>
-			</h3>
+		<!-- project name -->
+		<h3 class="page-header">
+			<small>Project Name：</small>&nbsp;<span id="project_name"></span>
+		</h3>
 
-			<!-- loading json -->
-			<div id="load-data" class="text-center"></div>
-		</div>
+		<!-- loading json -->
+		<div id="load-data" class="text-center"></div>
 	</div>
 	<div class="sf-container">
 
@@ -248,24 +246,22 @@
 										<tr>
 											<td>Files</td>
 											<td>
-												<p id="file_count"></p> <span class="btn-group">
-													<button id="file_list_btn" type="button"
-														class="btn btn-default" data-toggle="tooltip"
-														data-placement="bottom" title="List files">
-														<i class="fa fa-list-alt"></i>
-													</button>
-													<button id="file_upload_btn" type="button"
-														class="btn btn-default" data-toggle="tooltip"
-														data-placement="bottom" title="Upload files">
-														<i class="fa fa-upload"></i>
-													</button>
-											</span>
-												<form id="file_upload_form" method="POST"
-													enctype="multipart/form-data">
-													<input id="file_upload_input" type="file" name="files[]"
-														style="display: none;" multiple>
-												</form>
-												<p class="text-center" id="uploading-file"></p>
+												<p id="file_count"></p>
+												<p>
+													<span class="btn-group">
+														<button id="file_list_btn" type="button"
+															class="btn btn-default" data-toggle="tooltip"
+															data-placement="bottom" title="List files">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button id="file_upload_btn" type="button"
+															class="btn btn-default" data-toggle="tooltip"
+															data-placement="bottom" title="Upload files">
+															<i class="fa fa-upload"></i>
+														</button>
+													</span>
+												</p>
+
 											</td>
 										</tr>
 									</tbody>
@@ -356,6 +352,26 @@
 		</table>
 	</div>
 
+	<div id="file-upload" class="mfp-hide white-popup-block">
+		<div class="page-header">
+			<h3>File Upload</h3>
+		</div>
+
+		<div class="form-group">
+			<label>File input</label> <input type="file" id="file_upload_input"
+				multiple>
+		</div>
+
+		<div class="form-group">
+			<label>Group Name</label> <input type="text" class="form-control"
+				id="group_name">
+		</div>
+
+		<button type="button" class="btn btn-primary" onclick="uploadFile()">
+			<span class="glyphicon glyphicon-plus"></span> Uplaod
+		</button>
+	</div>
+
 	<div id="dialog" class="mfp-hide white-popup-block">
 		<div class="row">
 			<div class="col-xs-6">
@@ -381,7 +397,7 @@
 		src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
 	<!-- <script src="<c:url value='/resources/js/zoom.js' />"></script> -->
 	<script type="text/javascript"
-		src="<c:url value='/resources/js/uri.js' />"></script>
+		src="<c:url value='/resources/setting.js' />"></script>
 	<script type="text/javascript"
 		src="<c:url value='/resources/thirdparty/Magnific-Popup/jquery.magnific-popup.min.js' />"></script>
 	<script type="text/javascript"

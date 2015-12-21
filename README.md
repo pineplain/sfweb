@@ -11,8 +11,7 @@
 
 
 ##2. 設定項目（必須）：「KASHIWADE」サーバ情報の設定
-「sfweb\src\main\webapp\resources\js\uri.js」内に記述されている「KASHIWADE_BASE_URL」を自身の環境に合わせて修正してください。
-合わせて「GROUP＿NAME」についても, 自由に変更してください。ファイル登録時のメタデータの一つとなります。
+「[ROOTパス]\src\main\webapp\resources\setting.js」内に記述されている「KASHIWADE_BASE_URL」を自身の環境に合わせて修正してください。
 
 ##3. 設定項目（任意）：ユーザ情報の設定
 「sfweb\src\main\webapp\WEB-INF\spring\security.xml」内にログインユーザ情報が記載されています。

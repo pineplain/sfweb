@@ -1,4 +1,10 @@
-// プロジェクトに関連するドキュメントの取得
+/**
+ * プロジェクトに関連するドキュメントの取得
+ *
+ * @param resourceUri
+ * @param nodeUri
+ * @returns
+ */
 function getDocumentList(resourceUri, nodeUri) {
 	// ノード指定がない場合
 	if (nodeUri == "http://sfweb.is.k.u-tokyo.ac.jp/node#") {
@@ -34,6 +40,9 @@ function getDocumentList(resourceUri, nodeUri) {
 	return result;
 };
 
+/**
+ * ファイルリストポップアップの表示メソッド
+ */
 var showFileListPopUp = function(data) {
 
 	// dataTablesのReset
@@ -84,8 +93,27 @@ var showFileListPopUp = function(data) {
 	});
 };
 
-$('#file_upload_input').change(function() {
+/**
+ * ファイル登録ポップアップの表示メソッド
+ */
+var showFileUploadPopUp = function() {
+
+	$.magnificPopup.open({
+		items : {
+			src : $('#file-upload')
+		},
+		type : 'inline'
+	});
+};
+
+/**
+ * ファイル登録メソッド
+ */
+
+function uploadFile() {
 	var files = $('#file_upload_input')[0].files;
+
+	var groupName = $("#group_name").val();
 
 	$("#uploading-file").append('<img src="resources/img/gif-load.gif">');
 
@@ -94,7 +122,7 @@ $('#file_upload_input').change(function() {
 		var fd = new FormData();
 		fd.append("files", files[i]);
 
-		fd.append('group', GROUP_NAME);
+		fd.append('group', groupName);
 
 		var fields = new Array();
 		var values = new Array();
@@ -141,12 +169,12 @@ $('#file_upload_input').change(function() {
 		}
 	}
 
+	alert(files.length + " file uploaded.");
+
 	$.magnificPopup.open({
 		items : {
 			src : $('#dialog')
 		},
 		type : 'inline'
 	});
-
-	return false;
-});
+}

@@ -216,7 +216,7 @@
 	<script
 		src="<c:url value='/resources/thirdparty/bootstrap/js/bootstrap.min.js' />"></script>
 	<script type="text/javascript"
-		src="<c:url value='/resources/js/uri.js' />"></script>
+		src="<c:url value='/resources/setting.js' />"></script>
 	<script src="<c:url value='/resources/js/common.js' />"></script>
 	<script src="<c:url value='/resources/js/io.js' />"></script>
 	<script src="<c:url value='/resources/js/files.js' />"></script>
