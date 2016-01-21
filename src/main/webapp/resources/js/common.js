@@ -19,6 +19,8 @@ var isLink = function(cell) {
 };
 
 var selectCell = function(cell) {
+	console.log("selectCell\t");
+
 	var color = "red";
 	var width = 10;
 	if (isRect(cell)) {
@@ -49,6 +51,8 @@ var selectCell = function(cell) {
 };
 
 var unSelectCell = function(cell) {
+	console.log("unSelectCell\t");
+
 	var color = "black";
 	var width = 1;
 	if (isRect(cell)) {
@@ -151,6 +155,8 @@ $(function() {
 
 	// add nodes and edges
 	paper.on('blank:pointerclick', function(evt, x, y) {
+
+		console.log("add nodes and edges");
 
 		if ($('#rect_btn').hasClass('active')) {
 			// add rect when clicked
@@ -287,6 +293,8 @@ $(function() {
 
 	// show property icon when mouseovered
 	paper.on('cell:pointerclick', function(cellView, evt, x, y) {
+
+		console.log("show property icon when mouseovered");
 
 		// change color
 		var cell = cellView.model;

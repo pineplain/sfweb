@@ -8,9 +8,7 @@
 		<p>
 			Copyright <span class="glyphicon glyphicon-copyright-mark"></span>
 			The University of Tokyo<br> This web site is powered by <a
-				href="https://sourceforge.net/projects/kashiwade/">KASHIWADE</a> <span
-				class="glyphicon glyphicon-copyright-mark"></span> The Univ. of
-			Tokyo
+				href="https://sourceforge.net/projects/kashiwade/">KASHIWADE</a>
 		</p>
 	</div>
 </footer>
